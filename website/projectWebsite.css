@@ -1,0 +1,42 @@
+body{
+    background-image: url(HuGGeENt6kGyixe3hT9tnY.jpg);
+}
+h1{
+    background-color: rgba(240, 255, 255, 0.3);
+    text-align: center;
+    border-radius: 10px;
+    display: inline block;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: aliceblue;
+    text-shadow: 2px 2px black;
+    font-size: 250%;
+}
+a.button{
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px outset black;
+    border-radius: 10px;
+    color: white;
+    text-shadow: 2px 2px black;
+    background-color: rgba(240, 255, 255, 0.3);
+    text-decoration: none;
+    font-size: 300%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a.button:hover{
+    background-color: rgba(200, 215, 215, 0.3);
+}
+#logo {
+    height: 125px;
+    border-radius: 4cqmin;
+    position: fixed;
+    top: 20px;
+    left: 25px;
+}
