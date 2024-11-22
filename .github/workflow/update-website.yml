@@ -1,0 +1,49 @@
+# Updates the Website to match Main
+#
+# Triggered by:
+# Updating the website folder in Main
+# Manual Triggering
+#
+
+on:
+  push:
+    branches: ['main']
+    paths: ['website/*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+name: Update Website
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0
+          path: root
+    
+      - name: Copy Website
+        run: cp -r root/website .
+
+      - name: Setup Git user
+        run: |
+          cd root
+          git config user.name "Github Actions"
+          git config user.email "<EMAIL>"
+      
+      - name: Commit files
+        run: |
+          cd root
+          git switch website
+          rsync -avh ../website/ ./
+          git add .
+          git commit -m "Update Website"
+          git push -u origin +website
+          
+         
+
+      
