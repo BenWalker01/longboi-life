@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['satisfactionmodifierpositive_0',['satisfactionModifierPositive',['../d4/d6c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1GameState.html#ac8e29375a73afccd75ff63c448932fbf',1,'com::spacecomplexity::longboilife::game::globals::GameState']]],
+  ['satisfactionscore_1',['satisfactionScore',['../d4/d6c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1GameState.html#aad1b9f6b761ae25d1c074780e1f48cf6',1,'com::spacecomplexity::longboilife::game::globals::GameState']]],
+  ['satisfactionscorevelocity_2',['satisfactionScoreVelocity',['../d4/d6c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1GameState.html#a9e4653556ca64a8f20f0a653de5bd325',1,'com::spacecomplexity::longboilife::game::globals::GameState']]],
+  ['satisfactorydistance_3',['satisfactoryDistance',['../da/df5/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1Constants.html#a90c9a7e4512b917dd5d8d13a38c01e0e',1,'com::spacecomplexity::longboilife::game::globals::Constants']]],
+  ['savemap_4',['SaveMap',['../d0/dca/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1world_1_1SaveMap.html',1,'com::spacecomplexity::longboilife::game::world']]],
+  ['scalefactor_5',['scaleFactor',['../d4/d6c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1GameState.html#aa44bbcd018ab364a20720aa7aed30273',1,'com::spacecomplexity::longboilife::game::globals::GameState']]],
+  ['scaling_5f1_5fheight_6',['SCALING_1_HEIGHT',['../da/df5/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1Constants.html#a946f839c8b78bafaf6e005c17074dd7c',1,'com::spacecomplexity::longboilife::game::globals::Constants']]],
+  ['screentype_7',['ScreenType',['../d6/d78/enumcom_1_1spacecomplexity_1_1longboilife_1_1Main_1_1ScreenType.html',1,'com::spacecomplexity::longboilife::Main']]],
+  ['selectedbuilding_8',['selectedBuilding',['../d4/d6c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1GameState.html#a787b63aad0bb0f7fbba5ef738df90748',1,'com::spacecomplexity::longboilife::game::globals::GameState']]],
+  ['sellcostrecovery_9',['sellCostRecovery',['../da/df5/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1Constants.html#a0b311d6a311e84c045655f159673ad05',1,'com::spacecomplexity::longboilife::game::globals::Constants']]],
+  ['setbuildable_10',['setBuildable',['../d2/d97/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1tile_1_1Tile.html#a94da066aab10256ec4aeb774b77449b7',1,'com::spacecomplexity::longboilife::game::tile::Tile']]],
+  ['setbuildingref_11',['setBuildingRef',['../d2/d97/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1tile_1_1Tile.html#a033a7c7e28ab73dc54445f3823cdb29d',1,'com::spacecomplexity::longboilife::game::tile::Tile']]],
+  ['setmaincamera_12',['setMainCamera',['../d0/de2/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1globals_1_1MainCamera.html#a87424bbd9553842ac9c1142f5331d9d2',1,'com::spacecomplexity::longboilife::game::globals::MainCamera']]],
+  ['settimer_13',['setTimer',['../da/d1c/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1utils_1_1Timer.html#a5714a3c74af4d807af997aa942b97a35',1,'com::spacecomplexity::longboilife::game::utils::Timer']]],
+  ['show_14',['show',['../d0/d08/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1GameScreen.html#a284231607160e50cfd5e3ecba751f641',1,'com::spacecomplexity::longboilife::game::GameScreen']]],
+  ['subtract_15',['subtract',['../da/d69/classcom_1_1spacecomplexity_1_1longboilife_1_1game_1_1utils_1_1Vector2Int.html#a6a66026e5c2807c6f8312211c5b2c038',1,'com::spacecomplexity::longboilife::game::utils::Vector2Int']]],
+  ['switchscreen_16',['switchScreen',['../da/dd5/classcom_1_1spacecomplexity_1_1longboilife_1_1Main.html#a66572add40355f3288cc7ca491355937',1,'com::spacecomplexity::longboilife::Main']]]
+];

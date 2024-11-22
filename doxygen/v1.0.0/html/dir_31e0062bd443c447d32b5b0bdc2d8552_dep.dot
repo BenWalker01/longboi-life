@@ -1,0 +1,16 @@
+digraph "game/core/src/main/java"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_2e8f9b544344d3f8a1eb1e217c001a99 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="main", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_2e8f9b544344d3f8a1eb1e217c001a99.html",tooltip=""]
+  subgraph clusterdir_31e0062bd443c447d32b5b0bdc2d8552 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_31e0062bd443c447d32b5b0bdc2d8552.html",tooltip=""]
+    dir_31e0062bd443c447d32b5b0bdc2d8552 [shape=plaintext, label="java"];
+  dir_bfbc96735f1dc201efdca5d2f7da6316 [label="com", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_bfbc96735f1dc201efdca5d2f7da6316.html",tooltip=""];
+  }
+  }
+}

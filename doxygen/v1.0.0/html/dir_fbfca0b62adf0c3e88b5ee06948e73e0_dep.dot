@@ -1,0 +1,16 @@
+digraph "game/core"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_37c6514aeece95293041e34c0f2e0784 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="game", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_37c6514aeece95293041e34c0f2e0784.html",tooltip=""]
+  subgraph clusterdir_fbfca0b62adf0c3e88b5ee06948e73e0 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_fbfca0b62adf0c3e88b5ee06948e73e0.html",tooltip=""]
+    dir_fbfca0b62adf0c3e88b5ee06948e73e0 [shape=plaintext, label="core"];
+  dir_d70d910c7a5c96f82918ecefe829cdcf [label="src", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_d70d910c7a5c96f82918ecefe829cdcf.html",tooltip=""];
+  }
+  }
+}

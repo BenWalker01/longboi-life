@@ -1,0 +1,22 @@
+digraph "game/core/src/main/java/com/spacecomplexity/longboilife/game"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_e34c453ecc5aa5973ed58f55fb3b7fb8 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="longboilife", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_e34c453ecc5aa5973ed58f55fb3b7fb8.html",tooltip=""]
+  subgraph clusterdir_ea46cf5c077e310f1bc4e4ea712a7001 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_ea46cf5c077e310f1bc4e4ea712a7001.html",tooltip=""]
+    dir_ea46cf5c077e310f1bc4e4ea712a7001 [shape=plaintext, label="game"];
+  dir_1cc6eeb1b4c84a1eea05d933bb1b8342 [label="building", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_1cc6eeb1b4c84a1eea05d933bb1b8342.html",tooltip=""];
+  dir_e9b9eaeb616f3109ebb9f8174d666612 [label="globals", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_e9b9eaeb616f3109ebb9f8174d666612.html",tooltip=""];
+  dir_5e57113fe3e43ff55f3896fe3cc09e46 [label="pathways", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_5e57113fe3e43ff55f3896fe3cc09e46.html",tooltip=""];
+  dir_7f99940694b2865491aa782bb9bc661c [label="tile", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_7f99940694b2865491aa782bb9bc661c.html",tooltip=""];
+  dir_94ffc41e0b3415c656e87f08a254183f [label="ui", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_94ffc41e0b3415c656e87f08a254183f.html",tooltip=""];
+  dir_b0eb83f6afed897fa1be89b7611c18a2 [label="utils", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_b0eb83f6afed897fa1be89b7611c18a2.html",tooltip=""];
+  dir_e261490a78d38f4c1ff831aaf530001e [label="world", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_e261490a78d38f4c1ff831aaf530001e.html",tooltip=""];
+  }
+  }
+}
