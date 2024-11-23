@@ -4,6 +4,7 @@
 # PR to Main
 # Manual Trigger
 #
+name: Build and upload
 
 on:
   pull_request:
