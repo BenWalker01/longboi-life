@@ -1,0 +1,19 @@
+# Checks to see if the changelog has been update in a PR
+#
+# Triggered by:
+# PR
+#
+
+name: Check Changelog entry
+
+on:
+  pull_request:
+
+jobs:
+  Check-Changelog:
+    name: Check Changelog Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tarides/changelog-check-action@0189fc7eedec3ef3e9648c713908f6f2a6e99057 # v3
+        with:
+            changelog: CHANGELOG.MD
