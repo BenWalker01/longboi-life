@@ -1,7 +1,6 @@
-package uk.ac.york.cs.eng1.gemo.headless;
+package com.spacecomplexity.longboilife.headless;
 
 import com.badlogic.gdx.Gdx;
-import uk.ac.york.cs.eng1.gemo.Ship;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
