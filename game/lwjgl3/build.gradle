@@ -11,6 +11,8 @@ buildscript {
 plugins {
   id "io.github.fourlastor.construo" version "1.4.1"
   id "application"
+  id "java-library"
+  id "jacoco"
 }
 
 
@@ -34,6 +36,8 @@ dependencies {
   if (enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
   }
+
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
 }
 
@@ -66,6 +70,10 @@ jar {
   doLast {
     file(archiveFile).setExecutable(true, false)
   }
+}
+
+test {
+  useJUnitPlatform()
 }
 
 construo {
