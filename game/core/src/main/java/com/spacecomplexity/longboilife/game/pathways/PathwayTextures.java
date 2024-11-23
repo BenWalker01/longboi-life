@@ -2,6 +2,7 @@ package com.spacecomplexity.longboilife.game.pathways;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 import java.util.HashMap;
 
@@ -16,21 +17,24 @@ public class PathwayTextures {
         STRAIGHT,
         CORNER,
         TJUNC,
-        CROSS,
-        ;
+        CROSS,;
     }
 
     /**
      * Map containing the textures
      */
-    private static final HashMap<BuildingType, HashMap<PathwayTextures.Type, Texture>> textureList = new HashMap<>() {{
-        put(BuildingType.ROAD, new HashMap<>() {{
-            put(PathwayTextures.Type.STRAIGHT, new Texture("buildings/roads/straight.png"));
-            put(PathwayTextures.Type.CORNER, new Texture("buildings/roads/corner.png"));
-            put(PathwayTextures.Type.TJUNC, new Texture("buildings/roads/3-way.png"));
-            put(PathwayTextures.Type.CROSS, new Texture("buildings/roads/4-way.png"));
-        }});
-    }};
+    private static final HashMap<BuildingType, HashMap<PathwayTextures.Type, Texture>> textureList = new HashMap<>() {
+        {
+            put(BuildingType.ROAD, new HashMap<>() {
+                {
+                    put(PathwayTextures.Type.STRAIGHT, new Texture(Filepaths.ROAD_STRAIGHT_ASSET));
+                    put(PathwayTextures.Type.CORNER, new Texture(Filepaths.ROAD_CORNER_ASSET));
+                    put(PathwayTextures.Type.TJUNC, new Texture(Filepaths.ROAD_3WAY_ASSET));
+                    put(PathwayTextures.Type.CROSS, new Texture(Filepaths.ROAD_4WAY_ASSET));
+                }
+            });
+        }
+    };
 
     /**
      * Get the texture for a pathway tile.

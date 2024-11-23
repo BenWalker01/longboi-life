@@ -23,10 +23,10 @@ import com.spacecomplexity.longboilife.game.tile.Tile;
 import com.spacecomplexity.longboilife.game.ui.UIManager;
 import com.spacecomplexity.longboilife.game.utils.*;
 import com.spacecomplexity.longboilife.game.world.World;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-
 
 /**
  * Main class to control the game logic.
@@ -63,7 +63,7 @@ public class GameScreen implements Screen {
 
         // Creates a new World object from "map.json" file
         try {
-            world = new World(Gdx.files.internal("map.json"));
+            world = new World(Gdx.files.internal(Filepaths.MAP_ASSET));
         } catch (FileNotFoundException | InvalidSaveMapException e) {
             throw new RuntimeException(e);
         }
@@ -92,10 +92,9 @@ public class GameScreen implements Screen {
 
         // Position camera in the center of the world map
         MainCamera.camera().position.set(new Vector3(
-            world.getWidth() * Constants.TILE_SIZE * gameState.scaleFactor / 2,
-            world.getHeight() * Constants.TILE_SIZE * gameState.scaleFactor / 2,
-            0
-        ));
+                world.getWidth() * Constants.TILE_SIZE * gameState.scaleFactor / 2,
+                world.getHeight() * Constants.TILE_SIZE * gameState.scaleFactor / 2,
+                0));
 
         // Set up an InputManager to handle user inputs
         inputManager = new InputManager(inputMultiplexer);
@@ -140,7 +139,8 @@ public class GameScreen implements Screen {
                 gameState.money -= cost;
 
                 // Remove the selected building if it is wanted to do so
-                if (Arrays.stream(Constants.dontRemoveSelection).noneMatch(category -> gameState.placingBuilding.getCategory() == category)) {
+                if (Arrays.stream(Constants.dontRemoveSelection)
+                        .noneMatch(category -> gameState.placingBuilding.getCategory() == category)) {
                     gameState.placingBuilding = null;
                 }
             }
@@ -272,9 +272,11 @@ public class GameScreen implements Screen {
         RenderUtils.drawBuildings(batch, world, worldTint);
         // If there is a building to be placed draw it as a ghost building
         if (gameState.placingBuilding != null) {
-            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f), new Color(1f, 0f, 0f, 0.75f));
+            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f),
+                    new Color(1f, 0f, 0f, 0.75f));
         }
-        // If we are placing a building or there is a building selected then draw gridlines
+        // If we are placing a building or there is a building selected then draw
+        // gridlines
         if (gameState.placingBuilding != null || gameState.selectedBuilding != null) {
             RenderUtils.drawWorldGridlines(shapeRenderer, world, Color.BLACK);
         }
