@@ -42,7 +42,7 @@ jobs:
         - name: Upload JaCoCo report 
           uses: actions/upload-artifact@v4
           with:
-            name: jacoco-report-${{ github.env.pull_request.head.sha }}
+            name: jacoco-report-${{ github.event.pull_request.head.sha }}
             path: game/headless/build/reports/jacoco/test/html
 
         - name: Upload build as artifact
