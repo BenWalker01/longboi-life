@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.Main;
 import com.spacecomplexity.longboilife.MainInputManager;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;;
 
 /**
  * Main class to control the menu screen.
@@ -40,10 +41,10 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
 
         // Load background texture
-        backgroundTexture = new Texture(Gdx.files.internal("menu/background.png"));
+        backgroundTexture = new Texture(Gdx.files.internal(Filepaths.MENU_BG_ASSET));
 
         // Load UI skin for buttons
-        skin = new Skin(Gdx.files.internal("ui/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal(Filepaths.SKIN_JSON_ASSET));
     }
 
     @Override

@@ -1,0 +1,31 @@
+# Submits dependency graph for repo
+#
+# Triggered by
+# Push to Main
+#
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dependency-submission:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    
+    steps:
+    - uses: actions/checkout@v4     
+    
+    - name: Setup JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+      
+    - name: Submit dependency graph
+      uses: gradle/actions/dependency-submission@add58192d1c6f4603dc6821e8616f251e2782884 # v4
+      with:
+        build-root-directory: game

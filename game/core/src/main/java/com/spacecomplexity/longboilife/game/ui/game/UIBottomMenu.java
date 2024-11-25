@@ -16,6 +16,7 @@ import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.utils.UIUtils;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 /**
  * Class to represent the Bottom Menu UI.
@@ -65,10 +66,10 @@ public class UIBottomMenu extends UIElement {
 
         // Load play/pause textures as drawables
         float textureSize = 25;
-        pauseTexture = new Texture(Gdx.files.internal("ui/buttons/pause.png"));
+        pauseTexture = new Texture(Gdx.files.internal(Filepaths.PAUSE_BUTTON_ASSET));
         pauseDrawable = new TextureRegionDrawable(pauseTexture);
         pauseDrawable.setMinSize(textureSize, textureSize);
-        playTexture = new Texture(Gdx.files.internal("ui/buttons/play.png"));
+        playTexture = new Texture(Gdx.files.internal(Filepaths.PLAY_BUTTON_ASSET));
         playDrawable = new TextureRegionDrawable(playTexture);
         playDrawable.setMinSize(textureSize, textureSize);
 
@@ -83,7 +84,8 @@ public class UIBottomMenu extends UIElement {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to pause/resume the game based on the current pause state
-                eventHandler.callEvent(GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
+                eventHandler.callEvent(
+                        GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
             }
         });
         // Place pause button on the table

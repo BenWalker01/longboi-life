@@ -1,13 +1,14 @@
 package com.spacecomplexity.longboilife.game.tile;
 
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Contains a list of all tile types, including there default data.
  */
 public enum TileType {
-    GRASS(new Texture("tiles/grass.png"), true),
-    WATER(new Texture("tiles/water.png"), false),
+    GRASS(new Texture(Filepaths.GRASS_TILE_ASSET), true),
+    WATER(new Texture(Filepaths.WATER_TILE_ASSET), false),
     ;
 
     private final Texture texture;
@@ -40,7 +41,8 @@ public enum TileType {
     /**
      * Will dispose of the all loaded assets (like textures).
      * <p>
-     * <strong>Warning:</strong> Once disposed of no attributes will be able to be reloaded, which could lead to undefined behaviour.
+     * <strong>Warning:</strong> Once disposed of no attributes will be able to be
+     * reloaded, which could lead to undefined behaviour.
      */
     public void dispose() {
         texture.dispose();

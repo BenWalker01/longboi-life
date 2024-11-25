@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;;
 
 /**
  * Class to represent the Pause Screen UI.
@@ -27,7 +28,7 @@ public class UIPauseScreen extends UIElement {
         super(uiViewport, parentTable, skin);
 
         // Initialise logo
-        pauseTexture = new Texture(Gdx.files.internal("ui/buttons/pause.png"));
+        pauseTexture = new Texture(Gdx.files.internal(Filepaths.PAUSE_BUTTON_ASSET));
         Image logo = new Image(pauseTexture);
 
         // Place label onto table
@@ -48,7 +49,8 @@ public class UIPauseScreen extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, (uiViewport.getWorldHeight() - table.getHeight()) / 2);
+        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2,
+                (uiViewport.getWorldHeight() - table.getHeight()) / 2);
     }
 
     @Override
