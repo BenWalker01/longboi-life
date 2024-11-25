@@ -17,7 +17,12 @@ public class Vector2IntTests extends AbstractHeadlessGdxTest {
         assertFalse(v1.equals(v3), "Vectors are not equal");
         assertFalse(v1.equals(10), "Vectors are not equal");
     }
-
+    @Test
+    public void testHashCodeMethod() {
+        Vector2Int v1 = new Vector2Int(1, 2);
+        Vector2Int v2 = new Vector2Int(1, 2);
+        assertEquals(v1.hashCode(), v2.hashCode());
+    }
     @Test
     public void testAddMethod() {
         Vector2Int v1 = new Vector2Int(1, 2);
