@@ -31,6 +31,8 @@ public class AssetTests extends AbstractHeadlessGdxTest {
                 "The halls asset exists");
         assertTrue(Gdx.files.internal(Filepaths.LIBRARY_ASSET).exists(),
                 "The library asset exists");
+        assertTrue(Gdx.files.internal(Filepaths.BASKETBALL_ASSET).exists(),
+                "The basketball asset exists");
     }
 
     @Test
