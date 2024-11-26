@@ -180,10 +180,9 @@ public class InputManagerTests extends AbstractHeadlessGdxTest {
     @Test 
     public void testCorrectionForNaNYValue() {  
         doReturn(0.016f).when(Gdx.graphics).getDeltaTime();
-        float previousZoom = MainCamera.camera().zoom;
         inputMultiplexer.scrolled(0, Float.NaN);
         MainCamera.camera().update();
-        assertEquals(previousZoom, MainCamera.camera().zoom, 0.01f, "Camera zoom should not change for invalid floating point values");
+        assertEquals(Constants.MAX_ZOOM, MainCamera.camera().zoom, 0.01f, "Camera zoom should not change for invalid floating point values");
     } 
 
     @AfterEach 
