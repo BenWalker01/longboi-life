@@ -5,6 +5,8 @@
 # Manual Triggering
 #
 
+name: Update website
+
 on:
   push:
     branches: ['main']
@@ -13,8 +15,6 @@ on:
 
 permissions:
   contents: write
-
-name: Update Website
 
 jobs:
   update:
