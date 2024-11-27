@@ -10,3 +10,4 @@
 9. [Game] Test - Added tests to check InputManager class
 10. [Game] Test - Added tests to check MainInputManagerClass 
 11. [Game] Enhancement - Added basketball court building
+12. [Game] Test - Added tests to check Event Handler class
