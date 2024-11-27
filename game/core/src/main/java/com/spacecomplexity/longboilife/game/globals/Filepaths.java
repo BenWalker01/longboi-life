@@ -13,6 +13,7 @@ public class Filepaths {
     public static final String GYM_ASSET = "buildings/gym.png";
     public static final String HALLS_ASSET = "buildings/halls.png";
     public static final String LIBRARY_ASSET = "buildings/library.png";
+    public static final String BASKETBALL_ASSET = "buildings/basketball.png";
 
     // Roads
     public static final String ROAD_3WAY_ASSET = "buildings/roads/3-way.png";
