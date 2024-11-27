@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.game.*;
+import com.spacecomplexity.longboilife.game.ui.gameover.UILeaderboard;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
@@ -95,6 +96,7 @@ public class UIManager {
             // Create the new end elements
             uiElements = new UIElement[] {
                     new UIOverview(viewport, table, skin),
+                    new UILeaderboard(viewport, table, skin)
             };
 
             return null;
