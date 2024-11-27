@@ -96,7 +96,7 @@ public class GameUtils {
             }
         }
 
-        // If there is are not required buildings this will be the default satisfaction modifier
+        // If there is, there is not required buildings this will be the default satisfaction modifier
         float satisfactionModifier = -2000f;
 
         if (!emptyCategory) {
@@ -130,7 +130,7 @@ public class GameUtils {
         }
 
         GameState gameState = GameState.getState();
-        
+
         // Update whether the last satisfaction modifier was positive
         boolean newSatisfactionModifierPositive = satisfactionModifier >= 0;
         if (newSatisfactionModifierPositive != gameState.satisfactionModifierPositive) {
@@ -140,7 +140,7 @@ public class GameUtils {
         gameState.satisfactionModifierPositive = newSatisfactionModifierPositive;
 
         // Increase satisfaction velocity based on the satisfaction modifier
-        float newSatisfactionVelocity = gameState.satisfactionScoreVelocity + (satisfactionModifier / 1000000f);
+        float newSatisfactionVelocity = gameState.satisfactionScoreVelocity + (satisfactionModifier / 1_000_000f);
         // Limit satisfaction velocity to -1% to 1%
         newSatisfactionVelocity = Math.max(-0.01f, Math.min(newSatisfactionVelocity, 0.01f));
         gameState.satisfactionScoreVelocity = newSatisfactionVelocity;
