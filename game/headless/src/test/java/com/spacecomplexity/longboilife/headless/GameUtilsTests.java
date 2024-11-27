@@ -15,7 +15,6 @@ import com.spacecomplexity.longboilife.game.world.World;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -60,6 +59,7 @@ public class GameUtilsTests extends AbstractHeadlessGdxTest {
 
         assertEquals(mousePositionMin, GameUtils.getMouseOnGrid(world));
     }
+
     @Test
     public void testCalculateScalingMethod() {
         float oldScaleFactor = gameState.scaleFactor;
@@ -68,8 +68,8 @@ public class GameUtilsTests extends AbstractHeadlessGdxTest {
         when(Gdx.graphics.getHeight()).thenReturn(1080);
         assertEquals(1.0f, gameState.scaleFactor, 0.001f);
 
-
     }
+
     @Test
     public void testUpdateSatisfactionScoreWMethod() {
 
@@ -82,8 +82,9 @@ public class GameUtilsTests extends AbstractHeadlessGdxTest {
         assertEquals(0, gameState.satisfactionScore);
 
     }
+
     @Test
-        public void testAccomLimitOnSatisfactionScoreMin() {
+    public void testAccomLimitOnSatisfactionScoreMin() {
         when(Gdx.graphics.getDeltaTime()).thenReturn(1 / 60f); // 60 fps
 
         // Place on of each building type
@@ -96,11 +97,14 @@ public class GameUtilsTests extends AbstractHeadlessGdxTest {
         GameUtils.updateSatisfactionScore(world);
         assertEquals((2 / 3f) * Math.pow(10, -7), gameState.satisfactionScore, 1e-8);
 
-
         for (int i = 0; i < 5 * 60 * 60; i++) { // "Play" for 5 mins
             GameUtils.updateSatisfactionScore(world);
         }
         assertEquals(0.1f, gameState.satisfactionScore, 0.01f); // Max 10% due to 1 accommodation building
+    }
 
+    @Test
+    public void testScripts() {
+        assertTrue(false);
     }
 }
