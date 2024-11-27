@@ -40,7 +40,10 @@ public class EventHandler {
      * @param event    the enum the event, needed when called.
      * @param callback the event method, this is what will be executed.
      */
-    public void createEvent(Event event, Function<Object[], Object> callback) {
+    public void createEvent(Event event, Function<Object[], Object> callback) { 
+        if (event == null) { 
+            throw new IllegalArgumentException("Event cannot be null");
+        }
         event.setCallback(callback);
     }
 
@@ -52,7 +55,11 @@ public class EventHandler {
      * @return what the original event would return, this will need to be cast as we cannot know the type here.
      * @throws IllegalArgumentException if the event has not been defined.
      */
-    public Object callEvent(Event event, Object... params) throws IllegalArgumentException {
+    public Object callEvent(Event event, Object... params) throws IllegalArgumentException { 
+        if (event == null) { 
+            throw new IllegalArgumentException("Event cannot be null");
+        } 
+        
         Function<Object[], Object> callback = event.getCallback();
 
         // If the callback is not defined then throw an error
