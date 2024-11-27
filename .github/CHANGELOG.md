@@ -4,4 +4,9 @@
 3. [Game]   Test - Added tests to check assets available
 4. [Global] Enhancement - Added actions script to keep website up to date with main
 5. [Global] Enhancement - Added actions script to build/upload and check PRs for changelogs
-6. [Game] Test - Added tests for Vector2Int Class
+6. [Game] Enhancement - Added class to manage asset filepaths
+7. [Game] Test - Added tests to check assets available
+8. [Game] Test - Added tests to check Vector2Int class 
+9. [Game] Test - Added tests to check InputManager class
+10. [Game] Test - Added tests to check MainInputManagerClass 
+11. [Game] Enhancement - Added basketball court building
