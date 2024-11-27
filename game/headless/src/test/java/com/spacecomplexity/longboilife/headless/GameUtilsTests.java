@@ -102,9 +102,4 @@ public class GameUtilsTests extends AbstractHeadlessGdxTest {
         }
         assertEquals(0.1f, gameState.satisfactionScore, 0.01f); // Max 10% due to 1 accommodation building
     }
-
-    @Test
-    public void testScripts() {
-        assertTrue(false);
-    }
 }
