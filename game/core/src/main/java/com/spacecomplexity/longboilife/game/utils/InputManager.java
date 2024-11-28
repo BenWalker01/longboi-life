@@ -68,12 +68,13 @@ public class InputManager {
          */
         @Override
         public boolean scrolled(float amountX, float amountY) {
+            if (Float.isNaN(amountY)) return true;
             float deltaTime = Gdx.graphics.getDeltaTime();
 
             // Convert the current mouse position into world coordinates
             Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             MainCamera.camera().getCamera().unproject(mousePosition);
-
+            
             // Zoom in/out at the mouses current position
             MainCamera.camera().zoomAt(amountY * gameState.cameraScrollZoomSpeed * deltaTime * MainCamera.camera().zoom, mousePosition);
 
