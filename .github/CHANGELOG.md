@@ -14,4 +14,5 @@
 13. [Game] Test - Added tests to check GameUtils class
 14. [Game] Test - Added tests to check Timer class 
 15. [Game] Test - Added tests to check Main class
+16. [Game] Test - Added tests to check CameraManager class
 
