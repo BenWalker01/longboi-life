@@ -69,7 +69,6 @@ public class GameScreen implements Screen {
         }
 
         // Create a new timer for 5 minutes
-        // Temp change to make timer 1 second for leaderboard testing
         MainTimer.getTimerManager().getTimer().setTimer(Constants.GAME_TIME);
         MainTimer.getTimerManager().getTimer().setEvent(() -> {
             EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);

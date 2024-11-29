@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.game.*;
-import com.spacecomplexity.longboilife.game.ui.gameover.UILeaderboard;
-import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
+import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
@@ -80,6 +79,7 @@ public class UIManager {
                 new UISatisfactionMenu(viewport, table, skin),
                 new UIMoneyMenu(viewport, table, skin),
                 new UIBuildingCounter(viewport, table, skin),
+                new UIEventsMenu(viewport, table, skin),
         };
 
         // Hide game UI and show end UI
