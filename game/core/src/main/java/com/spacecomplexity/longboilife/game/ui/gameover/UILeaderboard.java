@@ -1,17 +1,16 @@
 package com.spacecomplexity.longboilife.game.ui.gameover;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
-import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 /**
  * Class to represent the Overview UI after the game is completed.
@@ -26,8 +25,30 @@ public class UILeaderboard extends UIElement {
      */
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
+        String allScores = "----------Leaderboard----------\n";
 
-        String scores = String.format("Leaderboard\r\n1.Longboi: 2000");
+        try {
+            File myObj = new File(Filepaths.LEADERBOARD_ASSET);
+            Scanner myReader = new Scanner(myObj);
+            Integer index = 1;
+            while (myReader.hasNextLine()) {
+              String data = myReader.nextLine();
+              if (index % 2 != 0) {
+                allScores += index + ". " + data;
+              }
+              else {
+                allScores += "   " + data + "\n";
+              }
+              index += 1;
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            e.printStackTrace();
+          }
+
+        String scores = String.format(allScores);
+        System.out.println(allScores);
         
         // Initialise leaderboard
         Label label = new Label(scores, skin);
@@ -40,7 +61,8 @@ public class UILeaderboard extends UIElement {
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
-        table.setSize(200, 100);
+        // Feature - update height based on number of entries to display
+        table.setSize(220, 100);
         placeTable();
     }
 

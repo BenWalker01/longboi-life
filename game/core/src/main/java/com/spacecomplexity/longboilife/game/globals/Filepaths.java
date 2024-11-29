@@ -44,4 +44,7 @@ public class Filepaths {
     public static final String SKIN_JSON_ASSET = "ui/skin/uiskin.json";
     public static final String SKIN_PNG_ASSET = "ui/skin/uiskin.png";
 
+    // Scores file
+    public static final String LEADERBOARD_ASSET = "ui/leaderboard/leaderboard.txt";
+
 }
