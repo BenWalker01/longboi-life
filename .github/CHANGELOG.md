@@ -13,6 +13,7 @@
 12. [Game] Test - Added tests to check Event Handler class
 13. [Game] Test - Added tests to check GameUtils class
 14. [Game] Test - Added tests to check Timer class 
-15. [Game] Test - Added tests to check Main class 
-16. [Game] Bug fix - Fix crashing on shutdown due to double dispose in the game screen class
+15. [Game] Test - Added tests to check Main class
+16. [Game] Test - Added tests to check CameraManager class
+17. [Game] Bug fix - Fix crashing on shutdown due to double dispose in the game screen class
 
