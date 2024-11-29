@@ -25,8 +25,10 @@ public class UILeaderboard extends UIElement {
      */
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
+
         String allScores = "----------Leaderboard----------\n";
 
+        // Read in names and scores from the leaderboard
         try {
             File myObj = new File(Filepaths.LEADERBOARD_ASSET);
             Scanner myReader = new Scanner(myObj);
@@ -43,15 +45,13 @@ public class UILeaderboard extends UIElement {
             }
             myReader.close();
           } catch (FileNotFoundException e) {
+            // Change in the future in tests
             System.out.println("File not found");
             e.printStackTrace();
           }
-
-        String scores = String.format(allScores);
-        System.out.println(allScores);
         
         // Initialise leaderboard
-        Label label = new Label(scores, skin);
+        Label label = new Label(String.format(allScores), skin);
         label.setAlignment(Align.center);
         label.setFontScale(1.2f);
         label.setColor(Color.WHITE);
