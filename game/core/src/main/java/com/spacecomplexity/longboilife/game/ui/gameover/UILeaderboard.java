@@ -26,22 +26,22 @@ public class UILeaderboard extends UIElement {
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
+        float index = 1.0f;
         String allScores = "----------Leaderboard----------\n";
 
         // Read in names and scores from the leaderboard
         try {
             File myObj = new File(Filepaths.LEADERBOARD_ASSET);
             Scanner myReader = new Scanner(myObj);
-            Integer index = 1;
             while (myReader.hasNextLine()) {
               String data = myReader.nextLine();
-              if (index % 2 != 0) {
-                allScores += index + ". " + data;
+              if (index % 1 == 0) {
+                allScores += (int) index + ". " + data;
               }
               else {
                 allScores += "   " + data + "\n";
               }
-              index += 1;
+              index += 0.5f;
             }
             myReader.close();
           } catch (FileNotFoundException e) {
@@ -61,8 +61,13 @@ public class UILeaderboard extends UIElement {
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
-        // Feature - update height based on number of entries to display
-        table.setSize(220, 100);
+        // Update height based on number of entries to display - minimum 4
+        if (index > 3) {
+            table.setSize(220, 100 + (index-3)*15);
+        }
+        else {
+            table.setSize(220, 100);
+        }
         placeTable();
     }
 
