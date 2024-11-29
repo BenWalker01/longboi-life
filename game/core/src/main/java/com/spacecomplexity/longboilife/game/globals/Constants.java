@@ -10,6 +10,16 @@ import java.util.TreeMap;
  */
 public class Constants {
     /**
+     * Default window height.
+     */
+    public static final int DEFAULT_WINDOW_HEIGHT = 720;
+
+    /**
+     * Default window width.
+     */
+    public static final int DEFAULT_WINDOW_WIDTH = 1440;
+
+    /**
      * The size of tiles (in px).
      */
     public static final int TILE_SIZE = 8;

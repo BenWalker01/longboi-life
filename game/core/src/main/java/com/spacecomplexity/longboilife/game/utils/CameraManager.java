@@ -28,7 +28,7 @@ public class CameraManager {
         camera = new OrthographicCamera();
         this.world = world;
         position = new Vector3();
-        zoom = 1;
+        zoom = 0.235f;
     }
 
     public OrthographicCamera getCamera() {

@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.Main;
 import com.spacecomplexity.longboilife.MainInputManager;
+import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;;
 
 /**
@@ -36,7 +37,7 @@ public class MenuScreen implements Screen {
         this.game = game;
 
         // Initialise viewport and drawing elements
-        viewport = new FitViewport(640, 480);
+        viewport = new FitViewport(Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
         stage = new Stage(viewport);
         batch = new SpriteBatch();
 
