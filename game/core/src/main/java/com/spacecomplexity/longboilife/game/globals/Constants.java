@@ -30,6 +30,11 @@ public class Constants {
     }};
 
     /**
+     * Length of the game. First number determines the number of seconds
+     */
+    public static final Integer GAME_TIME = 100 * 1000;
+
+    /**
      * Minimum camera zoom level.
      */
     public static final float MIN_ZOOM = 0.05f;
