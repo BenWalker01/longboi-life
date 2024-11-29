@@ -7,7 +7,7 @@ import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import java.util.stream.Stream;
 
 /**
- * Contains a list of all buildings, including there default data.
+ * Contains a list of all buildings, including their default data.
  */
 public enum BuildingType {
     GREGGS("Greggs", new Texture(Filepaths.GREGGS_ASSET), new Vector2Int(2, 2), BuildingCategory.FOOD, 5000),
