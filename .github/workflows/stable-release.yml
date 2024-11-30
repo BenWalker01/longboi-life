@@ -9,7 +9,7 @@ name: Create Stable Release
 on:
   push:
     branches:
-    - stable
+      - stable
     tags: ["v*"]
 			
 jobs:
