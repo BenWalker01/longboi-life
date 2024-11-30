@@ -8,6 +8,7 @@
 on:
     schedule:
       - cron: "59 23 * * 0" # Sunday 23:59
+    pull_request:
     workflow_dispatch:
   
 jobs:
@@ -19,7 +20,7 @@ jobs:
         uses: mmoyaferrer/set-github-variable@dc880eda800cf0f5332f5b4a5730e86327b96815 # v1.0.0
         with:
           name: 'CURRENT_RELEASE_VALUE'
-          value: 'a'
+          value: '1'
           repository: BenWalker01/longboi-life
           token: ${{ secrets.LONGBOI_ACCESS_TOKEN }}
         
