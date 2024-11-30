@@ -49,6 +49,10 @@ jobs:
           cd game/lwjgl3/build
           ls -la
           zip -r Longboi-life-snapshot-${{ steps.date.outputs.date }}.zip libs
+      
+      - name: Get last commit message
+        id: last_commit_message
+        run: echo "LAST_COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")" >> $GITHUB_ENV
 
       - name: Create release
         id: create_release
@@ -61,7 +65,8 @@ jobs:
           draft: false
           prerelease: true
           body: |
-            TODO - PreRelease Version, stability not guaranteed
+            PreRelease Version, stability not guaranteed
+            ${{ steps.last_commit_message.outputs.LAST_COMMIT_MESSAGE }}
 
       - name: Upload release asset
         id: upload_release_asset
