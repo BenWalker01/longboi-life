@@ -8,9 +8,6 @@
 on:
     schedule:
       - cron: "59 23 * * 0" # Sunday 23:59
-    pull_request: # TODO Remove
-      branches:
-        - main
     workflow_dispatch:
   
 jobs:
