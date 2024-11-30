@@ -26,6 +26,11 @@ jobs:
         with: 
           java-version: 17
           distribution: "temurin"
+      
+      - name: Update build version
+        run: |
+          cd game
+          sed -i '/projectVersion=/c\projectVersion=${{ github.ref_name }}' gradle.properties
 
       - name: Build and test
         run: |
@@ -42,6 +47,12 @@ jobs:
           ls -la
           zip -r Longboi-life-snapshot-${{ github.ref_name }}.zip libs
 
+      - name: Get release notes
+        id: release_notes
+        run: python3 "game/_devUtils/generate_release_notes.py"
+
+      - run: echo "-> ${{ steps.release_notes.outputs.release_notes}}"
+
       - name: Create release
         id: create_release
         uses: comnoco/create-release-action@7dea6dc82ac9d97ced7a764aa82811451bba80e0 # v2.0.5
@@ -53,7 +64,7 @@ jobs:
           draft: false
           prerelease: false
           body: |
-            TODO - Add Changelog entries
+            ${{ steps.release_notes.outputs.release_notes }}
 
       - name: Upload release asset
         id: upload_release_asset
