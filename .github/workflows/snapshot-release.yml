@@ -29,7 +29,7 @@ jobs:
           java-version: 17
           distribution: "temurin"
       
-      - name: Get current date
+      - name: Get current date in YEARwWeek format
         id: date
         run: python3 "game/_devUtils/generate_release_date.py"
 
@@ -44,7 +44,7 @@ jobs:
         run: |
           cd game
           chmod +x gradlew 
-          ./gradlew clean build jacocoTestReport
+          ./gradlew clean build
       
       - name: Make jar executable
         run: chmod +x game/lwjgl3/build/libs/*.jar

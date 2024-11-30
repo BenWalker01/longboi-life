@@ -31,7 +31,7 @@ jobs:
         run: |
           cd game
           chmod +x gradlew 
-          ./gradlew clean build jacocoTestReport
+          ./gradlew clean build
       
       - name: Make jar executable
         run: chmod +x game/lwjgl3/build/libs/*.jar
