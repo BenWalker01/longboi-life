@@ -6,10 +6,10 @@
 
 name: Create Stable Release
 
+
 on:
   push:
-    branches:
-      - stable
+    branches: ["stable"]
     tags: ["v*"]
 			
 jobs:
