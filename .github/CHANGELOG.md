@@ -13,4 +13,4 @@
 12. [Game] Test - Added tests to check GameUtils class
 13. [Game] Test - Added tests to check Timer class 
 14. [Game] Test - Added tests to check Main class
-
+15. [Global] Enhancement - Added release scripts for snapshot and stable releases
