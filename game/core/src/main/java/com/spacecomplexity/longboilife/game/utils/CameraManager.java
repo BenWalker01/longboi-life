@@ -28,7 +28,8 @@ public class CameraManager {
         camera = new OrthographicCamera();
         this.world = world;
         position = new Vector3();
-        zoom = 1;
+        // ASSESSMENT 2 - Moved default zoom to Constants.DEFAULT_MAP_ZOOM
+        zoom = Constants.DEFAULT_MAP_ZOOM;
     }
 
     public OrthographicCamera getCamera() {

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
@@ -36,7 +37,8 @@ public class UIManager {
      */
     public UIManager(InputMultiplexer inputMultiplexer) {
         // Initialise viewport for rescaling
-        viewport = new ScalingViewport(Scaling.fit, 640, 480);
+        // ASSESSMENT 2 - Moved default window size to Constants.DEFAULT_WINDOW_WIDTH and Constants.DEFAULT_WINDOW_HEIGHT
+        viewport = new ScalingViewport(Scaling.fit, Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
 
         // Initialise stage
         stage = new Stage(viewport);
