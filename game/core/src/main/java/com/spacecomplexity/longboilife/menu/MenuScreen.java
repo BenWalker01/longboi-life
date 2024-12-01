@@ -37,6 +37,7 @@ public class MenuScreen implements Screen {
         this.game = game;
 
         // Initialise viewport and drawing elements
+        // ASSESSMENT 2 - Moved default window size to Constants.DEFAULT_WINDOW_WIDTH and Constants.DEFAULT_WINDOW_HEIGHT
         viewport = new FitViewport(Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
         stage = new Stage(viewport);
         batch = new SpriteBatch();

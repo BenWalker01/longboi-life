@@ -46,6 +46,7 @@ public class Main extends Game {
 
     @Override
     public void create() {
+        // ASSESSMENT 2 - Set the window size to the default size
         Gdx.graphics.setWindowedMode(Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
         // Initially load the menu screen
         switchScreen(ScreenType.MENU);

@@ -11,13 +11,21 @@ import java.util.TreeMap;
 public class Constants {
     /**
      * Default window height.
+     * ASSESSMENT 2 - Moved to Constants and changed to 720
      */
     public static final int DEFAULT_WINDOW_HEIGHT = 720;
 
     /**
      * Default window width.
+     * ASSESSMENT 2 - Moved to Constants and changed to 1440
      */
     public static final int DEFAULT_WINDOW_WIDTH = 1440;
+
+    /**
+     * Default map zoom factor.
+     * ASSESSMENT 2 - Moved to Constants and changed to 0.235f
+     */
+    public static final float DEFAULT_MAP_ZOOM = 0.235f;
 
     /**
      * The size of tiles (in px).

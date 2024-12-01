@@ -37,6 +37,7 @@ public class UIManager {
      */
     public UIManager(InputMultiplexer inputMultiplexer) {
         // Initialise viewport for rescaling
+        // ASSESSMENT 2 - Moved default window size to Constants.DEFAULT_WINDOW_WIDTH and Constants.DEFAULT_WINDOW_HEIGHT
         viewport = new ScalingViewport(Scaling.fit, Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
 
         // Initialise stage
