@@ -1,8 +1,10 @@
 package com.spacecomplexity.longboilife;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.spacecomplexity.longboilife.game.GameScreen;
+import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.menu.MenuScreen;
 
 import java.util.HashMap;
@@ -44,6 +46,8 @@ public class Main extends Game {
 
     @Override
     public void create() {
+        // ASSESSMENT 2 - Set the window size to the default size
+        Gdx.graphics.setWindowedMode(Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
         // Initially load the menu screen
         switchScreen(ScreenType.MENU);
     }

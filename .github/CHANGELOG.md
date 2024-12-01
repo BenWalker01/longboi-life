@@ -15,3 +15,8 @@
 13. [Game] Test - Added tests to check GameUtils class
 14. [Game] Test - Added tests to check Timer class 
 15. [Game] Test - Added tests to check Main class
+16. [Game] Test - Added tests to check CameraManager class
+17. [Game] Bug fix - Fix crashing on shutdown due to double dispose in the game screen class 
+18. [Game] Test - Added tests to check UIUtils class
+19. [Game] Enhancement - Increased default window size to 1440x720 and changed map zoom factor accordingly
+
