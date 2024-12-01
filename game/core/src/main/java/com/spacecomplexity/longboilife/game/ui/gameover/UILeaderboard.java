@@ -31,10 +31,11 @@ public class UILeaderboard extends UIElement {
 
         // Read in names and scores from the leaderboard
         try {
-            File myObj = new File(Filepaths.LEADERBOARD_ASSET);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-              String data = myReader.nextLine();
+            File LeaderboardObj = new File(Filepaths.LEADERBOARD_DATA);
+            Scanner LeaderboardReader = new Scanner(LeaderboardObj);
+            // Read each line of the text file, adding names and scores based on index
+            while (LeaderboardReader.hasNextLine()) {
+              String data = LeaderboardReader.nextLine();
               if (index % 1 == 0) {
                 allScores += (int) index + ". " + data;
               }
@@ -43,11 +44,10 @@ public class UILeaderboard extends UIElement {
               }
               index += 0.5f;
             }
-            myReader.close();
+            LeaderboardReader.close();
           } catch (FileNotFoundException e) {
-            // Change in the future in tests
-            System.out.println("File not found");
-            e.printStackTrace();
+            // TODO: Check for file as part of testing
+            allScores += "MISSING FILE";
           }
         
         // Initialise leaderboard
