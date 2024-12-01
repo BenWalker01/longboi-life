@@ -7,8 +7,8 @@
 
 on:
   pull_request:
-    branches :
-      - main
+    branches: ['main']
+    paths: ['game/*']
   workflow_dispatch:
 
 jobs:
