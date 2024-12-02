@@ -1,11 +1,9 @@
 package com.spacecomplexity.longboilife.game.ui.game;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -17,7 +15,7 @@ import com.spacecomplexity.longboilife.game.utils.EventHandler;
  * Class to represent the Clock UI.
  */
 public class UIClockMenu extends UIElement {
-    private Label label;
+    private TextButton timerLabel;
 
     private final MainTimer mainTimer = MainTimer.getTimerManager();
 
@@ -32,14 +30,10 @@ public class UIClockMenu extends UIElement {
         super(uiViewport, parentTable, skin);
 
         // Initialise time label
-        label = new Label(null, skin);
-        label.setFontScale(1.5f);
-        label.setColor(Color.WHITE);
+        timerLabel = new TextButton("5:00", skin);
 
         // Initialise button
-        ImageButton button = new ImageButton(skin);
-        button.setColor(0, 0, 0, 0);
-        button.addListener(new ClickListener() {
+        timerLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to return to the menu
@@ -48,9 +42,7 @@ public class UIClockMenu extends UIElement {
         });
 
         // Place label onto table
-        table.add(label).align(Align.center);
-        table.row();
-        table.add(button).align(Align.center);
+        table.add(timerLabel).align(Align.center);
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
@@ -69,7 +61,7 @@ public class UIClockMenu extends UIElement {
      */
     private void setTime(long time) {
         // Format this onto the time label
-        label.setText(String.format("%d:%02d", time / 60, time % 60));
+        timerLabel.setText(String.format("%d:%02d", time / 60, time % 60));
     }
 
     @Override
