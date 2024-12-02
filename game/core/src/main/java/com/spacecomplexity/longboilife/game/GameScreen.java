@@ -242,6 +242,13 @@ public class GameScreen implements Screen {
 
             return null;
         });
+
+        // Game over upon timer click
+        eventHandler.createEvent(EventHandler.Event.TIMER_CLICK, (params) -> {
+            MainTimer.getTimerManager().getTimer().setTimer(0);;
+
+            return null;
+        });
     }
 
     /**

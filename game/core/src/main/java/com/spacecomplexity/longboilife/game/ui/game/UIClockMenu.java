@@ -1,13 +1,17 @@
 package com.spacecomplexity.longboilife.game.ui.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
+import com.spacecomplexity.longboilife.game.utils.EventHandler;
 
 /**
  * Class to represent the Clock UI.
@@ -32,8 +36,21 @@ public class UIClockMenu extends UIElement {
         label.setFontScale(1.5f);
         label.setColor(Color.WHITE);
 
+        // Initialise button
+        ImageButton button = new ImageButton(skin);
+        button.setColor(0, 0, 0, 0);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Call the events to return to the menu
+                EventHandler.getEventHandler().callEvent(EventHandler.Event.TIMER_CLICK);
+            }
+        });
+
         // Place label onto table
         table.add(label).align(Align.center);
+        table.row();
+        table.add(button).align(Align.center);
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
