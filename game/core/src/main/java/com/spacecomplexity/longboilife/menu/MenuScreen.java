@@ -66,6 +66,16 @@ public class MenuScreen implements Screen {
             }
         });
 
+        // Initialise play button
+        TextButton settingsButton = new TextButton("Settings", skin, "round");
+        settingsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Switch to game screen
+                game.switchScreen(Main.ScreenType.SETTINGS);
+            }
+        });
+
         // Initialise exit button
         TextButton exitButton = new TextButton("Exit", skin, "round");
         exitButton.addListener(new ClickListener() {
@@ -79,6 +89,8 @@ public class MenuScreen implements Screen {
         // Add buttons to table
         table.pad(100).right().bottom();
         table.add(playButton);
+        table.row();
+        table.add(settingsButton);
         table.row();
         table.add(exitButton).padTop(10);
 
