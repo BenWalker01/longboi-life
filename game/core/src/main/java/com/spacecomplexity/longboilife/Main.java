@@ -29,7 +29,7 @@ public class Main extends Game {
     public enum ScreenType {
         MENU(MenuScreen.class),
         GAME(GameScreen.class),
-        ;
+        SETTINGS(SettingsScreen.class);
 
         private final Class<? extends Screen> screenClass;
 
