@@ -45,6 +45,6 @@ public class Filepaths {
     public static final String SKIN_PNG_ASSET = "ui/skin/uiskin.png";
 
     // Scores file
-    public static final String LEADERBOARD_DATA = "ui/leaderboard/leaderboard.txt";
+    public static final String LEADERBOARD_DATA = "ui/leaderboard/leaderboard.csv";
 
 }

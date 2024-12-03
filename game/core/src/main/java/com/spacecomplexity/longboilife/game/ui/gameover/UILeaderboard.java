@@ -29,26 +29,38 @@ public class UILeaderboard extends UIElement {
         float index = 1.0f;
         String allScores = "----------Leaderboard----------\n";
 
-        // Read in names and scores from the leaderboard
         try {
-            File LeaderboardObj = new File(Filepaths.LEADERBOARD_DATA);
-            Scanner LeaderboardReader = new Scanner(LeaderboardObj);
-            // Read each line of the text file, adding names and scores based on index
-            while (LeaderboardReader.hasNextLine()) {
-              String data = LeaderboardReader.nextLine();
-              if (index % 1 == 0) {
-                allScores += (int) index + ". " + data;
-              }
-              else {
-                allScores += "   " + data + "\n";
-              }
-              index += 0.5f;
-            }
-            LeaderboardReader.close();
-          } catch (FileNotFoundException e) {
-            // TODO: Check for file as part of testing
-            allScores += "MISSING FILE";
-          }
+          // Read in names and scores from the leaderboard
+          Scanner LeaderboardReader = new Scanner(new File(Filepaths.LEADERBOARD_DATA));
+          LeaderboardReader.useDelimiter(",");
+          while (LeaderboardReader.hasNext()) {  
+            System.out.print(LeaderboardReader.next());  //find and returns the next complete token from this scanner  
+          }   
+          LeaderboardReader.close();
+        } catch (FileNotFoundException e) {
+          // TODO: Check for file as part of testing
+          allScores += "MISSING FILE";
+        }
+
+        // try {
+        //     File LeaderboardObj = new File(Filepaths.LEADERBOARD_DATA);
+        //     Scanner LeaderboardReader = new Scanner(LeaderboardObj);
+        //     // Read each line of the text file, adding names and scores based on index
+        //     while (LeaderboardReader.hasNextLine()) {
+        //       String data = LeaderboardReader.nextLine();
+        //       if (index % 1 == 0) {
+        //         allScores += (int) index + ". " + data;
+        //       }
+        //       else {
+        //         allScores += "   " + data + "\n";
+        //       }
+        //       index += 0.5f;
+        //     }
+        //     LeaderboardReader.close();
+        //   } catch (FileNotFoundException e) {
+        //     // TODO: Check for file as part of testing
+        //     allScores += "MISSING FILE";
+        //   }
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
