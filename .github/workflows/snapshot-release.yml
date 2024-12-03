@@ -51,9 +51,9 @@ jobs:
       
       - name: Zip artifact
         run: |
-          cd game/lwjgl3/build
+          cd game/lwjgl3/build/libs
           ls -la
-          zip -r Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}.zip libs
+          zip -r ../Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}.zip .
       
       - name: Get last commit message
         id: last_commit_message

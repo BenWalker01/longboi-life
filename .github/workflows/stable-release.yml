@@ -43,9 +43,9 @@ jobs:
       
       - name: Zip artifact
         run: |
-          cd game/lwjgl3/build
+          cd game/lwjgl3/build/libs
           ls -la
-          zip -r Longboi-life-snapshot-${{ github.ref_name }}.zip libs
+          zip -r ../Longboi-life-snapshot-${{ github.ref_name }}.zip .
 
       - name: Get release notes
         id: release_notes
