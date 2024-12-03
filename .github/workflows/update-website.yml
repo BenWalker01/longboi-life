@@ -47,6 +47,7 @@ jobs:
         run: |
           cd root
           git switch website
+          rm -r *
           rsync -avh ../website/ ./
           git add .
           git commit -m "Update Website"

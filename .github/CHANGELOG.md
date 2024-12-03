@@ -16,4 +16,6 @@
 15. [Game] Test - Added tests to check CameraManager class
 16. [Game] Bug fix - Fix crashing on shutdown due to double dispose in the game screen class 
 17. [Game] Test - Added tests to check UIUtils class
-18. [Global] Enhancement - Added actions to release snapshot and stable versions
+18. [Game] Enhancement - Increased default window size to 1440x720 and changed map zoom factor accordingly
+19. [Global] Enhancement - Added actions to release snapshot and stable versions
+
