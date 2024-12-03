@@ -11,7 +11,7 @@ on:
   push:
     branches: ["stable"]
     tags: ["v*"]
-			
+
 jobs:
   build:
     name: Build and release
