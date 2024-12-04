@@ -9,6 +9,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
@@ -26,41 +29,22 @@ public class UILeaderboard extends UIElement {
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
-        float index = 1.0f;
+        Integer index = 1;
+        String line = "";
         String allScores = "----------Leaderboard----------\n";
 
         try {
           // Read in names and scores from the leaderboard
-          Scanner LeaderboardReader = new Scanner(new File(Filepaths.LEADERBOARD_DATA));
-          LeaderboardReader.useDelimiter(",");
-          while (LeaderboardReader.hasNext()) {  
-            System.out.print(LeaderboardReader.next());  //find and returns the next complete token from this scanner  
-          }   
-          LeaderboardReader.close();
-        } catch (FileNotFoundException e) {
+          BufferedReader LeaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
+          while ((line = LeaderboardReader.readLine()) != null) {  
+            String[] entry = line.split(",");
+            allScores += index + "." + entry[0] + "    " + entry[1] + "\n";
+            index += 1;
+          }
+        } catch (IOException e) {
           // TODO: Check for file as part of testing
           allScores += "MISSING FILE";
-        }
-
-        // try {
-        //     File LeaderboardObj = new File(Filepaths.LEADERBOARD_DATA);
-        //     Scanner LeaderboardReader = new Scanner(LeaderboardObj);
-        //     // Read each line of the text file, adding names and scores based on index
-        //     while (LeaderboardReader.hasNextLine()) {
-        //       String data = LeaderboardReader.nextLine();
-        //       if (index % 1 == 0) {
-        //         allScores += (int) index + ". " + data;
-        //       }
-        //       else {
-        //         allScores += "   " + data + "\n";
-        //       }
-        //       index += 0.5f;
-        //     }
-        //     LeaderboardReader.close();
-        //   } catch (FileNotFoundException e) {
-        //     // TODO: Check for file as part of testing
-        //     allScores += "MISSING FILE";
-        //   }
+        };
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
