@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.Main;
 import com.spacecomplexity.longboilife.MainInputManager;
+import com.spacecomplexity.longboilife.game.achievements.AchievementsManager;
 import com.spacecomplexity.longboilife.game.building.Building;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
 import com.spacecomplexity.longboilife.game.globals.Constants;
@@ -38,6 +39,7 @@ public class GameScreen implements Screen {
     private ShapeRenderer shapeRenderer;
     private UIManager ui;
     private InputManager inputManager;
+    private AchievementsManager achievementsManager;
 
     private Viewport viewport;
 
@@ -73,6 +75,9 @@ public class GameScreen implements Screen {
         MainTimer.getTimerManager().getTimer().setEvent(() -> {
             EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);
         });
+
+        // Initialise achievements manager
+        achievementsManager = new AchievementsManager();
 
         // Create an input multiplexer to handle input from all sources
         InputMultiplexer inputMultiplexer = new InputMultiplexer(new MainInputManager());
@@ -297,6 +302,8 @@ public class GameScreen implements Screen {
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {
             // Update the satisfaction score
             GameUtils.updateSatisfactionScore(world);
+            // Update the achievements
+            achievementsManager.checkAchievements();
         }
     }
 
@@ -329,7 +336,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-        
+
     }
 
     /**
