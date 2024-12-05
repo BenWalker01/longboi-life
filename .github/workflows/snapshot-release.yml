@@ -85,17 +85,14 @@ jobs:
           asset_content_type: application/zip
         
       - name: Get next release version
-        env:
-          CURRENT_RELEASE: ${{ vars.CURRENT_RELEASE_VALUE }}
-        run: |
-          echo ::set-env name=GITHUB_NEW_RELEASE::$(($CURRENT_RELEASE+1))
-      
-      - run: echo $GITHUB_NEW_RELEASE
+        id: new_release
+        run: echo "NEW_RELEASE=$(( ${{ vars.CURRENT_RELEASE_VALUE }} + 1 ))" >> $GITHUB_ENV
 
+      
       - name: Bump release version
         uses: mmoyaferrer/set-github-variable@dc880eda800cf0f5332f5b4a5730e86327b96815 # v1.0.0
         with:
           name: 'CURRENT_RELEASE_VALUE'
-          value: $GITHUB_NEW_RELEASE
+          value: ${{ env.NEW_RELEASE }}
           repository: BenWalker01/longboi-life
           token: ${{ secrets.LONGBOI_ACCESS_TOKEN }}
