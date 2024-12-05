@@ -84,10 +84,18 @@ jobs:
           asset_name: Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{vars.CURRENT_RELEASE_VALUE }}.zip
           asset_content_type: application/zip
         
+      - name: Get next release version
+        env:
+          CURRENT_RELEASE: ${{ vars.CURRENT_RELEASE_VALUE }}
+        run: |
+          echo ::set-env name=GITHUB_NEW_RELEASE::$(($CURRENT_RELEASE+1))
+      
+      - run: echo $GITHUB_NEW_RELEASE
+
       - name: Bump release version
         uses: mmoyaferrer/set-github-variable@dc880eda800cf0f5332f5b4a5730e86327b96815 # v1.0.0
         with:
           name: 'CURRENT_RELEASE_VALUE'
-          value: "$(($vars.CURRENT_RELEASE_VALUE + 1))"
+          value: $GITHUB_NEW_RELEASE
           repository: BenWalker01/longboi-life
           token: ${{ secrets.LONGBOI_ACCESS_TOKEN }}
