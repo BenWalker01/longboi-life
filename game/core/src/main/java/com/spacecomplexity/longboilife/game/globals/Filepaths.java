@@ -44,4 +44,5 @@ public class Filepaths {
     public static final String SKIN_JSON_ASSET = "ui/skin/uiskin.json";
     public static final String SKIN_PNG_ASSET = "ui/skin/uiskin.png";
 
+    public static final String SOUNDTRACK = "backgroundsong.wav";
 }

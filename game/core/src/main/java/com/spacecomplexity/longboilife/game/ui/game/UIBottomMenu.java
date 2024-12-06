@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.building.BuildingCategory;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.utils.UIUtils;
@@ -110,6 +111,8 @@ public class UIBottomMenu extends UIElement {
             pauseButton.getStyle().up = playDrawable;
             pauseButton.getStyle().down = playDrawable;
 
+            Soundtrack.getSoundtrack().pause();
+
             return null;
         });
         eventHandler.createEvent(EventHandler.Event.RESUME_GAME, (params) -> {
@@ -122,6 +125,8 @@ public class UIBottomMenu extends UIElement {
             // Change background to ❚❚
             pauseButton.getStyle().up = pauseDrawable;
             pauseButton.getStyle().down = pauseDrawable;
+
+            Soundtrack.getSoundtrack().play();
 
             return null;
         });
