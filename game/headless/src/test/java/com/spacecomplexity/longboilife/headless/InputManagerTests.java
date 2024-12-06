@@ -113,6 +113,7 @@ public class InputManagerTests extends AbstractHeadlessGdxTest {
             () -> assertEquals(1.0f, MainCamera.camera().zoom, 0.01f, "Camera zoom should not change")
         );
     } 
+    @Test
     public void testNoCameraMovementWithOpposingInputsVertical() { 
         doReturn(0.016f).when(Gdx.graphics).getDeltaTime();
         when(Gdx.input.isKeyPressed(Keybindings.CAMERA_UP.getKey())).thenReturn(true);
