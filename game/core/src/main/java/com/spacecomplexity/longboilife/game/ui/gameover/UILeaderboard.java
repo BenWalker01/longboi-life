@@ -10,10 +10,13 @@ import com.spacecomplexity.longboilife.game.ui.UIElement;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.globals.GameState;
 
 /**
  * Class to represent the Overview UI after the game is completed.
@@ -33,17 +36,31 @@ public class UILeaderboard extends UIElement {
         String line = "";
         String allScores = "----------Leaderboard----------\n";
 
+        // Read in names and scores from the leaderboard
         try {
-          // Read in names and scores from the leaderboard
-          BufferedReader LeaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
-          while ((line = LeaderboardReader.readLine()) != null) {  
+          BufferedReader leaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
+          while ((line = leaderboardReader.readLine()) != null) {  
             String[] entry = line.split(",");
             allScores += index + "." + entry[0] + "    " + entry[1] + "\n";
             index += 1;
           }
+          leaderboardReader.close();
         } catch (IOException e) {
           // TODO: Check for file as part of testing
-          allScores += "MISSING FILE";
+          allScores += "MISSING FILE - READ";
+        };
+
+        // Write new score to leaderboard
+        try {
+          BufferedWriter leaderboardWriter = new BufferedWriter(new FileWriter(Filepaths.LEADERBOARD_DATA, true));
+          String username = System.getProperty("user.name");
+          String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
+          leaderboardWriter.append("\n" + username + "," + score);
+          leaderboardWriter.close();
+          allScores += index + "." + username + "    " + score;
+        } catch (IOException e) {
+          // TODO: Check for file as part of testing
+          allScores += "MISSING FILE - WRITE";
         };
         
         // Initialise leaderboard
