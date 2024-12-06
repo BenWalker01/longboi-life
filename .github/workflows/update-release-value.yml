@@ -1,0 +1,25 @@
+# Resets the release value at the start of the week
+#
+# Triggered by
+# Sunday 23:59
+# Manual dispatch
+#
+
+on:
+    schedule:
+      - cron: "59 23 * * 0" # Sunday 23:59
+    workflow_dispatch:
+  
+jobs:
+  update:
+    name: Update repo variable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update repo variable
+        uses: mmoyaferrer/set-github-variable@dc880eda800cf0f5332f5b4a5730e86327b96815 # v1.0.0
+        with:
+          name: 'CURRENT_RELEASE_VALUE'
+          value: '1'
+          repository: BenWalker01/longboi-life
+          token: ${{ secrets.LONGBOI_ACCESS_TOKEN }}
+        

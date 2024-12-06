@@ -1,0 +1,79 @@
+# Creates and Uploads main release
+#
+# Triggered by:
+# Push to stable with tags
+#
+
+name: Create Stable Release
+
+
+on:
+  push:
+    branches: ["stable"]
+    tags: ["v*"]
+
+jobs:
+  build:
+    name: Build and release
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17 # Perhaps not needed on ubuntu-24
+        uses: actions/setup-java@v2
+        with: 
+          java-version: 17
+          distribution: "temurin"
+      
+      - name: Update build version
+        run: |
+          cd game
+          sed -i '/projectVersion=/c\projectVersion=${{ github.ref_name }}' gradle.properties
+
+      - name: Build and test
+        run: |
+          cd game
+          chmod +x gradlew 
+          ./gradlew clean build
+      
+      - name: Make jar executable
+        run: chmod +x game/lwjgl3/build/libs/*.jar
+      
+      - name: Zip artifact
+        run: |
+          cd game/lwjgl3/build/libs
+          ls -la
+          zip -r ../Longboi-life-snapshot-${{ github.ref_name }}.zip .
+
+      - name: Get release notes
+        id: release_notes
+        run: python3 "game/_devUtils/generate_release_notes.py"
+
+      - run: echo "-> ${{ steps.release_notes.outputs.release_notes}}"
+
+      - name: Create release
+        id: create_release
+        uses: comnoco/create-release-action@7dea6dc82ac9d97ced7a764aa82811451bba80e0 # v2.0.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # provided by actions
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          body: |
+            ${{ steps.release_notes.outputs.release_notes }}
+
+      - name: Upload release asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: game/lwjgl3/build/Longboi-life-snapshot-${{ github.ref_name }}.zip
+          asset_name: Longboi-life-snapshot-${{ github.ref_name }}.zip
+          asset_content_type: application/zip
+        
