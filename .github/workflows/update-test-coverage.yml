@@ -1,0 +1,67 @@
+# Uploads JaCoCo coverage report to the website
+#
+# Triggered by:
+# Push to main
+# Manual trigger
+
+name: Upload Test Coverage
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dependency-submission:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    
+    steps:
+    - uses: actions/checkout@v4     
+    
+    - name: Setup JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Create access token
+      uses: actions/create-github-app-token@v1
+      id: app-token
+      with: 
+        app-id: ${{ vars.LONGBOI_BOT_ID }}
+        private-key: ${{ secrets.LONGBOI_BOT_KEY}}
+    
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ steps.app-token.outputs.token }}
+      
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      
+    - name: Update Test Coverage
+      run: |
+        cd game
+        chmod +x gradlew 
+        ./gradlew jacocoTestReport
+
+    - name: Move reports to website
+      run: cp -r game/headless/build/reports/jacoco/test/html website/jacoco
+
+    - name: Setup Git user
+      run: |
+        git config user.name "Github Actions"
+        git config user.email "<EMAIL>"
+
+    - name: Commit changes
+      run: |
+        git add .
+        git commit -m "Add JaCoCo Test Reports"
+        git push -u origin main
+
+    
