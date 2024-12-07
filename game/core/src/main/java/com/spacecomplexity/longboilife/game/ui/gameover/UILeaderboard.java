@@ -19,6 +19,7 @@ import java.util.Collections;
 
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.LeaderboardSave;
 
 /**
  * Class to represent the Overview UI after the game is completed.
@@ -84,6 +85,11 @@ public class UILeaderboard extends UIElement {
         for (int i = 0; i < nameList.size(); i ++) {
           allScores += (i + 1) + "." + nameList.get(i) + "    " + scoreList.get(i) + "\n";
         }
+
+        // LeaderboardSave.setName(username);
+        // LeaderboardSave.setScore(prevScore);
+        System.out.println(LeaderboardSave.getNames());
+        System.out.println(LeaderboardSave.getScores());
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
