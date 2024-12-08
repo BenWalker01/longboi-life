@@ -18,7 +18,9 @@ public class EventHandler {
         CLOSE_SELECTED_MENU,
         CLOSE_BUILD_MENU,
         GAME_END,
-        RETURN_MENU,
+        RETURN_MENU,   
+        //NEW EVENT
+        RANDOM_EVENT
         ;
 
         private Function<Object[], Object> callback;

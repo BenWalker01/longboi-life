@@ -16,8 +16,8 @@ import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
-
+import com.spacecomplexity.longboilife.game.globals.Filepaths; 
+import java.util.ArrayList;
 /**
  * Class to manage the UI in the game.
  */
@@ -25,9 +25,10 @@ public class UIManager {
     private Viewport viewport;
 
     private Stage stage;
-    private final Skin skin;
+    private final Skin skin; 
 
-    private UIElement[] uiElements;
+    //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
+    private ArrayList<UIElement> uiElements = new ArrayList<>();
 
     /**
      * Initialise UI elements needed for the game.
@@ -72,15 +73,14 @@ public class UIManager {
 
         // Create our UI elements
         // Note: The order of these is the order that they will be rendered
-        uiElements = new UIElement[] {
-                new UIBuildingSelectedMenu(viewport, table, skin),
-                new UIBottomMenu(viewport, table, skin),
-                new UIClockMenu(viewport, table, skin),
-                new UISatisfactionMenu(viewport, table, skin),
-                new UIMoneyMenu(viewport, table, skin),
-                new UIBuildingCounter(viewport, table, skin),
-                new UIEventsMenu(viewport, table, skin),
-        };
+        //NEW: CHANGED FROM STATIC ARRAY TO DYNAMIC
+        uiElements.add(new UIBuildingSelectedMenu(viewport, table, skin));
+        uiElements.add(new UIBottomMenu(viewport, table, skin));
+        uiElements.add(new UIClockMenu(viewport, table, skin));
+        uiElements.add(new UISatisfactionMenu(viewport, table, skin));
+        uiElements.add(new UIMoneyMenu(viewport, table, skin));
+        uiElements.add(new UIBuildingCounter(viewport, table, skin));
+        //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
         EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -> {
@@ -94,14 +94,24 @@ public class UIManager {
             table.clear();
 
             // Create the new end elements
-            uiElements = new UIElement[] {
-                    new UIOverview(viewport, table, skin),
-                    new UILeaderboard(viewport, table, skin)
-            };
+            // NEW USE DYANMIC ARRAY INSTEAD;
+            uiElements = new ArrayList<>();  
+
+            uiElements.add(new UIOverview(viewport, table, skin));
+            uiElements.add(new UILeaderboard(viewport, table, skin));
 
             return null;
+        });   
+        //NEW ADDED EVENT
+        EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -> {
+           
+            uiElements.add(new UIEventsMenu(viewport, table, skin));  
+            
+            return null;
         });
-    }
+    
+    }  
+    
 
     /**
      * Apply and draw UI onto the screen.
