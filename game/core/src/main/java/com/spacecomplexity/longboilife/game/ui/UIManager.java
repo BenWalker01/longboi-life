@@ -12,12 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.achievements.IAchievement;
 import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
+
+import java.util.Queue;
 
 /**
  * Class to manage the UI in the game.
@@ -29,6 +33,8 @@ public class UIManager {
     private final Skin skin;
 
     private UIElement[] uiElements;
+
+    private long lastAchievementTime = 5*60*1000;
 
     /**
      * Initialise UI elements needed for the game.
@@ -81,6 +87,7 @@ public class UIManager {
                 new UISatisfactionMenu(viewport, table, skin),
                 new UIMoneyMenu(viewport, table, skin),
                 new UIBuildingCounter(viewport, table, skin),
+                new UIAchievementPopUp(viewport, table, skin)
         };
 
         // Hide game UI and show end UI
@@ -137,6 +144,20 @@ public class UIManager {
         for (UIElement uiElement : uiElements) {
             uiElement.resize();
         }
+    }
+
+    public void showAchievement(Queue<IAchievement> achievementQueue) {
+        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();
+        if (lastAchievementTime - currentTime < 5000) {
+            return;
+        }
+        ((UIAchievementPopUp) uiElements[6]).hideAchievement();
+        if (achievementQueue.isEmpty()) {
+            return;
+        }
+        lastAchievementTime = currentTime;
+        IAchievement achievement = achievementQueue.poll();
+        ((UIAchievementPopUp) uiElements[6]).showAchievement(achievement.getName(), achievement.getDescription());
     }
 
     /**

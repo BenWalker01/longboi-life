@@ -3,10 +3,13 @@ package com.spacecomplexity.longboilife.game.achievements;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class AchievementsManager {
     private final IAchievement[] achievements;
     private final HashSet<IAchievement> unlockedAchievements = new HashSet<>();
+    private final Queue<IAchievement> achievementQueue = new LinkedList<>();
 
     public AchievementsManager() {
         achievements = new IAchievement[] {
@@ -70,8 +73,13 @@ public class AchievementsManager {
         for (IAchievement achievement : achievements) {
             if (!unlockedAchievements.contains(achievement) && achievement.checkUnlocked()) {
                 unlockedAchievements.add(achievement);
+                achievementQueue.add(achievement);
                 System.out.println("UNLOCKED: " + achievement.getName() + " - " + achievement.getDescription());
             }
         }
+    }
+
+    public Queue<IAchievement> getAchievementQueue() {
+        return achievementQueue;
     }
 }

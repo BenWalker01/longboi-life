@@ -304,6 +304,7 @@ public class GameScreen implements Screen {
             GameUtils.updateSatisfactionScore(world);
             // Update the achievements
             achievementsManager.checkAchievements();
+            ui.showAchievement(achievementsManager.getAchievementQueue());
         }
     }
 
