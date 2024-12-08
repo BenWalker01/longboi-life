@@ -74,6 +74,15 @@ public class AchievementsManager {
     }
 
     /**
+     * Gets the set of unlocked achievements.
+     *
+     * @return the set of unlocked achievements.
+     */
+    public HashSet<IAchievement> getUnlockedAchievements() {
+        return unlockedAchievements;
+    }
+
+    /**
      * Resets all achievements.
      */
     public void resetAchievements() {

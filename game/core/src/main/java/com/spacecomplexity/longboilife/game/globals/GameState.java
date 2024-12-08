@@ -1,9 +1,11 @@
 package com.spacecomplexity.longboilife.game.globals;
 
+import com.spacecomplexity.longboilife.game.achievements.IAchievement;
 import com.spacecomplexity.longboilife.game.building.Building;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Singleton class to contain variables relating to state/config of the game.
@@ -82,6 +84,13 @@ public class GameState {
     public HashMap<BuildingType, Integer> buildingsCount;
 
     /**
+     * The set of unlocked achievements.
+     * This is initialised in the constructor.
+     * ASSESSMENT 2 - New field
+     */
+    public HashSet<IAchievement> unlockedAchievements;
+
+    /**
      * Helper function to get the number of a specified building.
      *
      * @param buildingType the building type to get.
@@ -156,5 +165,6 @@ public class GameState {
         satisfactionScoreVelocity = 0;
         satisfactionModifierPositive = false;
         gameOver = false;
+        unlockedAchievements = new HashSet<>();
     }
 }

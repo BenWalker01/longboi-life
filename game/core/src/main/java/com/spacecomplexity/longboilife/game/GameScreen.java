@@ -305,6 +305,8 @@ public class GameScreen implements Screen {
             // ASSESSMENT 2 - Check for achievements and display them
             achievementsManager.checkAchievements();
             ui.showAchievement(achievementsManager.getAchievementQueue());
+            // Update the unlocked achievements in the game state
+            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();
         }
     }
 
