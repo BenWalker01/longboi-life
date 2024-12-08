@@ -5,6 +5,11 @@ import com.spacecomplexity.longboilife.game.globals.GameState;
 import java.util.HashMap;
 import java.util.function.BiPredicate;
 
+/**
+ * Class to represent a sustained achievement - unlocked when criterion is met for a sustained period of time.
+ *
+ * ASSESSMENT 2 - New feature
+ */
 public class SustainedAchievement implements IAchievement {
     private final String name;
     private final String description;
@@ -14,6 +19,14 @@ public class SustainedAchievement implements IAchievement {
     private long startTime;
     private final long threshold;
 
+    /**
+     * Create a new sustained achievement.
+     *
+     * @param name name of the achievement
+     * @param description description of the achievement
+     * @param threshold time in seconds the criterion must be met for
+     * @param criterion criterion to unlock the achievement
+     */
     public SustainedAchievement(String name, String description, int threshold, BiPredicate<GameState, HashMap<String, Object>> criterion) {
         this.name = name;
         this.description = description;

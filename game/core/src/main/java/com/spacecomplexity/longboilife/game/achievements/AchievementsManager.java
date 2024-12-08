@@ -6,11 +6,21 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Class to manage the achievements in the game.
+ * <p>
+ *     Achievements are checked every frame to see if they have been unlocked. If an achievement is unlocked, it is added to a queue to be displayed to the player.
+ * </p>
+ * ASSESSMENT 2 - New feature
+ */
 public class AchievementsManager {
     private final IAchievement[] achievements;
     private final HashSet<IAchievement> unlockedAchievements = new HashSet<>();
     private final Queue<IAchievement> achievementQueue = new LinkedList<>();
 
+    /**
+     * Initialises the achievements.
+     */
     public AchievementsManager() {
         achievements = new IAchievement[] {
             new MilestoneAchievement("First Steps", "Place your first building", state -> {
@@ -63,12 +73,19 @@ public class AchievementsManager {
         return achievements;
     }
 
+    /**
+     * Resets all achievements.
+     */
     public void resetAchievements() {
         for (IAchievement achievement : achievements) {
             achievement.reset();
         }
+        unlockedAchievements.clear();
     }
 
+    /**
+     * Checks all achievements to see if they have been unlocked. Adds newly unlocked achievements to the queue.
+     */
     public void checkAchievements() {
         for (IAchievement achievement : achievements) {
             if (!unlockedAchievements.contains(achievement) && achievement.checkUnlocked()) {
@@ -79,6 +96,11 @@ public class AchievementsManager {
         }
     }
 
+    /**
+     * Gets the queue of achievements.
+     *
+     * @return the queue of achievements.
+     */
     public Queue<IAchievement> getAchievementQueue() {
         return achievementQueue;
     }

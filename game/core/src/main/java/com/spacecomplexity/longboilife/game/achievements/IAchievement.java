@@ -1,5 +1,10 @@
 package com.spacecomplexity.longboilife.game.achievements;
 
+/**
+ * Interface for an achievement.
+ *
+ * ASSESSMENT 2 - New feature
+ */
 public interface IAchievement {
     /**
      * Get the name of the achievement.

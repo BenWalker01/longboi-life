@@ -146,6 +146,19 @@ public class UIManager {
         }
     }
 
+    /**
+     * Show the achievement pop up.
+     * <p>
+     *     If the last achievement was shown less than 5 seconds ago, don't show another.
+     *     If the queue is empty, don't show anything.
+     *     Otherwise, show the next achievement in the queue.
+     *     The achievement will be shown for 5 seconds.
+     * </p>
+     *
+     * ASSESSMENT 2 - New method
+     *
+     * @param achievementQueue the queue of achievements to show.
+     */
     public void showAchievement(Queue<IAchievement> achievementQueue) {
         long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();
         if (lastAchievementTime - currentTime < 5000) {

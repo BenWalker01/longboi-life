@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
             EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);
         });
 
-        // Initialise achievements manager
+        // ASSESSMENT 2 - Initialise the achievements manager
         achievementsManager = new AchievementsManager();
 
         // Create an input multiplexer to handle input from all sources
@@ -302,7 +302,7 @@ public class GameScreen implements Screen {
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {
             // Update the satisfaction score
             GameUtils.updateSatisfactionScore(world);
-            // Update the achievements
+            // ASSESSMENT 2 - Check for achievements and display them
             achievementsManager.checkAchievements();
             ui.showAchievement(achievementsManager.getAchievementQueue());
         }
