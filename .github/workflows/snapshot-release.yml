@@ -1,0 +1,98 @@
+# Uploads a snapshot release
+#
+# Triggered by 
+# Push new game code (stored in game/core)
+# Manual Trigger
+#
+
+name: Generate snapshot release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - game/core/**
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17 # Perhaps not needed on ubuntu-24
+        uses: actions/setup-java@v2
+        with: 
+          java-version: 17
+          distribution: "temurin"
+      
+      - name: Get current date in YEARwWeek format
+        id: date
+        run: python3 "game/_devUtils/generate_release_date.py"
+
+      - run: echo "-> ${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}"
+      
+      - name: Update build version
+        run: |
+          cd game
+          sed -i '/projectVersion=/c\projectVersion=${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}' gradle.properties
+
+      - name: Build and test
+        run: |
+          cd game
+          chmod +x gradlew 
+          ./gradlew clean build
+      
+      - name: Make jar executable
+        run: chmod +x game/lwjgl3/build/libs/*.jar
+      
+      - name: Zip artifact
+        run: |
+          cd game/lwjgl3/build/libs
+          ls -la
+          zip -r ../Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}.zip .
+      
+      - name: Get last commit message
+        id: last_commit_message
+        run: echo "LAST_COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")" >> $GITHUB_ENV
+
+      - name: Create release
+        id: create_release
+        uses: comnoco/create-release-action@7dea6dc82ac9d97ced7a764aa82811451bba80e0 # v2.0.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # provided by actions
+        with:
+          tag_name: snapshot-${{ steps.date.outputs.date}}-${{ vars.CURRENT_RELEASE_VALUE }}
+          release_name: snapshot-${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}
+          draft: false
+          prerelease: true
+          body: |
+            PreRelease Version, stability not guaranteed
+            ${{ steps.last_commit_message.outputs.LAST_COMMIT_MESSAGE }}
+
+      - name: Upload release asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: game/lwjgl3/build/Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{ vars.CURRENT_RELEASE_VALUE }}.zip
+          asset_name: Longboi-life-snapshot-${{ steps.date.outputs.date }}-${{vars.CURRENT_RELEASE_VALUE }}.zip
+          asset_content_type: application/zip
+        
+      - name: Get next release version
+        id: new_release
+        run: echo "NEW_RELEASE=$(( ${{ vars.CURRENT_RELEASE_VALUE }} + 1 ))" >> $GITHUB_ENV
+
+      
+      - name: Bump release version
+        uses: mmoyaferrer/set-github-variable@dc880eda800cf0f5332f5b4a5730e86327b96815 # v1.0.0
+        with:
+          name: 'CURRENT_RELEASE_VALUE'
+          value: ${{ env.NEW_RELEASE }}
+          repository: BenWalker01/longboi-life
+          token: ${{ secrets.LONGBOI_ACCESS_TOKEN }}

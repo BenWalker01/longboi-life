@@ -4,6 +4,8 @@
 # Push to Main
 #
 
+name: Dependency submission
+
 on:
   push:
     branches:
