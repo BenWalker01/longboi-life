@@ -49,8 +49,8 @@ public class UILeaderboard extends UIElement {
 
         // Put names and scores on hash map
         for (int i = 0; i < namesList.length; i++) {
-          // Update score if user is already on leaderboard
-          if (namesList[i] == username) {
+          // Update score if user is already on leaderboard and has a higher score
+          if (namesList[i].equals(username)) {
             if (score.compareTo(scoresList[i]) == 1) {
               leaderboardHash.put(username, Float.valueOf(score));
               scoresList[i] = score;
@@ -59,6 +59,9 @@ public class UILeaderboard extends UIElement {
                 scores += scoresList[j] + ",";
               }
               LeaderboardPrefs.setScore(scores);
+            }
+            else {
+              leaderboardHash.put(username, Float.valueOf(scoresList[i]));
             }
             userCheck = true;
           }
