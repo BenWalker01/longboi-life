@@ -48,9 +48,12 @@ jobs:
           cd root
           git switch website
           rm -r *
+          ls -la
           rsync -avh ../website/ ./
+          ls -la
           git add .
           git commit -m "Update Website"
+          git status
           git push -u origin +website
           
          
