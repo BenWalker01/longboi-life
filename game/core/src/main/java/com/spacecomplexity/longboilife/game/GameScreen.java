@@ -15,16 +15,12 @@ import com.spacecomplexity.longboilife.MainInputManager;
 import com.spacecomplexity.longboilife.game.achievements.AchievementsManager;
 import com.spacecomplexity.longboilife.game.building.Building;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
-import com.spacecomplexity.longboilife.game.globals.Constants;
-import com.spacecomplexity.longboilife.game.globals.GameState;
-import com.spacecomplexity.longboilife.game.globals.MainCamera;
-import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.*;
 import com.spacecomplexity.longboilife.game.tile.InvalidSaveMapException;
 import com.spacecomplexity.longboilife.game.tile.Tile;
 import com.spacecomplexity.longboilife.game.ui.UIManager;
 import com.spacecomplexity.longboilife.game.utils.*;
 import com.spacecomplexity.longboilife.game.world.World;
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -108,6 +104,9 @@ public class GameScreen implements Screen {
 
         // Initialise the events performed from this script.
         initialiseEvents();
+
+        // Play the game soundtrack
+        Soundtrack.getSoundtrack().play();
     }
 
     /**
@@ -143,6 +142,9 @@ public class GameScreen implements Screen {
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
 
+                // Play the build sound
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
+
                 // Remove the selected building if it is wanted to do so
                 if (Arrays.stream(Constants.dontRemoveSelection)
                         .noneMatch(category -> gameState.placingBuilding.getCategory() == category)) {
@@ -160,6 +162,9 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
+
+                // Play the build sound
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
 
                 // Remove the old moving building and selected building
                 gameState.movingBuilding = null;

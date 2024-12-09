@@ -13,8 +13,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.building.BuildingCategory;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 import com.spacecomplexity.longboilife.game.utils.UIUtils;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
@@ -51,11 +53,12 @@ public class UIBottomMenu extends UIElement {
         for (BuildingCategory category : BuildingCategory.values()) {
             TextButton button = new TextButton(category.getDisplayName(), skin);
 
-            // On click execute function to open the buildMenuTable on the specific category
+            // On click execute function to open the buildMenuTable on the specific category and play the click sound
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     buildMenu.openMenu(category);
+                    new SoundEffect(Filepaths.CLICK_SOUND).play();
                 }
             });
 
@@ -86,6 +89,8 @@ public class UIBottomMenu extends UIElement {
                 // Call the events to pause/resume the game based on the current pause state
                 eventHandler.callEvent(
                         GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
+                // Play the pause sound
+                new SoundEffect(Filepaths.PAUSE_SOUND).play();
             }
         });
         // Place pause button on the table
@@ -110,6 +115,9 @@ public class UIBottomMenu extends UIElement {
             pauseButton.getStyle().up = playDrawable;
             pauseButton.getStyle().down = playDrawable;
 
+            // Pause the soundtrack
+            Soundtrack.getSoundtrack().pause();
+
             return null;
         });
         eventHandler.createEvent(EventHandler.Event.RESUME_GAME, (params) -> {
@@ -122,6 +130,9 @@ public class UIBottomMenu extends UIElement {
             // Change background to ❚❚
             pauseButton.getStyle().up = pauseDrawable;
             pauseButton.getStyle().down = pauseDrawable;
+
+            // Resume the soundtrack
+            Soundtrack.getSoundtrack().play();
 
             return null;
         });

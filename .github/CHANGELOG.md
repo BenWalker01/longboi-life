@@ -18,5 +18,7 @@
 17. [Game] Test - Added tests to check UIUtils class
 18. [Game] Enhancement - Increased default window size to 1440x720 and changed map zoom factor accordingly
 19. [Global] Enhancement - Added actions to release snapshot and stable versions
-20. [Game] Enhancement - Added achievements system
-21. [Game] Enhancement - Added achievements display UI
+20. [Website] Enhancement - Refactor to point to our links, and automatically upload test coverage
+21. [Game] Enhancement - Added the soundtrack and sound effects
+22. [Game] Enhancement - Added achievements system
+23. [Game] Enhancement - Added achievements display UI

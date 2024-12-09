@@ -16,10 +16,12 @@ import com.spacecomplexity.longboilife.game.achievements.IAchievement;
 import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 import java.util.Queue;
 
@@ -105,6 +107,10 @@ public class UIManager {
             uiElements = new UIElement[] {
                     new UIOverview(viewport, table, skin),
             };
+
+            // Pause the soundtrack and play the game over sound
+            Soundtrack.getSoundtrack().pause();
+            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;
         });
