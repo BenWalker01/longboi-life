@@ -1,4 +1,4 @@
-# Changes from v1.0.0 to v
+# Changes from v1.0.0 to v1.1.0
 1. [Global] Enhancement - Added Changelog
 2. [Game] Enhancement - Added class to manage asset filepaths
 3. [Game] Test - Added tests to check assets available
