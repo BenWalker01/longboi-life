@@ -17,7 +17,15 @@ public enum RandomEvents {
         gameState.money *= 1.f + MathUtils.clamp((float)Math.random(), 0.1f, 0.4f); 
         return null;
     }), 
-    ; 
+    ;  
+    private enum BiasType { 
+        LOW_MONEY, 
+        HIGH_MONEY, 
+        DONT_CARE, 
+        HIGH_BUILDING_COUNT, 
+        LOW_BUILDING_COUNT
+    
+    }
     public BiasType biasType;
     public String eventDescription;  
     public Function<Object[], Object> event;
