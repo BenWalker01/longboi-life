@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BuildingType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.building</a> &gt; <span class="el_source">BuildingType.java</span></div><h1>BuildingType.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.building;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.spacecomplexity.longboilife.game.utils.Vector2Int;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
+
+import java.util.stream.Stream;
+
+/**
+ * Contains a list of all buildings, including their default data.
+ */
+<span class="fc" id="L12">public enum BuildingType {</span>
+<span class="fc" id="L13">    GREGGS(&quot;Greggs&quot;, new Texture(Filepaths.GREGGS_ASSET), new Vector2Int(2, 2), BuildingCategory.FOOD, 5000),</span>
+<span class="fc" id="L14">    LIBRARY(&quot;Library&quot;, new Texture(Filepaths.LIBRARY_ASSET), new Vector2Int(4, 4), BuildingCategory.EDUCATIONAL,</span>
+            200000),
+<span class="fc" id="L16">    GYM(&quot;Gym&quot;, new Texture(Filepaths.GYM_ASSET), new Vector2Int(4, 3), BuildingCategory.RECREATIONAL, 80000),</span>
+<span class="fc" id="L17">    HALLS(&quot;Halls&quot;, new Texture(Filepaths.HALLS_ASSET), new Vector2Int(3, 3), BuildingCategory.ACCOMMODATION, 12000),</span>
+<span class="fc" id="L18">    ROAD(&quot;Road&quot;, new Texture(Filepaths.ROAD_STRAIGHT_ASSET), new Vector2Int(1, 1), BuildingCategory.PATHWAY, 100),</span>
+<span class="fc" id="L19">    BASKETBALL(&quot;Basketball&quot;, new Texture(Filepaths.BASKETBALL_ASSET), new Vector2Int(1, 2), BuildingCategory.RECREATIONAL, 2000),</span>
+    ;
+
+    private final String displayName;
+    private final Texture texture;
+    private final Vector2Int size;
+    private final BuildingCategory category;
+    private final float cost;
+
+    /**
+     * Create a {@link BuildingType} with specified attributes.
+     *
+     * @param displayName the name to display when selecting this building.
+     * @param texture     the texture representing the building.
+     * @param size        the size of the building (in tiles).
+     * @param category    the category of the building.
+     * @param cost        the cost to place the building.
+     */
+<span class="fc" id="L37">    BuildingType(String displayName, Texture texture, Vector2Int size, BuildingCategory category, float cost) {</span>
+<span class="fc" id="L38">        this.displayName = displayName;</span>
+<span class="fc" id="L39">        this.texture = texture;</span>
+<span class="fc" id="L40">        this.size = size;</span>
+<span class="fc" id="L41">        this.category = category;</span>
+<span class="fc" id="L42">        this.cost = cost;</span>
+<span class="fc" id="L43">    }</span>
+
+    public Texture getTexture() {
+<span class="nc" id="L46">        return texture;</span>
+    }
+
+    public String getDisplayName() {
+<span class="nc" id="L50">        return displayName;</span>
+    }
+
+    public Vector2Int getSize() {
+<span class="fc" id="L54">        return size;</span>
+    }
+
+    public BuildingCategory getCategory() {
+<span class="fc" id="L58">        return category;</span>
+    }
+
+    public float getCost() {
+<span class="nc" id="L62">        return cost;</span>
+    }
+
+    public static BuildingType[] getBuildingsOfType(BuildingCategory category) {
+<span class="nc" id="L66">        return Stream.of(BuildingType.values())</span>
+<span class="nc" id="L67">                .filter(buildingType -&gt; buildingType.getCategory().equals(category))</span>
+<span class="nc" id="L68">                .toArray(BuildingType[]::new);</span>
+
+    }
+
+    /**
+     * Will dispose of the all loaded assets (like textures).
+     * &lt;p&gt;
+     * &lt;strong&gt;Warning:&lt;/strong&gt; Once disposed of no attributes will be able to be
+     * reloaded, which could lead to undefined behaviour.
+     */
+    public void dispose() {
+<span class="nc" id="L79">        texture.dispose();</span>
+<span class="nc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

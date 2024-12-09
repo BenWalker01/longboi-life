@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CameraManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">CameraManager.java</span></div><h1>CameraManager.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
+import com.spacecomplexity.longboilife.game.globals.Constants;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.world.World;
+
+/**
+ * Manages the camera for rendering the game world.
+ */
+public class CameraManager {
+    private final OrthographicCamera camera;
+    private World world;
+<span class="fc" id="L18">    private final GameState gameState = GameState.getState();</span>
+    public Vector3 position;
+    public float zoom;
+
+    /**
+     * Creates a camera with specified world for clamping.
+     *
+     * @param world the current world to get dimensions from.
+     */
+<span class="fc" id="L27">    public CameraManager(World world) {</span>
+<span class="fc" id="L28">        camera = new OrthographicCamera();</span>
+<span class="fc" id="L29">        this.world = world;</span>
+<span class="fc" id="L30">        position = new Vector3();</span>
+        // ASSESSMENT 2 - Moved default zoom to Constants.DEFAULT_MAP_ZOOM
+<span class="fc" id="L32">        zoom = Constants.DEFAULT_MAP_ZOOM;</span>
+<span class="fc" id="L33">    }</span>
+
+    public OrthographicCamera getCamera() {
+<span class="fc" id="L36">        return camera;</span>
+    }
+
+    /**
+     * Clamps the camera position and zoom to keep it within the specified bounds then calls {@link Camera#update()} to recalculate the cameras matrix.
+     */
+    public void update() {
+        // Clamp the position within the specified bounds to keep it from going over 50% of the screen off the map in any direction
+<span class="fc" id="L44">        position.set(new Vector3(</span>
+<span class="fc" id="L45">            MathUtils.clamp(position.x, 0, world.getWidth() * Constants.TILE_SIZE * gameState.scaleFactor),</span>
+<span class="fc" id="L46">            MathUtils.clamp(position.y, 0, world.getHeight() * Constants.TILE_SIZE * gameState.scaleFactor),</span>
+            0
+        ));
+<span class="fc" id="L49">        camera.position.set(position);</span>
+
+        // Clamp the zoom within the specified bounds
+<span class="fc" id="L52">        zoom = MathUtils.clamp(zoom, Constants.MIN_ZOOM, Constants.MAX_ZOOM);</span>
+<span class="fc" id="L53">        camera.zoom = zoom;</span>
+
+        // Update camera with its new position and zoom levels
+<span class="fc" id="L56">        camera.update();</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Get the combined projection and view matrix from the camera.
+     *
+     * @return the combined projection and view matrix.
+     */
+    public Matrix4 getCombinedMatrix() {
+<span class="nc" id="L65">        return camera.combined;</span>
+    }
+
+    /**
+     * Zoom the camera at a specific location instead of the center of screen.
+     *
+     * @param change     the amount to change the zoom level by.
+     * @param atPosition the position to zoom the camera at in world coordinates.
+     */
+    public void zoomAt(float change, Vector3 atPosition) {
+        // Calculate what the new zoom value will be
+<span class="fc" id="L76">        float newZoom = MathUtils.clamp(zoom + change, Constants.MIN_ZOOM, Constants.MAX_ZOOM);</span>
+
+        // Adjust the camera position based on the zoom factor and the desired zoom position.
+        // This moves the camera towards the specified position (`atPosition`) while compensating for the change in zoom level.
+<span class="fc" id="L80">        float zoomFactor = newZoom / zoom;</span>
+<span class="fc" id="L81">        position.x += (atPosition.x - position.x) * (1 - zoomFactor);</span>
+<span class="fc" id="L82">        position.y += (atPosition.y - position.y) * (1 - zoomFactor);</span>
+
+<span class="fc" id="L84">        zoom = newZoom;</span>
+<span class="fc" id="L85">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

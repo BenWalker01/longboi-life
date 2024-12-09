@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AchievementsManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.achievements</a> &gt; <span class="el_source">AchievementsManager.java</span></div><h1>AchievementsManager.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.achievements;
+
+import com.spacecomplexity.longboilife.game.building.BuildingType;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * Class to manage the achievements in the game.
+ * &lt;p&gt;
+ *     Achievements are checked every frame to see if they have been unlocked. If an achievement is unlocked, it is added to a queue to be displayed to the player.
+ * &lt;/p&gt;
+ * ASSESSMENT 2 - New feature
+ */
+public class AchievementsManager {
+    private final IAchievement[] achievements;
+<span class="nc" id="L18">    private final HashSet&lt;IAchievement&gt; unlockedAchievements = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L19">    private final Queue&lt;IAchievement&gt; achievementQueue = new LinkedList&lt;&gt;();</span>
+
+    /**
+     * Initialises the achievements.
+     */
+<span class="nc" id="L24">    public AchievementsManager() {</span>
+<span class="nc" id="L25">        achievements = new IAchievement[] {</span>
+            new MilestoneAchievement(&quot;First Steps&quot;, &quot;Place your first building&quot;, state -&gt; {
+<span class="nc" id="L27">                int buildingCount = 0;</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">                for (BuildingType buildingType : BuildingType.values()) {</span>
+<span class="nc" id="L29">                    buildingCount += state.getBuildingCount(buildingType);</span>
+                }
+<span class="nc" id="L31">                buildingCount -= state.getBuildingCount(BuildingType.ROAD);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">                return buildingCount &gt; 0;</span>
+            }),
+            new MilestoneAchievement(&quot;Campus Planner&quot;, &quot;Place 10 buildings&quot;, state -&gt; {
+<span class="nc" id="L35">                int buildingCount = 0;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">                for (BuildingType buildingType : BuildingType.values()) {</span>
+<span class="nc" id="L37">                    buildingCount += state.getBuildingCount(buildingType);</span>
+                }
+<span class="nc" id="L39">                buildingCount -= state.getBuildingCount(BuildingType.ROAD);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                return buildingCount &gt;= 10;</span>
+            }),
+            new SustainedAchievement(&quot;Strategic Pause&quot;, &quot;Build no new buildings for 30 seconds&quot;, 30, (state,memory) -&gt; {
+<span class="nc" id="L43">                int buildingCount = 0;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                for (BuildingType buildingType : BuildingType.values()) {</span>
+<span class="nc" id="L45">                    buildingCount += state.getBuildingCount(buildingType);</span>
+                }
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                if (!memory.containsKey(&quot;buildingCount&quot;)) {</span>
+<span class="nc" id="L48">                    memory.put(&quot;buildingCount&quot;, buildingCount);</span>
+                }
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                return buildingCount == (int) memory.get(&quot;buildingCount&quot;);</span>
+            }),
+            new MilestoneAchievement(&quot;Road to Nowhere&quot;, &quot;Have 50 road segments and no other buildings&quot;, state -&gt; {
+<span class="nc" id="L53">                int roadCount = state.getBuildingCount(BuildingType.ROAD);</span>
+<span class="nc" id="L54">                int buildingCount = 0;</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">                for (BuildingType buildingType : BuildingType.values()) {</span>
+<span class="nc" id="L56">                    buildingCount += state.getBuildingCount(buildingType);</span>
+                }
+<span class="nc bnc" id="L58" title="All 4 branches missed.">                return roadCount &gt;= 50 &amp;&amp; buildingCount == roadCount;</span>
+            }),
+            new MilestoneAchievement(&quot;Master Architect&quot;, &quot;Place a building of each type&quot;, state -&gt; {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                for (BuildingType buildingType : BuildingType.values()) {</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                    if (state.getBuildingCount(buildingType) == 0) {</span>
+<span class="nc" id="L63">                        return false;</span>
+                    }
+                }
+<span class="nc" id="L66">                return true;</span>
+            }),
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            new MilestoneAchievement(&quot;Financial Crisis&quot;, &quot;Run out of money&quot;, state -&gt; state.money &lt;= 0)</span>
+        };
+<span class="nc" id="L70">    }</span>
+
+    public IAchievement[] getAchievements() {
+<span class="nc" id="L73">        return achievements;</span>
+    }
+
+    /**
+     * Gets the set of unlocked achievements.
+     *
+     * @return the set of unlocked achievements.
+     */
+    public HashSet&lt;IAchievement&gt; getUnlockedAchievements() {
+<span class="nc" id="L82">        return unlockedAchievements;</span>
+    }
+
+    /**
+     * Resets all achievements.
+     */
+    public void resetAchievements() {
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        for (IAchievement achievement : achievements) {</span>
+<span class="nc" id="L90">            achievement.reset();</span>
+        }
+<span class="nc" id="L92">        unlockedAchievements.clear();</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Checks all achievements to see if they have been unlocked. Adds newly unlocked achievements to the queue.
+     */
+    public void checkAchievements() {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (IAchievement achievement : achievements) {</span>
+<span class="nc bnc" id="L100" title="All 4 branches missed.">            if (!unlockedAchievements.contains(achievement) &amp;&amp; achievement.checkUnlocked()) {</span>
+<span class="nc" id="L101">                unlockedAchievements.add(achievement);</span>
+<span class="nc" id="L102">                achievementQueue.add(achievement);</span>
+<span class="nc" id="L103">                System.out.println(&quot;UNLOCKED: &quot; + achievement.getName() + &quot; - &quot; + achievement.getDescription());</span>
+            }
+        }
+<span class="nc" id="L106">    }</span>
+
+    /**
+     * Gets the queue of achievements.
+     *
+     * @return the queue of achievements.
+     */
+    public Queue&lt;IAchievement&gt; getAchievementQueue() {
+<span class="nc" id="L114">        return achievementQueue;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
