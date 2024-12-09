@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainCamera.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.globals</a> &gt; <span class="el_source">MainCamera.java</span></div><h1>MainCamera.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.globals;
+
+import com.spacecomplexity.longboilife.game.utils.CameraManager;
+
+/**
+ * Class to represent the main camera which can be accessed from anywhere in the game.
+ */
+public class MainCamera {
+<span class="fc" id="L9">    private static final MainCamera mainCamera = new MainCamera();</span>
+
+    private CameraManager camera;
+
+    private MainCamera() {
+    }
+
+    /**
+     * Set the main camera to a {@link CameraManager} instance.
+     *
+     * @param camera the {@link CameraManager} instance.
+     */
+    public static void setMainCamera(CameraManager camera) {
+<span class="fc" id="L22">        mainCamera.camera = camera;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Get the main camera.
+     *
+     * @return the main camera.
+     */
+    public static CameraManager camera() {
+<span class="fc" id="L31">        return mainCamera.camera;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

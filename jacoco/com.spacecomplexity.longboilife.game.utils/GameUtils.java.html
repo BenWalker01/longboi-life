@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">GameUtils.java</span></div><h1>GameUtils.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
+import com.spacecomplexity.longboilife.game.building.Building;
+import com.spacecomplexity.longboilife.game.building.BuildingCategory;
+import com.spacecomplexity.longboilife.game.globals.Constants;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.MainCamera;
+import com.spacecomplexity.longboilife.game.world.World;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+
+/**
+ * A class used for game utilities.
+ */
+<span class="nc" id="L20">public class GameUtils {</span>
+
+    /**
+     * Get the current position of the mouse relative to the world grid.
+     *
+     * @param world the world reference for size.
+     * @return the grid index at the current mouse position.
+     */
+    public static Vector2Int getMouseOnGrid(World world) {
+        // Get the position of mouse in world coordinates
+<span class="fc" id="L30">        Vector3 mouse = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);</span>
+<span class="fc" id="L31">        MainCamera.camera().getCamera().unproject(mouse);</span>
+
+        // Divide these by the cell size (as the world starts at (0, 0))
+<span class="fc" id="L34">        float cellSize = Constants.TILE_SIZE * GameState.getState().scaleFactor;</span>
+<span class="fc" id="L35">        return new Vector2Int(</span>
+<span class="fc" id="L36">            Math.max(0, Math.min((int) (mouse.x / cellSize), world.getWidth() - 1)),</span>
+<span class="fc" id="L37">            Math.max(0, Math.min((int) (mouse.y / cellSize), world.getHeight() - 1))</span>
+        );
+    }
+
+    /**
+     * Calculate and set scaling factors using the window size.
+     */
+    public static void calculateScaling() {
+<span class="nc" id="L45">        int screenHeight = Gdx.graphics.getHeight();</span>
+
+        // If height is 0 then the window is minimised so don't bother calculating as this could cause unintended behaviour with scaling at 0
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (screenHeight == 0)</span>
+<span class="nc" id="L49">            return;</span>
+
+        // Calculate scale factor based on screen height linearly using constant
+<span class="nc" id="L52">        GameState.getState().scaleFactor = screenHeight / (float) Constants.SCALING_1_HEIGHT;</span>
+        // Calculate UI scale factor based on screen height using scaling map
+<span class="nc" id="L54">        GameState.getState().uiScaleFactor = Constants.UI_SCALING_MAP.floorEntry(screenHeight).getValue();</span>
+<span class="nc" id="L55">    }</span>
+
+    /**
+     * Update satisfaction score.
+     * &lt;p&gt;
+     * Satisfaction score is calculated using {@link Constants#satisfactoryDistance}.
+     * For each accommodation building a modifier is created which is updated based on the positioning of other
+     * buildings with on {@link Constants#satisfactoryDistance}. After all modifiers are calculated the worst one is
+     * chosen to act as the satisfaction modifier, this then updates the satisfaction velocity.
+     *
+     * @param world the world reference for buildings.
+     */
+    public static void updateSatisfactionScore(World world) {
+<span class="fc" id="L68">        Vector&lt;Building&gt; buildings = world.getBuildings();</span>
+
+        // Map containing buildings split into categories
+<span class="fc" id="L71">        HashMap&lt;BuildingCategory, Vector&lt;Building&gt;&gt; categorisedBuildings = new HashMap&lt;&gt;();</span>
+
+        // Get categories of buildings which will affect satisfaction score
+<span class="fc" id="L74">        Set&lt;BuildingCategory&gt; searchBuildingCategories = new HashSet&lt;&gt;(Constants.satisfactoryDistance.keySet());</span>
+        // Temporarily add accommodation category so that accommodation buildings will be split out of the main building array
+<span class="fc" id="L76">        searchBuildingCategories.add(BuildingCategory.ACCOMMODATION);</span>
+        // Initialise empty vectors
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc" id="L79">            categorisedBuildings.put(category, new Vector&lt;&gt;());</span>
+<span class="fc" id="L80">        }</span>
+        // Split buildings into categories
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Building building : buildings) {</span>
+<span class="fc" id="L83">            BuildingCategory category = building.getType().getCategory();</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (searchBuildingCategories.contains(category)) {</span>
+<span class="fc" id="L85">                categorisedBuildings.get(category).add(building);</span>
+            }
+<span class="fc" id="L87">        }</span>
+        // Remove the accommodation category
+<span class="fc" id="L89">        searchBuildingCategories.remove(BuildingCategory.ACCOMMODATION);</span>
+
+        // Check if any categories are empty, hence missing required buildings
+<span class="fc" id="L92">        boolean emptyCategory = false;</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (categorisedBuildings.get(category).isEmpty()) {</span>
+<span class="fc" id="L95">                emptyCategory = true;</span>
+            }
+<span class="fc" id="L97">        }</span>
+
+        // If there is, there is not required buildings this will be the default satisfaction modifier
+<span class="fc" id="L100">        float satisfactionModifier = -2000f;</span>
+
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (!emptyCategory) {</span>
+            // Get the maximum distance if items were placed on other sides of the map
+<span class="fc" id="L104">            float mapMax = new Vector2Int(world.getWidth(), world.getHeight()).mag();</span>
+<span class="fc" id="L105">            satisfactionModifier = Float.MAX_VALUE;</span>
+
+            // For every accommodation building
+<span class="fc bfc" id="L108" title="All 2 branches covered.">            for (Building accomidationBuilding : categorisedBuildings.get(BuildingCategory.ACCOMMODATION)) {</span>
+<span class="fc" id="L109">                float modifier = 0;</span>
+
+                // Go through each other category of building
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc" id="L113">                    float closest = mapMax;</span>
+                    // Find the closest of this category of building
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                    for (Building building : categorisedBuildings.get(category)) {</span>
+<span class="fc" id="L116">                        float distance = (accomidationBuilding.getPosition().subtract(building.getPosition())).mag();</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                        if (distance &lt; closest) {</span>
+<span class="fc" id="L118">                            closest = distance;</span>
+                        }
+<span class="fc" id="L120">                    }</span>
+
+                    // Update the modifier by the constants defined with the satisfactory distance from the category
+<span class="fc" id="L123">                    modifier += Constants.satisfactoryDistance.get(category) - closest;</span>
+
+<span class="fc" id="L125">                }</span>
+
+                // Set the overall satisfaction modifier to the worst modifier from all accommodations
+<span class="fc" id="L128">                satisfactionModifier = Math.min(satisfactionModifier, modifier);</span>
+<span class="fc" id="L129">            }</span>
+        }
+
+<span class="fc" id="L132">        GameState gameState = GameState.getState();</span>
+
+        // Update whether the last satisfaction modifier was positive
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        boolean newSatisfactionModifierPositive = satisfactionModifier &gt;= 0;</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (newSatisfactionModifierPositive != gameState.satisfactionModifierPositive) {</span>
+            // Reset satisfaction velocity direction flips
+<span class="fc" id="L138">            gameState.satisfactionScoreVelocity = 0;</span>
+        }
+<span class="fc" id="L140">        gameState.satisfactionModifierPositive = newSatisfactionModifierPositive;</span>
+
+        // Increase satisfaction velocity based on the satisfaction modifier
+<span class="fc" id="L143">        float newSatisfactionVelocity = gameState.satisfactionScoreVelocity + (satisfactionModifier / 1_000_000f);</span>
+        // Limit satisfaction velocity to -1% to 1%
+<span class="fc" id="L145">        newSatisfactionVelocity = Math.max(-0.01f, Math.min(newSatisfactionVelocity, 0.01f));</span>
+<span class="fc" id="L146">        gameState.satisfactionScoreVelocity = newSatisfactionVelocity;</span>
+
+        // Update satisfaction score with velocity
+<span class="fc" id="L149">        float newSatisfactionScore = gameState.satisfactionScore + gameState.satisfactionScoreVelocity * Gdx.graphics.getDeltaTime();</span>
+        // Limit satisfaction score between 0% and 10% * number of accommodation buildings
+<span class="fc" id="L151">        newSatisfactionScore = Math.max(0, Math.min(newSatisfactionScore, Math.min(categorisedBuildings.get(BuildingCategory.ACCOMMODATION).size() * 0.1f, 1f)));</span>
+<span class="fc" id="L152">        gameState.satisfactionScore = newSatisfactionScore;</span>
+<span class="fc" id="L153">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

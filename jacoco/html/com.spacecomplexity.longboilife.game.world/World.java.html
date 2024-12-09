@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>World.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.world</a> &gt; <span class="el_source">World.java</span></div><h1>World.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.world;
+
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.SerializationException;
+import com.spacecomplexity.longboilife.game.building.Building;
+import com.spacecomplexity.longboilife.game.building.BuildingCategory;
+import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.pathways.PathwayPositions;
+import com.spacecomplexity.longboilife.game.tile.InvalidSaveMapException;
+import com.spacecomplexity.longboilife.game.tile.Tile;
+import com.spacecomplexity.longboilife.game.utils.Vector2Int;
+
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Vector;
+
+/**
+ * Represents the game world containing the base tiles and buildings.
+ */
+public class World {
+    private Tile[][] world;
+    public Vector&lt;Building&gt; buildings;
+    private PathwayPositions[][] pathways;
+
+    /**
+     * Creates a new world loaded from a map JSON file.
+     *
+     * @param mapFile the handle to the JSON file containing map.
+     * @throws FileNotFoundException   if the specified file does not exist.
+     * @throws InvalidSaveMapException if the map contains invalid tile names.
+     */
+<span class="fc" id="L36">    public World(FileHandle mapFile) throws FileNotFoundException, InvalidSaveMapException {</span>
+        // If the file does not exist throw an exception
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (!mapFile.exists()) {</span>
+<span class="nc" id="L39">            throw new FileNotFoundException(&quot;File does not exist: \&quot;&quot; + mapFile.name() + &quot;\&quot;&quot;);</span>
+        }
+
+<span class="fc" id="L42">        Json json = new Json();</span>
+
+        try {
+            // Deserialize the JSON data into the SaveMap object
+<span class="fc" id="L46">            SaveMap saveMap = json.fromJson(SaveMap.class, mapFile.readString());</span>
+
+            // Get the Tile[][] from this object
+<span class="fc" id="L49">            world = saveMap.getWorld();</span>
+
+            // Build the buildings onto this world
+<span class="fc" id="L52">            buildings = new Vector&lt;&gt;();</span>
+<span class="fc" id="L53">            pathways = new PathwayPositions[getWidth()][getHeight()];</span>
+<span class="fc" id="L54">            saveMap.buildBuildings(this);</span>
+<span class="nc" id="L55">        } catch (SerializationException e) {</span>
+            // If there is an issue in deserialising throw an exception
+<span class="nc" id="L57">            throw new InvalidSaveMapException(&quot;Issue deserialising map save file \&quot;&quot; + mapFile.name() + &quot;\&quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Retrieves the tile at the specified coordinates.
+     *
+     * @param coordinate the coordinate.
+     * @return the {@link Tile} at the specified coordinates.
+     */
+    public Tile getTile(Vector2Int coordinate) {
+<span class="fc" id="L68">        return world[coordinate.x][coordinate.y];</span>
+    }
+
+    /**
+     * Retrieves the pathway position at the specified coordinates.
+     *
+     * @param coordinate the coordinate.
+     * @return the pathway position the specified coordinates.
+     */
+    public PathwayPositions getPathwayPosition(Vector2Int coordinate) {
+<span class="nc" id="L78">        return pathways[coordinate.x][coordinate.y];</span>
+    }
+
+    public int getHeight() {
+<span class="fc" id="L82">        return world[0].length;</span>
+    }
+
+    public int getWidth() {
+<span class="fc" id="L86">        return world.length;</span>
+    }
+
+    /**
+     * Check if a building can be placed at a specific location in the world.
+     *
+     * @param building   the building we wish to place.
+     * @param coordinate the coordinate of the building.
+     * @return whether this is a valid position to build the building.
+     */
+    public boolean canBuild(BuildingType building, Vector2Int coordinate) {
+<span class="fc" id="L97">        Vector2Int buildingTop = coordinate.add(building.getSize());</span>
+
+        // If the building goes off the edge of the map it is not valid
+<span class="pc bpc" id="L100" title="2 of 4 branches missed.">        if (!isInWorld(coordinate) || !isInWorld(buildingTop.subtract(new Vector2Int(1, 1)))) {</span>
+<span class="nc" id="L101">            return false;</span>
+        }
+
+        // Check if every tile underneath this building is buildable
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (int xi = coordinate.x; xi &lt; buildingTop.x; xi++) {</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            for (int yi = coordinate.y; yi &lt; buildingTop.y; yi++) {</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                if (!getTile(new Vector2Int(xi, yi)).isBuildable()) {</span>
+                    // If a single tile is not then the building placement is invalid
+<span class="nc" id="L109">                    return false;</span>
+                }
+            }
+        }
+
+        // If all tiles are then the building placement is valid
+<span class="fc" id="L115">        return true;</span>
+    }
+
+    /**
+     * Build a building at a specific location in the world.
+     *
+     * @param buildingType the building we wish to place.
+     * @param coordinate   the coordinate of the building.
+     * @throws IllegalStateException if the building cannot be built.
+     */
+    public void build(BuildingType buildingType, Vector2Int coordinate) throws IllegalStateException {
+        // Create the building instance
+<span class="fc" id="L127">        Building building = new Building(buildingType, new Vector2Int(coordinate.x, coordinate.y));</span>
+
+        // Try to build this
+<span class="fc" id="L130">        build(building);</span>
+<span class="fc" id="L131">    }</span>
+
+    /**
+     * Build a building at a specific location in the world.
+     *
+     * @param building   the building to build.
+     * @param coordinate the coordinate of the building.
+     * @throws IllegalStateException if the building cannot be built.
+     */
+    public void build(Building building, Vector2Int coordinate) throws IllegalStateException {
+        // Update the building instance
+<span class="nc" id="L142">        building.setPosition(new Vector2Int(coordinate.x, coordinate.y));</span>
+
+        // Try to build this
+<span class="nc" id="L145">        build(building);</span>
+<span class="nc" id="L146">    }</span>
+
+    /**
+     * Build a building in the world.
+     *
+     * @param building the building to build.
+     * @throws IllegalStateException if the building cannot be built.
+     */
+    public void build(Building building) throws IllegalStateException {
+        // Get the coordinates of where to build the building
+<span class="fc" id="L156">        Vector2Int buildingPosition = building.getPosition();</span>
+
+        // If we cannot build then throw an exception
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if (!canBuild(building.getType(), buildingPosition)) {</span>
+<span class="nc" id="L160">            throw new IllegalStateException(&quot;Building \&quot;&quot; + building.getType().name() + &quot;\&quot; cannot build at (&quot; + buildingPosition.x + &quot;, &quot; + buildingPosition.y + &quot;)&quot;);</span>
+        }
+
+        // Set every tile underneath this building to un-buildable and assign the reference
+<span class="fc" id="L164">        Vector2Int buildingSize = building.getType().getSize();</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        for (int xi = buildingPosition.x; xi &lt; buildingPosition.x + buildingSize.x; xi++) {</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            for (int yi = buildingPosition.y; yi &lt; buildingPosition.y + buildingSize.y; yi++) {</span>
+<span class="fc" id="L167">                Tile tile = getTile(new Vector2Int(xi, yi));</span>
+<span class="fc" id="L168">                tile.setBuildingRef(building);</span>
+<span class="fc" id="L169">                tile.setBuildable(false);</span>
+
+            }
+        }
+
+<span class="fc" id="L174">        buildings.add(building);</span>
+
+        // If building is a pathway then calculate and add the type to the pathways grid
+<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (building.getType().getCategory() == BuildingCategory.PATHWAY) {</span>
+<span class="fc" id="L178">            updatePathwayPosition(buildingPosition);</span>
+        }
+
+        // Update the game state counter with the new building
+<span class="fc" id="L182">        GameState.getState().changeBuildingCount(building.getType(), 1);</span>
+<span class="fc" id="L183">    }</span>
+
+    /**
+     * Remove a building from the world.
+     *
+     * @param building the building to remove.
+     */
+    public void demolish(Building building) {
+        // Set every tile underneath this building to its original buildable state and remove the building reference
+<span class="nc" id="L192">        Vector2Int buildingSize = building.getType().getSize();</span>
+<span class="nc" id="L193">        Vector2Int buildingPosition = building.getPosition();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        for (int xi = buildingPosition.x; xi &lt; buildingPosition.x + buildingSize.x; xi++) {</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            for (int yi = buildingPosition.y; yi &lt; buildingPosition.y + buildingSize.y; yi++) {</span>
+<span class="nc" id="L196">                Tile tile = getTile(new Vector2Int(xi, yi));</span>
+<span class="nc" id="L197">                tile.setBuildingRef(null);</span>
+<span class="nc" id="L198">                tile.setBuildable(tile.getType().isNaturallyBuildable());</span>
+            }
+        }
+
+<span class="nc" id="L202">        buildings.remove(building);</span>
+
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (building.getType().getCategory() == BuildingCategory.PATHWAY) {</span>
+<span class="nc" id="L205">            pathways[buildingPosition.x][buildingPosition.y] = null;</span>
+
+<span class="nc" id="L207">            BuildingType thisBuildingType = building.getType();</span>
+
+            // Get neighbouring pathways
+<span class="nc" id="L210">            Vector2Int[] neighbours = new Vector2Int[]{</span>
+                new Vector2Int(buildingPosition.x, buildingPosition.y + 1),
+                new Vector2Int(buildingPosition.x + 1, buildingPosition.y),
+                new Vector2Int(buildingPosition.x, buildingPosition.y - 1),
+                new Vector2Int(buildingPosition.x - 1, buildingPosition.y)
+            };
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            for (Vector2Int neighbour : neighbours) {</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">                if (isOurPathway(neighbour, thisBuildingType)) {</span>
+<span class="nc" id="L218">                    updatePathwayPosition(neighbour);</span>
+
+                }
+            }
+        }
+
+        // Update the game state counter with the removal of the building
+<span class="nc" id="L225">        GameState.getState().changeBuildingCount(building.getType(), -1);</span>
+<span class="nc" id="L226">    }</span>
+
+
+    /**
+     * Map of encoded neighbouring paths and the respective layout of this path.
+     * &lt;p&gt;
+     * The key is represented by a 4-bit binary number 0b(top)(right)(bottom)(left
+     */
+<span class="fc" id="L234">    private static final HashMap&lt;Integer, PathwayPositions&gt; pathwayPositionsMap = new HashMap&lt;&gt;() {</span>
+        {
+<span class="fc" id="L236">            put(0b1000, PathwayPositions.TOP_BOTTOM);</span>
+<span class="fc" id="L237">            put(0b0010, PathwayPositions.TOP_BOTTOM);</span>
+<span class="fc" id="L238">            put(0b0100, PathwayPositions.LEFT_RIGHT);</span>
+<span class="fc" id="L239">            put(0b0001, PathwayPositions.LEFT_RIGHT);</span>
+<span class="fc" id="L240">            put(0b1010, PathwayPositions.TOP_BOTTOM);</span>
+<span class="fc" id="L241">            put(0b0101, PathwayPositions.LEFT_RIGHT);</span>
+<span class="fc" id="L242">            put(0b1001, PathwayPositions.LEFT_TOP);</span>
+<span class="fc" id="L243">            put(0b1100, PathwayPositions.TOP_RIGHT);</span>
+<span class="fc" id="L244">            put(0b0110, PathwayPositions.RIGHT_BOTTOM);</span>
+<span class="fc" id="L245">            put(0b0011, PathwayPositions.BOTTOM_LEFT);</span>
+<span class="fc" id="L246">            put(0b1101, PathwayPositions.LEFT_TOP_RIGHT);</span>
+<span class="fc" id="L247">            put(0b1110, PathwayPositions.TOP_RIGHT_BOTTOM);</span>
+<span class="fc" id="L248">            put(0b0111, PathwayPositions.RIGHT_BOTTOM_LEFT);</span>
+<span class="fc" id="L249">            put(0b1011, PathwayPositions.BOTTOM_LEFT_TOP);</span>
+<span class="fc" id="L250">            put(0b1111, PathwayPositions.TOP_LEFT_BOTTOM_RIGHT);</span>
+<span class="fc" id="L251">        }</span>
+    };
+
+    /**
+     * Update the pathways on the board recursively starting at the coordinates given.
+     *
+     * @param coordinate the coordinate of the pathway.
+     */
+    private void updatePathwayPosition(Vector2Int coordinate) {
+        // If there is no building on this tile then do nothing.
+<span class="fc" id="L261">        Building thisBuilding = getTile(coordinate).getBuildingRef();</span>
+<span class="pc bpc" id="L262" title="1 of 2 branches missed.">        if (thisBuilding == null) {</span>
+<span class="nc" id="L263">            return;</span>
+        }
+        // If the building is not a pathway then ignore
+<span class="fc" id="L266">        BuildingType thisBuildingType = thisBuilding.getType();</span>
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">        if (thisBuildingType.getCategory() != BuildingCategory.PATHWAY) {</span>
+<span class="nc" id="L268">            return;</span>
+        }
+
+        // Call recursive function with an empty vector as no pathways have been set
+<span class="fc" id="L272">        updatePathwayPosition(coordinate, new Vector&lt;&gt;());</span>
+<span class="fc" id="L273">    }</span>
+
+    /**
+     * Update the pathways on the board recursively starting at the coordinates given.
+     * &lt;p&gt;
+     * This should only be called recursive from this function and the starter function.
+     *
+     * @param coordinate      the coordinate of the pathway.
+     * @param updatedPathways a list of all pathways which have already been updated.
+     */
+    private void updatePathwayPosition(Vector2Int coordinate, Vector&lt;Vector2Int&gt; updatedPathways) {
+        // If this pathway has already been done then ignore
+<span class="fc bfc" id="L285" title="All 2 branches covered.">        if (updatedPathways.contains(coordinate)) {</span>
+<span class="fc" id="L286">            return;</span>
+        }
+
+<span class="fc" id="L289">        BuildingType thisBuildingType = getTile(coordinate).getBuildingRef().getType();</span>
+
+        // Get neighbouring pathways
+<span class="fc" id="L292">        boolean top = isOurPathway(new Vector2Int(coordinate.x, coordinate.y + 1), thisBuildingType);</span>
+<span class="fc" id="L293">        boolean right = isOurPathway(new Vector2Int(coordinate.x + 1, coordinate.y), thisBuildingType);</span>
+<span class="fc" id="L294">        boolean bottom = isOurPathway(new Vector2Int(coordinate.x, coordinate.y - 1), thisBuildingType);</span>
+<span class="fc" id="L295">        boolean left = isOurPathway(new Vector2Int(coordinate.x - 1, coordinate.y), thisBuildingType);</span>
+
+        // Encode our neighboring paths to query the map for the layout
+<span class="fc bfc" id="L298" title="All 8 branches covered.">        int code = (top ? 1 : 0) &lt;&lt; 3 | (right ? 1 : 0) &lt;&lt; 2 | (bottom ? 1 : 0) &lt;&lt; 1 | (left ? 1 : 0);</span>
+<span class="fc" id="L299">        PathwayPositions position = pathwayPositionsMap.get(code);</span>
+        // If this is not specified default to straight
+<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (position == null) {</span>
+<span class="fc" id="L302">            position = PathwayPositions.TOP_BOTTOM;</span>
+        }
+
+<span class="fc" id="L305">        pathways[coordinate.x][coordinate.y] = position;</span>
+
+        // Recursively set nearby pathways positions
+        // The initial checks have already been done as `isOurPathway` will only return true if these passed
+<span class="fc" id="L309">        updatedPathways.add(new Vector2Int(coordinate.x, coordinate.y));</span>
+
+<span class="fc bfc" id="L311" title="All 2 branches covered.">        if (top) {</span>
+<span class="fc" id="L312">            updatePathwayPosition(new Vector2Int(coordinate.x, coordinate.y + 1), updatedPathways);</span>
+        }
+<span class="fc bfc" id="L314" title="All 2 branches covered.">        if (right) {</span>
+<span class="fc" id="L315">            updatePathwayPosition(new Vector2Int(coordinate.x + 1, coordinate.y), updatedPathways);</span>
+        }
+<span class="fc bfc" id="L317" title="All 2 branches covered.">        if (bottom) {</span>
+<span class="fc" id="L318">            updatePathwayPosition(new Vector2Int(coordinate.x, coordinate.y - 1), updatedPathways);</span>
+        }
+<span class="fc bfc" id="L320" title="All 2 branches covered.">        if (left) {</span>
+<span class="fc" id="L321">            updatePathwayPosition(new Vector2Int(coordinate.x - 1, coordinate.y), updatedPathways);</span>
+        }
+<span class="fc" id="L323">    }</span>
+
+    /**
+     * Returns if the coordinate supplied it outside the bounds of the world.
+     *
+     * @param coordinate the coordinate.
+     * @return true if the coordinate is in the world bounds.
+     */
+    private boolean isInWorld(Vector2Int coordinate) {
+<span class="pc bpc" id="L332" title="2 of 8 branches missed.">        return coordinate.x &gt;= 0 &amp;&amp; coordinate.x &lt; getWidth() &amp;&amp; coordinate.y &gt;= 0 &amp;&amp; coordinate.y &lt; getHeight();</span>
+    }
+
+    /**
+     * Check if a pathway is the same as a specified one.
+     *
+     * @param coordinate  the coordinate of the pathway
+     * @param thisPathway the pathway to check/match too.
+     * @return if the pathway at (x, y) is the same as the pathway specified.
+     */
+    private boolean isOurPathway(Vector2Int coordinate, BuildingType thisPathway) {
+        // Check this is in the worlds bounds
+<span class="fc bfc" id="L344" title="All 2 branches covered.">        if (!isInWorld(coordinate)) {</span>
+<span class="fc" id="L345">            return false;</span>
+        }
+
+        // Get the building on this tile
+<span class="fc" id="L349">        Building ref = getTile(coordinate).getBuildingRef();</span>
+        // If there is no building return false
+        // If there is a building only return true if it is the same pathway as this
+<span class="pc bpc" id="L352" title="1 of 4 branches missed.">        return ref != null &amp;&amp; ref.getType() == thisPathway;</span>
+    }
+
+    /**
+     * Breadth first search along pathways to calculate the distance between two positions.
+     *
+     * @param from coordinates of the location to search from.
+     * @param to   coordinates of the location to search for.
+     * @return the distance in tiles to travel, -1 if there is no path.
+     */
+    public int getPathDistance(Vector2Int from, Vector2Int to) {
+<span class="nc bnc" id="L363" title="All 2 branches missed.">        if (pathways[from.x][from.y] == null) {</span>
+<span class="nc" id="L364">            return -1;</span>
+        }
+<span class="nc bnc" id="L366" title="All 2 branches missed.">        if (pathways[to.x][to.y] == null) {</span>
+<span class="nc" id="L367">            return -1;</span>
+        }
+
+<span class="nc" id="L370">        Queue&lt;Vector2Int&gt; queue = new LinkedList&lt;&gt;() {{</span>
+<span class="nc" id="L371">            add(from);</span>
+<span class="nc" id="L372">        }};</span>
+<span class="nc" id="L373">        Vector&lt;Vector2Int&gt; visited = new Vector&lt;&gt;();</span>
+
+        // Distance counter
+<span class="nc" id="L376">        int distance = 0;</span>
+
+        // While there are still tiles to search
+<span class="nc bnc" id="L379" title="All 2 branches missed.">        while (!queue.isEmpty()) {</span>
+<span class="nc" id="L380">            int size = queue.size();</span>
+
+            // Process each level in the queue
+<span class="nc bnc" id="L383" title="All 2 branches missed.">            for (int i = 0; i &lt; size; i++) {</span>
+<span class="nc" id="L384">                Vector2Int current = queue.poll();</span>
+
+                // If we reached the target position return this distance
+<span class="nc bnc" id="L387" title="All 2 branches missed.">                if (current.equals(to)) {</span>
+<span class="nc" id="L388">                    return distance;</span>
+                }
+
+                // Explore neighbors
+<span class="nc" id="L392">                Vector2Int[] possibleNext = new Vector2Int[]{</span>
+                    new Vector2Int(current.x, current.y + 1),
+                    new Vector2Int(current.x + 1, current.y),
+                    new Vector2Int(current.x, current.y - 1),
+                    new Vector2Int(current.x - 1, current.y),
+                };
+<span class="nc bnc" id="L398" title="All 2 branches missed.">                for (Vector2Int next : possibleNext) {</span>
+
+                    // If this has been visited before don't search it again
+<span class="nc bnc" id="L401" title="All 2 branches missed.">                    if (visited.contains(next)) {</span>
+<span class="nc" id="L402">                        continue;</span>
+                    }
+                    // If this is outside the worlds bounds don't search it
+<span class="nc bnc" id="L405" title="All 2 branches missed.">                    if (!isInWorld(next)) {</span>
+<span class="nc" id="L406">                        continue;</span>
+                    }
+                    // If this is not a pathway don't search it
+<span class="nc bnc" id="L409" title="All 2 branches missed.">                    if (pathways[next.x][next.y] == null) {</span>
+<span class="nc" id="L410">                        continue;</span>
+                    }
+
+                    // Add this neighbour to be searched
+<span class="nc" id="L414">                    queue.add(next);</span>
+                }
+
+                // Mark the current position as visited
+<span class="nc" id="L418">                visited.add(current);</span>
+
+            }
+            // Increment distance after processing the current level
+<span class="nc" id="L422">            distance++;</span>
+<span class="nc" id="L423">        }</span>
+
+        // Return -1 if there is no path
+<span class="nc" id="L426">        return -1;</span>
+    }
+
+    public Vector&lt;Building&gt; getBuildings() {
+<span class="fc" id="L430">        return buildings;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

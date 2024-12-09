@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UIClockMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.ui.game</a> &gt; <span class="el_source">UIClockMenu.java</span></div><h1>UIClockMenu.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.ui.game;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.ui.UIElement;
+
+/**
+ * Class to represent the Clock UI.
+ */
+public class UIClockMenu extends UIElement {
+    private Label label;
+
+<span class="nc" id="L18">    private final MainTimer mainTimer = MainTimer.getTimerManager();</span>
+
+    /**
+     * Initialise clock menu elements.
+     *
+     * @param uiViewport  the viewport used to render UI.
+     * @param parentTable the table to render this element onto.
+     * @param skin        the provided skin.
+     */
+    public UIClockMenu(Viewport uiViewport, Table parentTable, Skin skin) {
+<span class="nc" id="L28">        super(uiViewport, parentTable, skin);</span>
+
+        // Initialise time label
+<span class="nc" id="L31">        label = new Label(null, skin);</span>
+<span class="nc" id="L32">        label.setFontScale(1.5f);</span>
+<span class="nc" id="L33">        label.setColor(Color.WHITE);</span>
+
+        // Place label onto table
+<span class="nc" id="L36">        table.add(label).align(Align.center);</span>
+
+        // Style and place the table
+<span class="nc" id="L39">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L40">        table.setSize(75, 50);</span>
+<span class="nc" id="L41">        placeTable();</span>
+<span class="nc" id="L42">    }</span>
+
+    public void render() {
+<span class="nc" id="L45">        setTime(mainTimer.getTimer().getTimeLeft() / 1000);</span>
+<span class="nc" id="L46">    }</span>
+
+    /**
+     * Set the labels on the clock menu to the time given.
+     *
+     * @param time the time in seconds
+     */
+    private void setTime(long time) {
+        // Format this onto the time label
+<span class="nc" id="L55">        label.setText(String.format(&quot;%d:%02d&quot;, time / 60, time % 60));</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    protected void placeTable() {
+<span class="nc" id="L60">        table.setPosition(0, uiViewport.getWorldHeight() - table.getHeight());</span>
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

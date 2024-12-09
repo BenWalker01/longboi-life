@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SustainedAchievement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.achievements</a> &gt; <span class="el_source">SustainedAchievement.java</span></div><h1>SustainedAchievement.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.achievements;
+
+import com.spacecomplexity.longboilife.game.globals.GameState;
+
+import java.util.HashMap;
+import java.util.function.BiPredicate;
+
+/**
+ * Class to represent a sustained achievement - unlocked when criterion is met for a sustained period of time.
+ *
+ * ASSESSMENT 2 - New feature
+ */
+public class SustainedAchievement implements IAchievement {
+    private final String name;
+    private final String description;
+    private final BiPredicate&lt;GameState, HashMap&lt;String, Object&gt;&gt; criterion;
+<span class="nc" id="L17">    private HashMap&lt;String, Object&gt; memory = new HashMap&lt;&gt;();</span>
+    private boolean unlocked;
+    private long startTime;
+    private final long threshold;
+
+    /**
+     * Create a new sustained achievement.
+     *
+     * @param name name of the achievement
+     * @param description description of the achievement
+     * @param threshold time in seconds the criterion must be met for
+     * @param criterion criterion to unlock the achievement
+     */
+<span class="nc" id="L30">    public SustainedAchievement(String name, String description, int threshold, BiPredicate&lt;GameState, HashMap&lt;String, Object&gt;&gt; criterion) {</span>
+<span class="nc" id="L31">        this.name = name;</span>
+<span class="nc" id="L32">        this.description = description;</span>
+<span class="nc" id="L33">        this.criterion = criterion;</span>
+<span class="nc" id="L34">        this.threshold = threshold * 1000;</span>
+<span class="nc" id="L35">        this.unlocked = false;</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getName() {
+<span class="nc" id="L40">        return name;</span>
+    }
+
+    @Override
+    public String getDescription() {
+<span class="nc" id="L45">        return description;</span>
+    }
+
+    @Override
+    public boolean checkUnlocked() {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (!unlocked) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (criterion.test(GameState.getState(), memory)) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (startTime == 0) {</span>
+<span class="nc" id="L53">                    startTime = System.currentTimeMillis();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                } else if (System.currentTimeMillis() - startTime &gt;= threshold) {</span>
+<span class="nc" id="L55">                    unlocked = true;</span>
+                }
+            } else {
+<span class="nc" id="L58">                reset();</span>
+            }
+        }
+<span class="nc" id="L61">        return unlocked;</span>
+    }
+
+    @Override
+    public void reset() {
+<span class="nc" id="L66">        startTime = 0;</span>
+<span class="nc" id="L67">        unlocked = false;</span>
+<span class="nc" id="L68">        memory = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

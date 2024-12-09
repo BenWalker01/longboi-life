@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">EventHandler.java</span></div><h1>EventHandler.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import java.util.function.Function;
+
+/**
+ * CLass to manage events which can be called from anywhere within the game.
+ */
+<span class="fc" id="L8">public class EventHandler {</span>
+<span class="fc" id="L9">    public enum Event {</span>
+<span class="fc" id="L10">        BUILD,</span>
+<span class="fc" id="L11">        SELECT_BUILDING,</span>
+<span class="fc" id="L12">        CANCEL_OPERATIONS,</span>
+<span class="fc" id="L13">        SELL_BUILDING,</span>
+<span class="fc" id="L14">        MOVE_BUILDING,</span>
+<span class="fc" id="L15">        PAUSE_GAME,</span>
+<span class="fc" id="L16">        RESUME_GAME,</span>
+<span class="fc" id="L17">        OPEN_SELECTED_MENU,</span>
+<span class="fc" id="L18">        CLOSE_SELECTED_MENU,</span>
+<span class="fc" id="L19">        CLOSE_BUILD_MENU,</span>
+<span class="fc" id="L20">        GAME_END,</span>
+<span class="fc" id="L21">        RETURN_MENU,</span>
+        ;
+
+        private Function&lt;Object[], Object&gt; callback;
+
+        private void setCallback(Function&lt;Object[], Object&gt; callback) {
+<span class="fc" id="L27">            this.callback = callback;</span>
+<span class="fc" id="L28">        }</span>
+
+        private Function&lt;Object[], Object&gt; getCallback() {
+<span class="fc" id="L31">            return callback;</span>
+        }
+    }
+
+<span class="fc" id="L35">    private static final EventHandler eventHandler = new EventHandler();</span>
+
+    /**
+     * Create an event.
+     *
+     * @param event    the enum the event, needed when called.
+     * @param callback the event method, this is what will be executed.
+     */
+    public void createEvent(Event event, Function&lt;Object[], Object&gt; callback) { 
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (event == null) { </span>
+<span class="fc" id="L45">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
+        }
+<span class="fc" id="L47">        event.setCallback(callback);</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Call a previously defined event.
+     *
+     * @param event  the enum of the event defined.
+     * @param params the parameter to pass to the event.
+     * @return what the original event would return, this will need to be cast as we cannot know the type here.
+     * @throws IllegalArgumentException if the event has not been defined.
+     */
+    public Object callEvent(Event event, Object... params) throws IllegalArgumentException { 
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (event == null) { </span>
+<span class="fc" id="L60">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
+        } 
+        
+<span class="fc" id="L63">        Function&lt;Object[], Object&gt; callback = event.getCallback();</span>
+
+        // If the callback is not defined then throw an error
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (callback == null) {</span>
+<span class="fc" id="L67">            throw new IllegalArgumentException(&quot;No event defined for: \&quot;&quot; + event.name() + &quot;\&quot;&quot;);</span>
+        }
+
+        // Execute the callback and return the result
+<span class="fc" id="L71">        return callback.apply(params);</span>
+    }
+
+    /**
+     * Get the singleton instance of the {@link EventHandler} class.
+     *
+     * @return The single {@link EventHandler} class.
+     */
+    public static EventHandler getEventHandler() {
+<span class="fc" id="L80">        return eventHandler;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
