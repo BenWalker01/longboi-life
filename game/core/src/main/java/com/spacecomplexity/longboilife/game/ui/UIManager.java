@@ -110,7 +110,6 @@ public class UIManager {
             uiElements = new ArrayList<>();  
 
             uiElements.add(new UIOverview(viewport, table, skin));
-            uiElements.add(new UILeaderboard(viewport, table, skin));
 
             // Pause the soundtrack and play the game over sound
             Soundtrack.getSoundtrack().pause();

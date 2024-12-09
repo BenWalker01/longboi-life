@@ -52,5 +52,4 @@ public class Filepaths {
     public static final String BUILD_SOUND = "audio/12_exchange.wav";
     public static final String SELL_SOUND = "audio/50_flowers.wav";
     public static final String PAUSE_SOUND = "audio/48_skip.wav"; 
-    public static final String LEADERBOARD_ASSET = "";
 }
