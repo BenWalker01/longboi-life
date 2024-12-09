@@ -45,4 +45,10 @@ public class Filepaths {
     public static final String SKIN_PNG_ASSET = "ui/skin/uiskin.png";
 
     public static final String SOUNDTRACK = "backgroundsong.wav";
+
+    public static final String GAME_OVER_SOUND = "gameover.mp3";
+
+    public static final String CLICK_SOUND = "05_cursor1.wav";
+
+    public static final String SELECT_BUILDING_TYPE_SOUND = "10_select2.wav";
 }

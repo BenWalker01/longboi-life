@@ -19,6 +19,7 @@ import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 /**
  * Class to manage the UI in the game.
@@ -101,6 +102,8 @@ public class UIManager {
             };
 
             Soundtrack.getSoundtrack().pause();
+
+            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;
         });

@@ -10,9 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.building.BuildingCategory;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 import com.spacecomplexity.longboilife.game.utils.Vector2Int;
 
 import java.text.NumberFormat;
@@ -23,6 +25,8 @@ import java.util.Locale;
  */
 public class UIBuildMenu extends UIElement {
     private final Skin skin;
+
+    private final SoundEffect selectBuildingSound;
 
     /**
      * Initialise build menu elements.
@@ -35,6 +39,8 @@ public class UIBuildMenu extends UIElement {
         super(uiViewport, parentTable, skin);
 
         this.skin = skin;
+
+        selectBuildingSound = new SoundEffect(Filepaths.SELECT_BUILDING_TYPE_SOUND);
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
@@ -85,6 +91,8 @@ public class UIBuildMenu extends UIElement {
                     EventHandler.getEventHandler().callEvent(EventHandler.Event.CANCEL_OPERATIONS);
 
                     GameState.getState().placingBuilding = building;
+
+                    selectBuildingSound.play();
                 }
             });
 

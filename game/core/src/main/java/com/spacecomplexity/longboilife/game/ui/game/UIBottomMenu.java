@@ -16,6 +16,7 @@ import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 import com.spacecomplexity.longboilife.game.utils.UIUtils;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
@@ -30,6 +31,8 @@ public class UIBottomMenu extends UIElement {
 
     private UIBuildMenu buildMenu;
     private UIPauseScreen pauseScreen;
+
+    private SoundEffect clickSound;
 
     /**
      * Initialise bottom menu elements.
@@ -46,6 +49,8 @@ public class UIBottomMenu extends UIElement {
         buildMenu = new UIBuildMenu(uiViewport, parentTable, skin);
         pauseScreen = new UIPauseScreen(uiViewport, parentTable, skin);
 
+        clickSound = new SoundEffect(Filepaths.CLICK_SOUND);
+
         // Place building buttons on separate table for condensed styling
         Table buildingButtonsTable = new Table(skin);
         // Initialise building buttons
@@ -57,6 +62,7 @@ public class UIBottomMenu extends UIElement {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     buildMenu.openMenu(category);
+                    clickSound.play();
                 }
             });
 
@@ -87,6 +93,7 @@ public class UIBottomMenu extends UIElement {
                 // Call the events to pause/resume the game based on the current pause state
                 eventHandler.callEvent(
                         GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
+                clickSound.play();
             }
         });
         // Place pause button on the table
