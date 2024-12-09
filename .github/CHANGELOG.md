@@ -22,3 +22,5 @@
 21. [Game] Enhancement - Added the soundtrack and sound effects
 22. [Game] Enhancement - Added achievements system
 23. [Game] Enhancement - Added achievements display UI
+24. [Game] Bug fix - Counter background not resizing with counter text
+
