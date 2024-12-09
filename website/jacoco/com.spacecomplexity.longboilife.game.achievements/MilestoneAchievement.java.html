@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MilestoneAchievement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.achievements</a> &gt; <span class="el_source">MilestoneAchievement.java</span></div><h1>MilestoneAchievement.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.achievements;
+
+import com.spacecomplexity.longboilife.game.globals.GameState;
+
+import java.util.function.Predicate;
+
+/**
+ * Class to represent a milestone achievement - unlocked when criterion is met once.
+ *
+ * ASSESSMENT 2 - New feature
+ */
+public class MilestoneAchievement implements IAchievement {
+    private final String name;
+    private final String description;
+    private final Predicate&lt;GameState&gt; criterion;
+    private boolean unlocked;
+
+    /**
+     * Create a new milestone achievement.
+     *
+     * @param name name of the achievement
+     * @param description description of the achievement
+     * @param criterion criterion to unlock the achievement
+     */
+<span class="nc" id="L25">    public MilestoneAchievement(String name, String description, Predicate&lt;GameState&gt; criterion) {</span>
+<span class="nc" id="L26">        this.name = name;</span>
+<span class="nc" id="L27">        this.description = description;</span>
+<span class="nc" id="L28">        this.unlocked = false;</span>
+<span class="nc" id="L29">        this.criterion = criterion;</span>
+<span class="nc" id="L30">    }</span>
+
+    @Override
+    public String getName() {
+<span class="nc" id="L34">        return name;</span>
+    }
+
+    @Override
+    public String getDescription() {
+<span class="nc" id="L39">        return description;</span>
+    }
+
+    @Override
+    public boolean checkUnlocked() {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (!unlocked) {</span>
+<span class="nc" id="L45">            unlocked = criterion.test(GameState.getState());</span>
+        }
+<span class="nc" id="L47">        return unlocked;</span>
+    }
+
+    @Override
+    public void reset() {
+<span class="nc" id="L52">        unlocked = false;</span>
+<span class="nc" id="L53">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

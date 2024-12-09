@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TileType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.tile</a> &gt; <span class="el_source">TileType.java</span></div><h1>TileType.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.tile;
+
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.badlogic.gdx.graphics.Texture;
+
+/**
+ * Contains a list of all tile types, including there default data.
+ */
+<span class="fc" id="L9">public enum TileType {</span>
+<span class="fc" id="L10">    GRASS(new Texture(Filepaths.GRASS_TILE_ASSET), true),</span>
+<span class="fc" id="L11">    WATER(new Texture(Filepaths.WATER_TILE_ASSET), false),</span>
+    ;
+
+    private final Texture texture;
+    private final boolean isNaturallyBuildable;
+
+    /**
+     * Constructor to create a {@link TileType} with specified attributes.
+     *
+     * @param texture              the texture representing the tile.
+     * @param isNaturallyBuildable a boolean indicating if the tile can be built on.
+     */
+<span class="fc" id="L23">    TileType(Texture texture, boolean isNaturallyBuildable) {</span>
+<span class="fc" id="L24">        this.texture = texture;</span>
+<span class="fc" id="L25">        this.isNaturallyBuildable = isNaturallyBuildable;</span>
+<span class="fc" id="L26">    }</span>
+
+    public Texture getTexture() {
+<span class="nc" id="L29">        return texture;</span>
+    }
+
+    /**
+     * Get whether this type of tile is allowed to be built on.
+     *
+     * @return whether this type of tile is allowed to be built on.
+     */
+    public boolean isNaturallyBuildable() {
+<span class="fc" id="L38">        return isNaturallyBuildable;</span>
+    }
+
+    /**
+     * Will dispose of the all loaded assets (like textures).
+     * &lt;p&gt;
+     * &lt;strong&gt;Warning:&lt;/strong&gt; Once disposed of no attributes will be able to be
+     * reloaded, which could lead to undefined behaviour.
+     */
+    public void dispose() {
+<span class="nc" id="L48">        texture.dispose();</span>
+<span class="nc" id="L49">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
