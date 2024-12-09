@@ -20,3 +20,5 @@
 19. [Global] Enhancement - Added actions to release snapshot and stable versions
 20. [Website] Enhancement - Refactor to point to our links, and automatically upload test coverage
 21. [Game] Enhancement - Added the soundtrack and sound effects
+22. [Game] Enhancement - Added achievements system
+23. [Game] Enhancement - Added achievements display UI
