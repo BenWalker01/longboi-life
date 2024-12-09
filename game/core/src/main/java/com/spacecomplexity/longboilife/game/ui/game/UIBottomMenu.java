@@ -93,7 +93,7 @@ public class UIBottomMenu extends UIElement {
                 // Call the events to pause/resume the game based on the current pause state
                 eventHandler.callEvent(
                         GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
-                clickSound.play();
+                new SoundEffect(Filepaths.PAUSE_SOUND).play();
             }
         });
         // Place pause button on the table

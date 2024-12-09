@@ -136,6 +136,8 @@ public class GameScreen implements Screen {
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
 
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
+
                 // Remove the selected building if it is wanted to do so
                 if (Arrays.stream(Constants.dontRemoveSelection)
                         .noneMatch(category -> gameState.placingBuilding.getCategory() == category)) {
@@ -153,6 +155,8 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
+
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
 
                 // Remove the old moving building and selected building
                 gameState.movingBuilding = null;

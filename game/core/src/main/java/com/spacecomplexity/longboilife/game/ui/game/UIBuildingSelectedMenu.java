@@ -9,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.globals.Constants;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainCamera;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -49,6 +51,8 @@ public class UIBuildingSelectedMenu extends UIElement {
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to sell the selected building
                 eventHandler.callEvent(EventHandler.Event.MOVE_BUILDING);
+
+                new SoundEffect(Filepaths.CLICK_SOUND).play();
             }
         });
 
@@ -61,6 +65,7 @@ public class UIBuildingSelectedMenu extends UIElement {
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to sell the selected building
                 eventHandler.callEvent(EventHandler.Event.SELL_BUILDING);
+                new SoundEffect(Filepaths.SELL_SOUND).play();
 
                 closeMenu();
             }
@@ -81,6 +86,7 @@ public class UIBuildingSelectedMenu extends UIElement {
         // Open menu when receiving an event to do so
         eventHandler.createEvent(EventHandler.Event.OPEN_SELECTED_MENU, (params) -> {
             openMenu();
+            new SoundEffect(Filepaths.SELECT_BUILDING_TYPE_SOUND).play();
             return null;
         });
 
