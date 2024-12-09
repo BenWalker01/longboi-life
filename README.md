@@ -1,3 +1,6 @@
+[![Code Tests](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml)
+[![Stable Release](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml)
+
 # longboi-life
 
 *University of York ENG1 Project.*
@@ -11,6 +14,7 @@ A [libGDX](https://libgdx.com/) project.
 
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+- `headless`: Run without the full ui, for testing
 
 ## Gradle
 
@@ -38,4 +42,4 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 
 ## DevUtils
 
-`/DevUtils/` contains useful scripts (not necessarily in Java) for developing the project.
+`/_devUtils/` contains useful scripts (not necessarily in Java) for developing the project.
