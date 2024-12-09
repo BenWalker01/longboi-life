@@ -19,7 +19,7 @@ import java.util.Collections;
 
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.spacecomplexity.longboilife.game.globals.GameState;
-import com.spacecomplexity.longboilife.game.globals.LeaderboardSave;
+import com.spacecomplexity.longboilife.game.globals.LeaderboardPrefs;
 
 /**
  * Class to represent the Overview UI after the game is completed.
@@ -36,30 +36,28 @@ public class UILeaderboard extends UIElement {
         super(uiViewport, parentTable, skin);
 
         String username = System.getProperty("user.name");
-        String currentUser = "";
-        String prevScore = "";
-        String line = "";
         String allScores = "----------Leaderboard----------\n";
         TreeSet<String> sortedNames = new TreeSet<String>();
         TreeSet<String> sortedScores = new TreeSet<String>();
 
         // Read in names and scores from the leaderboard
-        try {
-          BufferedReader leaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
-          while ((line = leaderboardReader.readLine()) != null) {  
-            String[] entry = line.split(",");
-            // Save old score if user has already played the game
-            if (entry[0] == username) {
-              prevScore = entry[1];
-            }
-            sortedNames.add(entry[0]);
-            sortedScores.add(entry[1]);
-          }
-          leaderboardReader.close();
-        } catch (IOException e) {
-          // TODO: Check for file as part of testing
-          allScores += "MISSING FILE - READ";
-        };
+        // try {
+        //   BufferedReader leaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
+        //   while ((line = leaderboardReader.readLine()) != null) {  
+        //     String[] entry = line.split(",");
+        //     // Save old score if user has already played the game
+        //     if (entry[0] == username) {
+        //       prevScore = entry[1];
+        //     }
+        //     sortedNames.add(entry[0]);
+        //     sortedScores.add(entry[1]);
+        //   }
+        //   leaderboardReader.close();
+        // } catch (IOException e) {
+        //   // TODO: Check for file as part of testing
+        //   allScores += "MISSING FILE - READ";
+        // };
+
 
         // Write new score to leaderboard
         try {
@@ -86,10 +84,10 @@ public class UILeaderboard extends UIElement {
           allScores += (i + 1) + "." + nameList.get(i) + "    " + scoreList.get(i) + "\n";
         }
 
-        // LeaderboardSave.setName(username);
-        // LeaderboardSave.setScore(prevScore);
-        System.out.println(LeaderboardSave.getNames());
-        System.out.println(LeaderboardSave.getScores());
+        // LeaderboardPrefs.setName(username);
+        // LeaderboardPrefs.setScore(prevScore);
+        System.out.println(LeaderboardPrefs.getNames());
+        System.out.println(LeaderboardPrefs.getScores());
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
