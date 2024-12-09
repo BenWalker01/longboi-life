@@ -101,8 +101,8 @@ public class UIManager {
                     new UIOverview(viewport, table, skin),
             };
 
+            // Pause the soundtrack and play the game over sound
             Soundtrack.getSoundtrack().pause();
-
             new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;

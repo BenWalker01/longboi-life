@@ -51,7 +51,7 @@ public class UIBuildingSelectedMenu extends UIElement {
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to sell the selected building
                 eventHandler.callEvent(EventHandler.Event.MOVE_BUILDING);
-
+                // Play the click sound
                 new SoundEffect(Filepaths.CLICK_SOUND).play();
             }
         });
@@ -65,6 +65,7 @@ public class UIBuildingSelectedMenu extends UIElement {
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to sell the selected building
                 eventHandler.callEvent(EventHandler.Event.SELL_BUILDING);
+                // Play the sell sound
                 new SoundEffect(Filepaths.SELL_SOUND).play();
 
                 closeMenu();
@@ -86,7 +87,8 @@ public class UIBuildingSelectedMenu extends UIElement {
         // Open menu when receiving an event to do so
         eventHandler.createEvent(EventHandler.Event.OPEN_SELECTED_MENU, (params) -> {
             openMenu();
-            new SoundEffect(Filepaths.SELECT_BUILDING_TYPE_SOUND).play();
+            // Play the select building sound
+            new SoundEffect(Filepaths.SELECT_BUILDING_SOUND).play();
             return null;
         });
 

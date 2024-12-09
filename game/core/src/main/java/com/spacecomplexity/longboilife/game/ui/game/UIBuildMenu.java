@@ -26,8 +26,6 @@ import java.util.Locale;
 public class UIBuildMenu extends UIElement {
     private final Skin skin;
 
-    private final SoundEffect selectBuildingSound;
-
     /**
      * Initialise build menu elements.
      *
@@ -39,8 +37,6 @@ public class UIBuildMenu extends UIElement {
         super(uiViewport, parentTable, skin);
 
         this.skin = skin;
-
-        selectBuildingSound = new SoundEffect(Filepaths.SELECT_BUILDING_TYPE_SOUND);
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
@@ -84,7 +80,7 @@ public class UIBuildMenu extends UIElement {
 
             // Initialise building button
             ImageButton button = new ImageButton(texture);
-            // Initialise place building sequence when clicked
+            // Initialise place building sequence when clicked and play the select building sound
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -92,7 +88,7 @@ public class UIBuildMenu extends UIElement {
 
                     GameState.getState().placingBuilding = building;
 
-                    selectBuildingSound.play();
+                    new SoundEffect(Filepaths.SELECT_BUILDING_SOUND).play();
                 }
             });
 

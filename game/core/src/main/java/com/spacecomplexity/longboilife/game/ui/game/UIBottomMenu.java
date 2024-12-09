@@ -32,8 +32,6 @@ public class UIBottomMenu extends UIElement {
     private UIBuildMenu buildMenu;
     private UIPauseScreen pauseScreen;
 
-    private SoundEffect clickSound;
-
     /**
      * Initialise bottom menu elements.
      *
@@ -49,20 +47,18 @@ public class UIBottomMenu extends UIElement {
         buildMenu = new UIBuildMenu(uiViewport, parentTable, skin);
         pauseScreen = new UIPauseScreen(uiViewport, parentTable, skin);
 
-        clickSound = new SoundEffect(Filepaths.CLICK_SOUND);
-
         // Place building buttons on separate table for condensed styling
         Table buildingButtonsTable = new Table(skin);
         // Initialise building buttons
         for (BuildingCategory category : BuildingCategory.values()) {
             TextButton button = new TextButton(category.getDisplayName(), skin);
 
-            // On click execute function to open the buildMenuTable on the specific category
+            // On click execute function to open the buildMenuTable on the specific category and play the click sound
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     buildMenu.openMenu(category);
-                    clickSound.play();
+                    new SoundEffect(Filepaths.CLICK_SOUND).play();
                 }
             });
 
@@ -93,6 +89,7 @@ public class UIBottomMenu extends UIElement {
                 // Call the events to pause/resume the game based on the current pause state
                 eventHandler.callEvent(
                         GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);
+                // Play the pause sound
                 new SoundEffect(Filepaths.PAUSE_SOUND).play();
             }
         });
@@ -118,6 +115,7 @@ public class UIBottomMenu extends UIElement {
             pauseButton.getStyle().up = playDrawable;
             pauseButton.getStyle().down = playDrawable;
 
+            // Pause the soundtrack
             Soundtrack.getSoundtrack().pause();
 
             return null;
@@ -133,6 +131,7 @@ public class UIBottomMenu extends UIElement {
             pauseButton.getStyle().up = pauseDrawable;
             pauseButton.getStyle().down = pauseDrawable;
 
+            // Resume the soundtrack
             Soundtrack.getSoundtrack().play();
 
             return null;

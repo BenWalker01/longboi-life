@@ -100,6 +100,7 @@ public class GameScreen implements Screen {
         // Initialise the events performed from this script.
         initialiseEvents();
 
+        // Play the game soundtrack
         Soundtrack.getSoundtrack().play();
     }
 
@@ -136,6 +137,7 @@ public class GameScreen implements Screen {
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
 
+                // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
 
                 // Remove the selected building if it is wanted to do so
@@ -156,6 +158,7 @@ public class GameScreen implements Screen {
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
 
+                // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
 
                 // Remove the old moving building and selected building
