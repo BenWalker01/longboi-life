@@ -2,8 +2,6 @@ package com.spacecomplexity.longboilife.game.globals;
 
 import com.badlogic.gdx.Preferences;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 
 public class LeaderboardPrefs {

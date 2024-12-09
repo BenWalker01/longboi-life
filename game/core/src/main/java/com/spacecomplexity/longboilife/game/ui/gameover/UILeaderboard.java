@@ -7,17 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.TreeSet;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.LeaderboardPrefs;
 
@@ -37,12 +34,12 @@ public class UILeaderboard extends UIElement {
 
         String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
         Boolean userCheck = false;
+        Integer index = 1;
 
         String username = System.getProperty("user.name");
         String allScores = "----------Leaderboard----------\n";
 
-        TreeSet<String> sortedNames = new TreeSet<String>();
-        TreeSet<String> sortedScores = new TreeSet<String>();
+        HashMap<String, Float> leaderboardHash = new HashMap<String, Float>();
 
         String names = LeaderboardPrefs.getNames();
         String scores = LeaderboardPrefs.getScores();
@@ -50,70 +47,55 @@ public class UILeaderboard extends UIElement {
         String[] namesList = names.split("[,]");
         String[] scoresList = scores.split("[,]");
 
+        // Put names and scores on hash map
         for (int i = 0; i < namesList.length; i++) {
-          if (namesList[i] == username && score.compareTo(scoresList[i]) == 1) {
-            sortedNames.add(username);
-            sortedScores.add(score);
+          // Update score if user is already on leaderboard
+          if (namesList[i] == username) {
+            if (score.compareTo(scoresList[i]) == 1) {
+              leaderboardHash.put(username, Float.valueOf(score));
+              scoresList[i] = score;
+              scores = "";
+              for (int j = 0; j < scoresList.length; j++) {
+                scores += scoresList[j] + ",";
+              }
+              LeaderboardPrefs.setScore(scores);
+            }
             userCheck = true;
           }
           else {
-            sortedNames.add(namesList[i]);
-            sortedScores.add(scoresList[i]);
+            leaderboardHash.put(namesList[i], Float.valueOf(scoresList[i]));
           }
         }
-
+        // Set new name and score if user not on leaderboard
         if (userCheck == false) {
-          sortedNames.add(username);
-          sortedScores.add(score);
+          leaderboardHash.put(username, Float.valueOf(score));
+          LeaderboardPrefs.setName(names + "," + username);
+          LeaderboardPrefs.setScore(scores + "," + score);
         }
 
-        // Read in names and scores from the leaderboard
-        // try {
-        //   BufferedReader leaderboardReader = new BufferedReader(new FileReader(Filepaths.LEADERBOARD_DATA));
-        //   while ((line = leaderboardReader.readLine()) != null) {  
-        //     String[] entry = line.split(",");
-        //     // Save old score if user has already played the game
-        //     if (entry[0] == username) {
-        //       prevScore = entry[1];
-        //     }
-        //     sortedNames.add(entry[0]);
-        //     sortedScores.add(entry[1]);
-        //   }
-        //   leaderboardReader.close();
-        // } catch (IOException e) {
-        //   // TODO: Check for file as part of testing
-        //   allScores += "MISSING FILE - READ";
-        // };
+        // Sort leaderboard by scores
+        List<Map.Entry<String, Float>> Leaderboardlist = new LinkedList<Map.Entry<String, Float>>(leaderboardHash.entrySet());
+        Collections.sort(Leaderboardlist, new Comparator<Map.Entry<String, Float>>() {
+        public int compare(Map.Entry<String, Float> o1,
+                          Map.Entry<String, Float> o2) {
+            return (o1.getValue()).compareTo(o2.getValue());
+        }
+        });
+        
+        // Sorted leaderboard list in descending order
+        Collections.reverse(Leaderboardlist);
 
-        // Write new score to leaderboard
-        // try {
-        //   BufferedWriter leaderboardWriter = new BufferedWriter(new FileWriter(Filepaths.LEADERBOARD_DATA, true));
-        //   String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
-        //   if (username == currentUser && score.compareTo(prevScore) == 1) {
-        //     leaderboardWriter.append("\n" + username + "," + score);
-        //     leaderboardWriter.close();
-        //     sortedNames.add(username);
-        //     sortedScores.add(score);
-        //   }
-        // } catch (IOException e) {
-        //   // TODO: Check for file as part of testing
-        //   allScores += "MISSING FILE - WRITE";
-        // };
-
-        // Save sorted names and scores
-        List<String> nameList = new ArrayList<String>(sortedNames);
-        List<String> scoreList = new ArrayList<String>(sortedScores);
-        // Reverse lists to display in descending order
-        Collections.reverse(nameList);
-        Collections.reverse(scoreList);
-        for (int i = 0; i < nameList.size(); i ++) {
-          allScores += (i + 1) + "." + nameList.get(i) + "    " + scoreList.get(i) + "\n";
+        // Create sorted leaderboard hash map
+        Map<String, Float> sortedLeaderboard = new LinkedHashMap<String, Float>();
+        for (Map.Entry<String, Float> entry : Leaderboardlist) {
+          sortedLeaderboard.put(entry.getKey(), entry.getValue());
         }
 
-        // LeaderboardPrefs.setName(username);
-        // LeaderboardPrefs.setScore(prevScore);
-        // System.out.println(LeaderboardPrefs.getNames());
-        // System.out.println(LeaderboardPrefs.getScores());
+        // Add names and scores to the leaderboard display
+        for (Map.Entry<String, Float> entry : sortedLeaderboard.entrySet()) {
+          allScores += index + "." + entry.getKey() + "    " + entry.getValue() + "\n";
+          index += 1;
+        }
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
@@ -127,8 +109,8 @@ public class UILeaderboard extends UIElement {
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
         // Update height based on number of entries to display - minimum 4
-        if (nameList.size() > 3) {
-            table.setSize(220, 100 + (nameList.size()-3)*15);
+        if (sortedLeaderboard.size() > 3) {
+            table.setSize(220, 100 + (sortedLeaderboard.size()-3)*15);
         }
         else {
             table.setSize(220, 100);
