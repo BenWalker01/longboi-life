@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathwayTextures.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.pathways</a> &gt; <span class="el_source">PathwayTextures.java</span></div><h1>PathwayTextures.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.pathways;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
+
+import java.util.HashMap;
+
+/**
+ * Class to get the texture for a specific pathway building and texture type.
+ */
+<span class="nc" id="L12">public class PathwayTextures {</span>
+    /**
+     * Type of pathway connections.
+     */
+<span class="fc" id="L16">    public enum Type {</span>
+<span class="fc" id="L17">        STRAIGHT,</span>
+<span class="fc" id="L18">        CORNER,</span>
+<span class="fc" id="L19">        TJUNC,</span>
+<span class="fc" id="L20">        CROSS,;</span>
+    }
+
+    /**
+     * Map containing the textures
+     */
+<span class="nc" id="L26">    private static final HashMap&lt;BuildingType, HashMap&lt;PathwayTextures.Type, Texture&gt;&gt; textureList = new HashMap&lt;&gt;() {</span>
+        {
+<span class="nc" id="L28">            put(BuildingType.ROAD, new HashMap&lt;&gt;() {</span>
+                {
+<span class="nc" id="L30">                    put(PathwayTextures.Type.STRAIGHT, new Texture(Filepaths.ROAD_STRAIGHT_ASSET));</span>
+<span class="nc" id="L31">                    put(PathwayTextures.Type.CORNER, new Texture(Filepaths.ROAD_CORNER_ASSET));</span>
+<span class="nc" id="L32">                    put(PathwayTextures.Type.TJUNC, new Texture(Filepaths.ROAD_3WAY_ASSET));</span>
+<span class="nc" id="L33">                    put(PathwayTextures.Type.CROSS, new Texture(Filepaths.ROAD_4WAY_ASSET));</span>
+<span class="nc" id="L34">                }</span>
+            });
+<span class="nc" id="L36">        }</span>
+    };
+
+    /**
+     * Get the texture for a pathway tile.
+     *
+     * @param buildingType       the building type.
+     * @param pathwayTextureType the type of texture.
+     * @return the texture fitting these criteria.
+     */
+    public static Texture getTexture(BuildingType buildingType, PathwayTextures.Type pathwayTextureType) {
+<span class="nc" id="L47">        return textureList.get(buildingType).get(pathwayTextureType);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

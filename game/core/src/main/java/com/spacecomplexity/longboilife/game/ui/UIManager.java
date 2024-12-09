@@ -12,13 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.achievements.IAchievement;
 import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths; 
 import java.util.ArrayList;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
+
+import java.util.Queue;
+
 /**
  * Class to manage the UI in the game.
  */
@@ -30,6 +37,8 @@ public class UIManager {
 
     //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
     private ArrayList<UIElement> uiElements = new ArrayList<>();
+
+    private long lastAchievementTime = 5*60*1000;
 
     /**
      * Initialise UI elements needed for the game.
@@ -81,7 +90,8 @@ public class UIManager {
         uiElements.add(new UIClockMenu(viewport, table, skin));
         uiElements.add(new UISatisfactionMenu(viewport, table, skin));
         uiElements.add(new UIMoneyMenu(viewport, table, skin));
-        uiElements.add(new UIBuildingCounter(viewport, table, skin));
+        uiElements.add(new UIBuildingCounter(viewport, table, skin)); 
+        uiElements.add(new UIAchievementPopUp(viewport, table, skin));
         //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
@@ -101,6 +111,10 @@ public class UIManager {
 
             uiElements.add(new UIOverview(viewport, table, skin));
             uiElements.add(new UILeaderboard(viewport, table, skin));
+
+            // Pause the soundtrack and play the game over sound
+            Soundtrack.getSoundtrack().pause();
+            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;
         });   
@@ -149,6 +163,33 @@ public class UIManager {
         for (UIElement uiElement : uiElements) {
             uiElement.resize();
         }
+    }
+
+    /**
+     * Show the achievement pop up.
+     * <p>
+     *     If the last achievement was shown less than 5 seconds ago, don't show another.
+     *     If the queue is empty, don't show anything.
+     *     Otherwise, show the next achievement in the queue.
+     *     The achievement will be shown for 5 seconds.
+     * </p>
+     *
+     * ASSESSMENT 2 - New method
+     *
+     * @param achievementQueue the queue of achievements to show.
+     */
+    public void showAchievement(Queue<IAchievement> achievementQueue) {
+        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();
+        if (lastAchievementTime - currentTime < 5000) {
+            return;
+        }
+        ((UIAchievementPopUp) uiElements.get(6)).hideAchievement();
+        if (achievementQueue.isEmpty()) {
+            return;
+        }
+        lastAchievementTime = currentTime;
+        IAchievement achievement = achievementQueue.poll();
+        ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());
     }
 
     /**

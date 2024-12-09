@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UIBottomMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.ui.game</a> &gt; <span class="el_source">UIBottomMenu.java</span></div><h1>UIBottomMenu.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.ui.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.building.BuildingCategory;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.Soundtrack;
+import com.spacecomplexity.longboilife.game.ui.UIElement;
+import com.spacecomplexity.longboilife.game.utils.EventHandler;
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
+import com.spacecomplexity.longboilife.game.utils.UIUtils;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
+
+/**
+ * Class to represent the Bottom Menu UI.
+ */
+public class UIBottomMenu extends UIElement {
+    private final Texture pauseTexture;
+    private final TextureRegionDrawable pauseDrawable;
+    private final Texture playTexture;
+    private final TextureRegionDrawable playDrawable;
+
+    private UIBuildMenu buildMenu;
+    private UIPauseScreen pauseScreen;
+
+    /**
+     * Initialise bottom menu elements.
+     *
+     * @param uiViewport  the viewport used to render UI.
+     * @param parentTable the table to render this element onto.
+     * @param skin        the provided skin.
+     */
+    public UIBottomMenu(Viewport uiViewport, Table parentTable, Skin skin) {
+<span class="nc" id="L43">        super(uiViewport, parentTable, skin);</span>
+
+<span class="nc" id="L45">        EventHandler eventHandler = EventHandler.getEventHandler();</span>
+
+<span class="nc" id="L47">        buildMenu = new UIBuildMenu(uiViewport, parentTable, skin);</span>
+<span class="nc" id="L48">        pauseScreen = new UIPauseScreen(uiViewport, parentTable, skin);</span>
+
+        // Place building buttons on separate table for condensed styling
+<span class="nc" id="L51">        Table buildingButtonsTable = new Table(skin);</span>
+        // Initialise building buttons
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for (BuildingCategory category : BuildingCategory.values()) {</span>
+<span class="nc" id="L54">            TextButton button = new TextButton(category.getDisplayName(), skin);</span>
+
+            // On click execute function to open the buildMenuTable on the specific category and play the click sound
+<span class="nc" id="L57">            button.addListener(new ClickListener() {</span>
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+<span class="nc" id="L60">                    buildMenu.openMenu(category);</span>
+<span class="nc" id="L61">                    new SoundEffect(Filepaths.CLICK_SOUND).play();</span>
+<span class="nc" id="L62">                }</span>
+            });
+
+<span class="nc" id="L65">            buildingButtonsTable.add(button).expandX().padLeft(2);</span>
+        }
+        // Add the buttons onto the main table
+<span class="nc" id="L68">        table.add(buildingButtonsTable).expandX().left();</span>
+
+        // Load play/pause textures as drawables
+<span class="nc" id="L71">        float textureSize = 25;</span>
+<span class="nc" id="L72">        pauseTexture = new Texture(Gdx.files.internal(Filepaths.PAUSE_BUTTON_ASSET));</span>
+<span class="nc" id="L73">        pauseDrawable = new TextureRegionDrawable(pauseTexture);</span>
+<span class="nc" id="L74">        pauseDrawable.setMinSize(textureSize, textureSize);</span>
+<span class="nc" id="L75">        playTexture = new Texture(Gdx.files.internal(Filepaths.PLAY_BUTTON_ASSET));</span>
+<span class="nc" id="L76">        playDrawable = new TextureRegionDrawable(playTexture);</span>
+<span class="nc" id="L77">        playDrawable.setMinSize(textureSize, textureSize);</span>
+
+        // Initialise pause button
+<span class="nc" id="L80">        ImageButton pauseButton = new ImageButton(skin);</span>
+<span class="nc" id="L81">        pauseButton.setSize(textureSize, textureSize);</span>
+        // Initially set background to ❚❚
+<span class="nc" id="L83">        pauseButton.getStyle().up = pauseDrawable;</span>
+<span class="nc" id="L84">        pauseButton.getStyle().down = pauseDrawable;</span>
+        // Pause/resume the game when clicked
+<span class="nc" id="L86">        pauseButton.addListener(new ClickListener() {</span>
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Call the events to pause/resume the game based on the current pause state
+<span class="nc" id="L90">                eventHandler.callEvent(</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                        GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);</span>
+                // Play the pause sound
+<span class="nc" id="L93">                new SoundEffect(Filepaths.PAUSE_SOUND).play();</span>
+<span class="nc" id="L94">            }</span>
+        });
+        // Place pause button on the table
+<span class="nc" id="L97">        table.add(pauseButton).right().padRight(10);</span>
+
+        // Style and place the table
+<span class="nc" id="L100">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L101">        placeTable();</span>
+
+        // Assign pause and play events
+<span class="nc" id="L104">        eventHandler.createEvent(EventHandler.Event.PAUSE_GAME, (params) -&gt; {</span>
+            // Set pause state
+<span class="nc" id="L106">            GameState.getState().paused = true;</span>
+            // Pause the timer
+<span class="nc" id="L108">            MainTimer.getTimerManager().getTimer().pauseTimer();</span>
+            // Cancel all actions
+<span class="nc" id="L110">            eventHandler.callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
+            // Disable all UI but the pause button
+<span class="nc" id="L112">            UIUtils.disableAllActors(parentTable.getStage());</span>
+<span class="nc" id="L113">            UIUtils.enableActor(pauseButton);</span>
+            // Change background to ▶
+<span class="nc" id="L115">            pauseButton.getStyle().up = playDrawable;</span>
+<span class="nc" id="L116">            pauseButton.getStyle().down = playDrawable;</span>
+
+            // Pause the soundtrack
+<span class="nc" id="L119">            Soundtrack.getSoundtrack().pause();</span>
+
+<span class="nc" id="L121">            return null;</span>
+        });
+<span class="nc" id="L123">        eventHandler.createEvent(EventHandler.Event.RESUME_GAME, (params) -&gt; {</span>
+            // Set pause state
+<span class="nc" id="L125">            GameState.getState().paused = false;</span>
+            // Resume the timer
+<span class="nc" id="L127">            MainTimer.getTimerManager().getTimer().resumeTimer();</span>
+            // Re enable all UI
+<span class="nc" id="L129">            UIUtils.enableAllActors(parentTable.getStage());</span>
+            // Change background to ❚❚
+<span class="nc" id="L131">            pauseButton.getStyle().up = pauseDrawable;</span>
+<span class="nc" id="L132">            pauseButton.getStyle().down = pauseDrawable;</span>
+
+            // Resume the soundtrack
+<span class="nc" id="L135">            Soundtrack.getSoundtrack().play();</span>
+
+<span class="nc" id="L137">            return null;</span>
+        });
+<span class="nc" id="L139">    }</span>
+
+    public void render() {
+<span class="nc" id="L142">        buildMenu.render();</span>
+<span class="nc" id="L143">        pauseScreen.render();</span>
+<span class="nc" id="L144">    }</span>
+
+    @Override
+    public void resize() {
+<span class="nc" id="L148">        super.resize();</span>
+
+<span class="nc" id="L150">        buildMenu.resize();</span>
+<span class="nc" id="L151">        pauseScreen.resize();</span>
+<span class="nc" id="L152">    }</span>
+
+    @Override
+    protected void placeTable() {
+<span class="nc" id="L156">        table.setSize(uiViewport.getWorldWidth(), 60);</span>
+<span class="nc" id="L157">        table.setPosition(0, 0);</span>
+<span class="nc" id="L158">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="nc" id="L162">        super.dispose();</span>
+
+<span class="nc" id="L164">        playTexture.dispose();</span>
+<span class="nc" id="L165">        pauseTexture.dispose();</span>
+
+<span class="nc" id="L167">        buildMenu.dispose();</span>
+<span class="nc" id="L168">        pauseScreen.dispose();</span>
+<span class="nc" id="L169">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

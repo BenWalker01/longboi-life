@@ -12,18 +12,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.Main;
 import com.spacecomplexity.longboilife.MainInputManager;
+import com.spacecomplexity.longboilife.game.achievements.AchievementsManager;
 import com.spacecomplexity.longboilife.game.building.Building;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
-import com.spacecomplexity.longboilife.game.globals.Constants;
-import com.spacecomplexity.longboilife.game.globals.GameState;
-import com.spacecomplexity.longboilife.game.globals.MainCamera;
-import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.globals.*;
 import com.spacecomplexity.longboilife.game.tile.InvalidSaveMapException;
 import com.spacecomplexity.longboilife.game.tile.Tile;
 import com.spacecomplexity.longboilife.game.ui.UIManager;
 import com.spacecomplexity.longboilife.game.utils.*;
 import com.spacecomplexity.longboilife.game.world.World;
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -38,6 +35,7 @@ public class GameScreen implements Screen {
     private ShapeRenderer shapeRenderer;
     private UIManager ui;
     private InputManager inputManager;
+    private AchievementsManager achievementsManager;
 
     private Viewport viewport;
 
@@ -74,6 +72,9 @@ public class GameScreen implements Screen {
             EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);
         });
 
+        // ASSESSMENT 2 - Initialise the achievements manager
+        achievementsManager = new AchievementsManager();
+
         // Create an input multiplexer to handle input from all sources
         InputMultiplexer inputMultiplexer = new InputMultiplexer(new MainInputManager());
 
@@ -103,6 +104,9 @@ public class GameScreen implements Screen {
 
         // Initialise the events performed from this script.
         initialiseEvents();
+
+        // Play the game soundtrack
+        Soundtrack.getSoundtrack().play();
     }
 
     /**
@@ -138,6 +142,9 @@ public class GameScreen implements Screen {
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
 
+                // Play the build sound
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
+
                 // Remove the selected building if it is wanted to do so
                 if (Arrays.stream(Constants.dontRemoveSelection)
                         .noneMatch(category -> gameState.placingBuilding.getCategory() == category)) {
@@ -155,6 +162,9 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
+
+                // Play the build sound
+                new SoundEffect(Filepaths.BUILD_SOUND).play();
 
                 // Remove the old moving building and selected building
                 gameState.movingBuilding = null;
@@ -297,6 +307,11 @@ public class GameScreen implements Screen {
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {
             // Update the satisfaction score
             GameUtils.updateSatisfactionScore(world);
+            // ASSESSMENT 2 - Check for achievements and display them
+            achievementsManager.checkAchievements();
+            ui.showAchievement(achievementsManager.getAchievementQueue());
+            // Update the unlocked achievements in the game state
+            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();
         }
     }
 
@@ -329,7 +344,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-        
+
     }
 
     /**

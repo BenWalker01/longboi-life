@@ -44,7 +44,12 @@ public class Filepaths {
     public static final String SKIN_JSON_ASSET = "ui/skin/uiskin.json";
     public static final String SKIN_PNG_ASSET = "ui/skin/uiskin.png";
 
-    // Scores file
-    public static final String LEADERBOARD_ASSET = "ui/leaderboard/leaderboard.txt";
-
+    // Audio
+    public static final String SOUNDTRACK = "audio/backgroundsong.wav";
+    public static final String GAME_OVER_SOUND = "audio/gameover.mp3";
+    public static final String CLICK_SOUND = "audio/05_cursor1.wav";
+    public static final String SELECT_BUILDING_SOUND = "audio/10_select2.wav";
+    public static final String BUILD_SOUND = "audio/12_exchange.wav";
+    public static final String SELL_SOUND = "audio/50_flowers.wav";
+    public static final String PAUSE_SOUND = "audio/48_skip.wav";
 }
