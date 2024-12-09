@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UIUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">UIUtils.java</span></div><h1>UIUtils.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
+/**
+ * Class for utils relating to UI.
+ */
+<span class="nc" id="L12">public class UIUtils {</span>
+    /**
+     * Enable the actor, recursively enabling its parents so it can be used.
+     *
+     * @param actor the actor to enable.
+     */
+    static public void enableActor(Actor actor) {
+<span class="fc" id="L19">        actorEnable(actor);</span>
+
+<span class="fc" id="L21">        Actor parent = actor.getParent();</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (parent != null) {</span>
+<span class="fc" id="L23">            enableActor(parent);</span>
+        }
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Enable all UI elements on a Stage.
+     *
+     * @param stage the stage to enable all UI elements on.
+     */
+    static public void enableAllActors(Stage stage) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (Actor actor : stage.getActors()) {</span>
+<span class="fc" id="L34">            enableActorRec(actor);</span>
+<span class="fc" id="L35">        }</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Recursively enable the actor then enable all its children.
+     *
+     * @param actor the actor to start recursively enabling from.
+     */
+    static private void enableActorRec(Actor actor) {
+<span class="fc" id="L44">        actorEnable(actor);</span>
+
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (actor instanceof Group) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            for (Actor child : ((Group) actor).getChildren()) {</span>
+<span class="fc" id="L48">                enableActorRec(child);</span>
+<span class="fc" id="L49">            }</span>
+        }
+<span class="fc" id="L51">    }</span>
+
+    /**
+     * Disable all UI elements on a Stage.
+     *
+     * @param stage the stage to disable all UI elements on.
+     */
+    static public void disableAllActors(Stage stage) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (Actor actor : stage.getActors()) {</span>
+<span class="fc" id="L60">            disableActorRec(actor);</span>
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Recursively disable the actor then disable all its children.
+     *
+     * @param actor the actor to start recursively disabling from.
+     */
+    static private void disableActorRec(Actor actor) {
+<span class="fc" id="L70">        actorDisable(actor);</span>
+
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (actor instanceof Group) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            for (Actor child : ((Group) actor).getChildren()) {</span>
+<span class="fc" id="L74">                disableActorRec(child);</span>
+<span class="fc" id="L75">            }</span>
+        }
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Enable a single actor by making it touchable.
+     *
+     * @param actor the actor to enable.
+     */
+    static private void actorEnable(Actor actor) {
+<span class="fc" id="L85">        actor.setTouchable(Touchable.enabled);</span>
+        // Remove tint
+<span class="fc" id="L87">        actor.setColor(Color.WHITE);</span>
+<span class="fc" id="L88">    }</span>
+
+    /**
+     * Disable a single actor by making it untouchable.
+     *
+     * @param actor the actor to disable.
+     */
+    static private void actorDisable(Actor actor) {
+<span class="fc" id="L96">        actor.setTouchable(Touchable.disabled);</span>
+        // Add tint to show it is disabled
+<span class="fc" id="L98">        actor.setColor(Color.LIGHT_GRAY);</span>
+<span class="fc" id="L99">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

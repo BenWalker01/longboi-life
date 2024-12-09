@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InputManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">InputManager.java</span></div><h1>InputManager.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.math.Vector3;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.Keybindings;
+import com.spacecomplexity.longboilife.game.globals.MainCamera;
+
+public class InputManager {
+<span class="fc" id="L12">    private final GameState gameState = GameState.getState();</span>
+
+    /**
+     * Create an input manager by initialising the input processors and set attributes.
+     *
+     * @param inputMultiplexer to add the input processor events to the input processing.
+     */
+<span class="fc" id="L19">    public InputManager(InputMultiplexer inputMultiplexer) {</span>
+<span class="fc" id="L20">        inputMultiplexer.addProcessor(new InputProcessor());</span>
+<span class="fc" id="L21">    }</span>
+
+    /**
+     * Handles continuous input which won't be processed in {@link InputManager.InputProcessor} (as this is event driven).
+     * Should be called every frame (before rendering).
+     */
+    public void handleContinuousInput() {
+<span class="fc" id="L28">        float deltaTime = Gdx.graphics.getDeltaTime();</span>
+
+        // Calculate camera speed and move camera around given camera direction keys pressed
+<span class="fc" id="L31">        float cameraSpeed = gameState.cameraSpeed * deltaTime * MainCamera.camera().zoom * gameState.scaleFactor;</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_UP.getKey())) {</span>
+<span class="fc" id="L33">            MainCamera.camera().position.y += cameraSpeed;</span>
+        }
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_DOWN.getKey())) {</span>
+<span class="fc" id="L36">            MainCamera.camera().position.y -= cameraSpeed;</span>
+        }
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_LEFT.getKey())) {</span>
+<span class="fc" id="L39">            MainCamera.camera().position.x -= cameraSpeed;</span>
+        }
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_RIGHT.getKey())) {</span>
+<span class="fc" id="L42">            MainCamera.camera().position.x += cameraSpeed;</span>
+        }
+
+        // Calculate camera zoom speed and zoom camera around given camera zoom keys pressed
+<span class="fc" id="L46">        float cameraZoomSpeed = gameState.cameraKeyZoomSpeed * deltaTime * MainCamera.camera().zoom;</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_ZOOM_IN.getKey())) {</span>
+<span class="nc" id="L48">            MainCamera.camera().zoom += cameraZoomSpeed;</span>
+        }
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (Gdx.input.isKeyPressed(Keybindings.CAMERA_ZOOM_OUT.getKey())) {</span>
+<span class="nc" id="L51">            MainCamera.camera().zoom -= cameraZoomSpeed;</span>
+        }
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Handles input (event driven).
+     * Will be called every frame (before rendering, hence before {@link InputManager#handleContinuousInput()}).
+     */
+<span class="fc" id="L59">    private class InputProcessor extends InputAdapter {</span>
+<span class="fc" id="L60">        private final EventHandler eventHandler = EventHandler.getEventHandler();</span>
+
+        /**
+         * Zoom the camera at the mouse position when the scroll wheel/trackpad is used.
+         *
+         * @param amountX the horizontal scroll amount, negative or positive depending on the direction the wheel was scrolled.
+         * @param amountY the vertical scroll amount, negative or positive depending on the direction the wheel was scrolled.
+         * @return true to show the event was handled.
+         */
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            if (Float.isNaN(amountY)) return true;</span>
+<span class="fc" id="L72">            float deltaTime = Gdx.graphics.getDeltaTime();</span>
+
+            // Convert the current mouse position into world coordinates
+<span class="fc" id="L75">            Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);</span>
+<span class="fc" id="L76">            MainCamera.camera().getCamera().unproject(mousePosition);</span>
+            
+            // Zoom in/out at the mouses current position
+<span class="fc" id="L79">            MainCamera.camera().zoomAt(amountY * gameState.cameraScrollZoomSpeed * deltaTime * MainCamera.camera().zoom, mousePosition);</span>
+
+<span class="fc" id="L81">            return true;</span>
+        }
+
+        private int lastButton;
+
+        // Used to store mouse position between dragging frames
+        private float lastScreenX, lastScreenY;
+
+        /**
+         * Mouse down event.
+         *
+         * @param screenX The x coordinate, origin is in the upper left corner.
+         * @param screenY The y coordinate, origin is in the upper left corner.
+         * @param pointer the pointer for the event.
+         * @param button  the button pressed.
+         * @return true to show the event was handled.
+         */
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            // Set the last button so we can check what to do in the touchDragged event
+<span class="nc" id="L101">            lastButton = button;</span>
+
+<span class="nc bnc" id="L103" title="All 3 branches missed.">            switch (button) {</span>
+                // If main button clicked
+                case 0:
+                    // If game is paused or over don't allow any actions
+<span class="nc bnc" id="L107" title="All 4 branches missed.">                    if (gameState.paused || gameState.gameOver) {</span>
+<span class="nc" id="L108">                        return true;</span>
+                    }
+
+                    // If a building is selected then try to build this
+<span class="nc bnc" id="L112" title="All 2 branches missed.">                    if (GameState.getState().placingBuilding != null) {</span>
+<span class="nc" id="L113">                        eventHandler.callEvent(EventHandler.Event.BUILD);</span>
+                    }
+
+                    // Else try and select a building already on the map
+                    else {
+<span class="nc" id="L118">                        eventHandler.callEvent(EventHandler.Event.SELECT_BUILDING);</span>
+                    }
+
+<span class="nc" id="L121">                    break;</span>
+
+                // If secondary or tertiary button clicked
+                case 1:
+                case 2:
+                    // Record the initial touch position for the drag event
+<span class="nc" id="L127">                    lastScreenX = screenX;</span>
+<span class="nc" id="L128">                    lastScreenY = screenY;</span>
+
+                    break;
+            }
+
+<span class="nc" id="L133">            return true;</span>
+        }
+
+        /**
+         * Mouse down (not initial frame) event.
+         *
+         * @param screenX The x coordinate, origin is in the upper left corner.
+         * @param screenY The y coordinate, origin is in the upper left corner.
+         * @param pointer the pointer for the event.
+         * @return true to show the event was handled.
+         */
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+<span class="nc bnc" id="L146" title="All 3 branches missed.">            switch (lastButton) {</span>
+                // If main button clicked
+                case 0:
+                    // If game is paused or over don't allow any actions
+<span class="nc bnc" id="L150" title="All 4 branches missed.">                    if (gameState.paused || gameState.gameOver) {</span>
+<span class="nc" id="L151">                        return true;</span>
+                    }
+
+                    // If a building is selected then try to build
+                    // This allows drag placing buildings which are not automatically deselected
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                    if (GameState.getState().placingBuilding != null) {</span>
+<span class="nc" id="L157">                        eventHandler.callEvent(EventHandler.Event.BUILD);</span>
+                    }
+
+                    break;
+                // If secondary or tertiary button clicked
+                case 1:
+                case 2:
+                    // Calculate the difference between last mouse position and now
+<span class="nc" id="L165">                    float deltaX = screenX - lastScreenX;</span>
+<span class="nc" id="L166">                    float deltaY = screenY - lastScreenY;</span>
+
+                    // Move the camera the respective amount to simulate dragging
+<span class="nc" id="L169">                    MainCamera.camera().position.x -= deltaX * MainCamera.camera().zoom;</span>
+<span class="nc" id="L170">                    MainCamera.camera().position.y += deltaY * MainCamera.camera().zoom;</span>
+
+<span class="nc" id="L172">                    lastScreenX = screenX;</span>
+<span class="nc" id="L173">                    lastScreenY = screenY;</span>
+                    break;
+            }
+
+<span class="nc" id="L177">            return true;</span>
+        }
+
+        /**
+         * Handles onKeyPress events.
+         *
+         * @param keycode one of the constants in {@link com.badlogic.gdx.Input.Keys}
+         * @return true if the event was handled.
+         */
+        @Override
+        public boolean keyDown(int keycode) {
+            // If the close key is pressed, send events to cancel actions
+<span class="nc bnc" id="L189" title="All 2 branches missed.">            if (keycode == Keybindings.CANCEL.getKey()) {</span>
+<span class="nc" id="L190">                eventHandler.callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
+
+<span class="nc" id="L192">                return true;</span>
+            }
+
+            // If the pause key is pressed, pause/resume the game
+<span class="nc bnc" id="L196" title="All 2 branches missed.">            else if (keycode == Keybindings.PAUSE.getKey()) {</span>
+                // If the game is over don't allow pause
+<span class="nc bnc" id="L198" title="All 2 branches missed.">                if (gameState.gameOver) {</span>
+<span class="nc" id="L199">                    return true;</span>
+                }
+
+<span class="nc bnc" id="L202" title="All 2 branches missed.">                eventHandler.callEvent(GameState.getState().paused ? EventHandler.Event.RESUME_GAME : EventHandler.Event.PAUSE_GAME);</span>
+
+<span class="nc" id="L204">                return true;</span>
+            }
+
+<span class="nc" id="L207">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

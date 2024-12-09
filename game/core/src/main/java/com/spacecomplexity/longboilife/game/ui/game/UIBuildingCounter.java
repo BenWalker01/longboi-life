@@ -16,7 +16,8 @@ import java.util.Arrays;
  */
 public class UIBuildingCounter extends UIElement {
     private Label counterLabel;
-
+    //NEW CLASS MEMBER 
+    private float buildingLabelWidth;
     /**
      * Initialise clock menu elements.
      *
@@ -48,9 +49,9 @@ public class UIBuildingCounter extends UIElement {
         table.add(counterLabel).padLeft(5);
 
         // Style and place the table
-        table.setBackground(skin.getDrawable("panel1"));
-        table.setSize(100, 110);
-        placeTable();
+        table.setBackground(skin.getDrawable("panel1")); 
+        buildingLabelWidth = buildingLabel.getPrefWidth();
+   
     }
 
     public void render() {
@@ -61,7 +62,10 @@ public class UIBuildingCounter extends UIElement {
                 .map((buildingType -> GameState.getState().getBuildingCount(buildingType).toString()))
                 .toArray(String[]::new)
         );
-        counterLabel.setText(buildingCount);
+        counterLabel.setText(buildingCount);  
+        //NEW COUNTER BACKGROUND SIZE SETTING
+        table.setSize(buildingLabelWidth + 20f + counterLabel.getPrefWidth() + 10f, 110);
+        placeTable();
     }
 
     @Override

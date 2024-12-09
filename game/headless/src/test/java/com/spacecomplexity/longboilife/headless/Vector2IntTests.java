@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Vector2IntTests extends AbstractHeadlessGdxTest {
     @Test
+    public void testBlankVector() {
+        Vector2Int v1 = new Vector2Int();
+        assertEquals(new Vector2Int(0, 0), v1);
+    }
+
+    @Test
     public void testEqualsMethod() {
         Vector2Int v1 = new Vector2Int(1, 2);
         Vector2Int v2 = new Vector2Int(1, 2);

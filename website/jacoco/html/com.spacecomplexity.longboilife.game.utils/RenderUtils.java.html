@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RenderUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.utils</a> &gt; <span class="el_source">RenderUtils.java</span></div><h1>RenderUtils.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.utils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.spacecomplexity.longboilife.game.building.Building;
+import com.spacecomplexity.longboilife.game.building.BuildingCategory;
+import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.Constants;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.pathways.PathwayPositions;
+import com.spacecomplexity.longboilife.game.pathways.PathwayTextures;
+import com.spacecomplexity.longboilife.game.world.World;
+
+/**
+ * A class used for rendering utilities.
+ */
+<span class="nc" id="L21">public class RenderUtils {</span>
+    /**
+     * Draw the world's base tiles.
+     *
+     * @param batch the {@link SpriteBatch} to draw sprites to.
+     * @param world the {@link World} containing map to draw.
+     * @param tint  the tint to apply to all the tiles.
+     */
+    public static void drawWorld(SpriteBatch batch, World world, Color tint) {
+<span class="nc" id="L30">        float cellSize = getCellSize();</span>
+
+        // Begin the batch with the specified tint
+<span class="nc" id="L33">        batch.begin();</span>
+<span class="nc" id="L34">        batch.setColor(tint);</span>
+
+        // For every tile
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        for (int x = 0; x &lt; world.getWidth(); x++) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            for (int y = 0; y &lt; world.getHeight(); y++) {</span>
+                // Draw the tile texture with size specified by TILE_SIZE and the current scaling factor
+<span class="nc" id="L40">                batch.draw(</span>
+<span class="nc" id="L41">                    world.getTile(new Vector2Int(x, y)).getType().getTexture(),</span>
+                    x * cellSize,
+                    y * cellSize,
+                    cellSize,
+                    cellSize
+                );
+            }
+        }
+
+        // Remove any tints applied
+<span class="nc" id="L51">        batch.setColor(Color.WHITE);</span>
+
+<span class="nc" id="L53">        batch.end();</span>
+<span class="nc" id="L54">    }</span>
+
+    /**
+     * Draw the world's buildings.
+     *
+     * @param batch the {@link SpriteBatch} to draw sprites to.
+     * @param world the {@link World} containing buildings to draw.
+     * @param tint  the tint to apply to all the buildings.
+     */
+    public static void drawBuildings(SpriteBatch batch, World world, Color tint) {
+<span class="nc" id="L64">        float cellSize = getCellSize();</span>
+
+        // Begin the batch with the specified tint
+<span class="nc" id="L67">        batch.begin();</span>
+<span class="nc" id="L68">        batch.setColor(tint);</span>
+
+        // For every building
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Building building : world.buildings) {</span>
+<span class="nc" id="L72">            Vector2Int buildingPosition = building.getPosition();</span>
+<span class="nc" id="L73">            Vector2Int buildingSize = building.getType().getSize();</span>
+
+<span class="nc" id="L75">            Texture texture = building.getType().getTexture();</span>
+<span class="nc" id="L76">            float rotation = 0;</span>
+
+            // If the building is a pathway we need to select the correct texture to render.
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (building.getType().getCategory() == BuildingCategory.PATHWAY) {</span>
+<span class="nc" id="L80">                PathwayPositions pathwayPositions = world.getPathwayPosition(buildingPosition);</span>
+<span class="nc" id="L81">                texture = PathwayTextures.getTexture(building.getType(), pathwayPositions.getTextureType());</span>
+<span class="nc" id="L82">                rotation = pathwayPositions.getRotation();</span>
+            }
+
+            // Convert the texture into a texture region for drawing
+<span class="nc" id="L86">            TextureRegion textureRegion = new TextureRegion(texture);</span>
+
+            // Draw the building
+<span class="nc" id="L89">            batch.draw(</span>
+                textureRegion,
+                buildingPosition.x * cellSize,
+                buildingPosition.y * cellSize,
+                (buildingSize.x * cellSize) / 2f, (buildingSize.y * cellSize) / 2f,
+                buildingSize.x * cellSize,
+                buildingSize.y * cellSize,
+                1, 1,
+                rotation
+            );
+<span class="nc" id="L99">        }</span>
+
+        // Remove any tints applied
+<span class="nc" id="L102">        batch.setColor(Color.WHITE);</span>
+
+<span class="nc" id="L104">        batch.end();</span>
+<span class="nc" id="L105">    }</span>
+
+    /**
+     * Draw gridlines between every tile in the world.
+     *
+     * @param shapeRenderer the {@link ShapeRenderer} to draw lines to.
+     * @param world         the {@link World} for size.
+     */
+    public static void drawWorldGridlines(ShapeRenderer shapeRenderer, World world, Color colour) {
+<span class="nc" id="L114">        float cellSize = getCellSize();</span>
+
+        // Begin the shape render with specified colour
+<span class="nc" id="L117">        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);</span>
+<span class="nc" id="L118">        shapeRenderer.setColor(colour);</span>
+
+        // Draw all vertical lines
+<span class="nc" id="L121">        float worldTop = world.getHeight() * cellSize;</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        for (int x = 0; x &lt; world.getWidth(); x++) {</span>
+<span class="nc" id="L123">            float xEdge = x * cellSize;</span>
+<span class="nc" id="L124">            shapeRenderer.line(xEdge, 0, xEdge, worldTop);</span>
+        }
+
+        // Draw all horizontal lines
+<span class="nc" id="L128">        float worldRight = world.getWidth() * cellSize;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        for (int y = 0; y &lt; world.getHeight(); y++) {</span>
+<span class="nc" id="L130">            float yEdge = y * cellSize;</span>
+<span class="nc" id="L131">            shapeRenderer.line(0, yEdge, worldRight, yEdge);</span>
+        }
+
+<span class="nc" id="L134">        shapeRenderer.end();</span>
+<span class="nc" id="L135">    }</span>
+
+
+    /**
+     * Draw a building at the mouse coordinates.
+     *
+     * @param batch     the {@link SpriteBatch} to draw sprites to.
+     * @param world     the {@link World} containing map to check validity.
+     * @param building  the building type to draw.
+     * @param tint      the tint to apply to the building.
+     * @param issueTint the tint to apply to the building if it is invalid.
+     */
+    public static void drawPlacingBuilding(SpriteBatch batch, World world, BuildingType building, Color tint, Color issueTint) {
+<span class="nc" id="L148">        float cellSize = getCellSize();</span>
+
+<span class="nc" id="L150">        Vector2Int mouse = GameUtils.getMouseOnGrid(world);</span>
+
+        // Check if this would be a valid position to build
+<span class="nc" id="L153">        boolean validPosition = world.canBuild(building, mouse);</span>
+
+        // Begin the batch with the specified tint based on the building being valid.
+<span class="nc" id="L156">        batch.begin();</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (validPosition) {</span>
+<span class="nc" id="L158">            batch.setColor(tint);</span>
+        } else {
+<span class="nc" id="L160">            batch.setColor(issueTint);</span>
+        }
+
+        // Draw the building
+<span class="nc" id="L164">        batch.draw(</span>
+<span class="nc" id="L165">            building.getTexture(),</span>
+            mouse.x * cellSize,
+            mouse.y * cellSize,
+<span class="nc" id="L168">            building.getSize().x * cellSize,</span>
+<span class="nc" id="L169">            building.getSize().y * cellSize</span>
+        );
+
+        // Remove any tints applied
+<span class="nc" id="L173">        batch.setColor(Color.WHITE);</span>
+
+<span class="nc" id="L175">        batch.end();</span>
+<span class="nc" id="L176">    }</span>
+
+    /**
+     * Outline a building in the world.
+     *
+     * @param shapeRenderer the {@link ShapeRenderer} to draw lines to.
+     * @param building      the building to outline.
+     * @param colour        the colour of the border.
+     * @param thickness     the thickness of the border.
+     */
+    public static void outlineBuilding(ShapeRenderer shapeRenderer, Building building, Color colour, int thickness) {
+<span class="nc" id="L187">        float cellSize = getCellSize();</span>
+
+        // Set line thickness directly to GL as LibGdx does not have a way of doing this.
+<span class="nc" id="L190">        Gdx.gl.glLineWidth(thickness);</span>
+        // Begin the shape render with specified colour
+<span class="nc" id="L192">        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);</span>
+<span class="nc" id="L193">        shapeRenderer.setColor(colour);</span>
+
+        // Draw a box around the building
+<span class="nc" id="L196">        shapeRenderer.rect(</span>
+<span class="nc" id="L197">            building.getPosition().x * cellSize,</span>
+<span class="nc" id="L198">            building.getPosition().y * cellSize,</span>
+<span class="nc" id="L199">            building.getType().getSize().x * cellSize,</span>
+<span class="nc" id="L200">            building.getType().getSize().y * cellSize</span>
+        );
+
+<span class="nc" id="L203">        shapeRenderer.end();</span>
+        // Reset line thickness
+<span class="nc" id="L205">        Gdx.gl.glLineWidth(1);</span>
+<span class="nc" id="L206">    }</span>
+
+    /**
+     * Gets the cell size based on tile size and current scaling factor.
+     *
+     * @return the cell size (in px).
+     */
+    private static float getCellSize() {
+<span class="nc" id="L214">        GameState gameState = GameState.getState();</span>
+<span class="nc" id="L215">        return Constants.TILE_SIZE * gameState.scaleFactor;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

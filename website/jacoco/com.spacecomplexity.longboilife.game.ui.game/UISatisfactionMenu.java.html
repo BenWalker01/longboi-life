@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UISatisfactionMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.ui.game</a> &gt; <span class="el_source">UISatisfactionMenu.java</span></div><h1>UISatisfactionMenu.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.ui.game;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.ui.UIElement;
+
+/**
+ * Class to represent the Satisfaction Score UI.
+ */
+public class UISatisfactionMenu extends UIElement {
+    private Label scoreLabel;
+    private ProgressBar satisfactionBar;
+
+    /**
+     * Initialise satisfaction menu elements.
+     *
+     * @param uiViewport  the viewport used to render UI.
+     * @param parentTable the table to render this element onto.
+     * @param skin        the provided skin.
+     */
+    public UISatisfactionMenu(Viewport uiViewport, Table parentTable, Skin skin) {
+<span class="nc" id="L27">        super(uiViewport, parentTable, skin);</span>
+
+        // Initialise label
+<span class="nc" id="L30">        Label label = new Label(&quot;Satisfaction Score:&quot;, skin);</span>
+<span class="nc" id="L31">        label.setFontScale(1f);</span>
+<span class="nc" id="L32">        label.setColor(Color.WHITE);</span>
+
+        // Initialise score label
+<span class="nc" id="L35">        scoreLabel = new Label(null, skin);</span>
+<span class="nc" id="L36">        scoreLabel.setFontScale(1f);</span>
+
+        // Initialise satisfaction bar
+<span class="nc" id="L39">        satisfactionBar = new ProgressBar(0, 1, 0.01f, false, skin);</span>
+
+        // Place elements onto table
+<span class="nc" id="L42">        Table labelTable = new Table(skin);</span>
+<span class="nc" id="L43">        labelTable.add(label);</span>
+<span class="nc" id="L44">        labelTable.add(scoreLabel).padLeft(5);</span>
+<span class="nc" id="L45">        table.add(labelTable);</span>
+<span class="nc" id="L46">        table.row();</span>
+<span class="nc" id="L47">        table.add(satisfactionBar).padTop(2);</span>
+
+        // Style and place the table
+<span class="nc" id="L50">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L51">        table.setSize(185, 60);</span>
+<span class="nc" id="L52">        placeTable();</span>
+<span class="nc" id="L53">    }</span>
+
+    public void render() {
+<span class="nc" id="L56">        scoreLabel.setText(String.format(&quot;%.2f%%&quot;, GameState.getState().satisfactionScore * 100));</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        scoreLabel.setColor(GameState.getState().satisfactionModifierPositive ? Color.GREEN : Color.RED);</span>
+<span class="nc" id="L58">        satisfactionBar.setValue(GameState.getState().satisfactionScore);</span>
+<span class="nc" id="L59">    }</span>
+
+    @Override
+    protected void placeTable() {
+<span class="nc" id="L63">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),</span>
+<span class="nc" id="L64">                uiViewport.getWorldHeight() - table.getHeight());</span>
+<span class="nc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

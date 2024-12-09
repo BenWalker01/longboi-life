@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainTimer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.globals</a> &gt; <span class="el_source">MainTimer.java</span></div><h1>MainTimer.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.globals;
+
+import com.spacecomplexity.longboilife.game.utils.Timer;
+
+/**
+ * Singleton class to contain the global timer used within the game.
+ */
+public class MainTimer {
+<span class="nc" id="L9">    private static final MainTimer mainTimer = new MainTimer();</span>
+
+    private final Timer timer;
+
+<span class="nc" id="L13">    private MainTimer() {</span>
+<span class="nc" id="L14">        timer = new Timer();</span>
+<span class="nc" id="L15">    }</span>
+
+    /**
+     * Get the singleton instance of the {@link MainTimer} class.
+     *
+     * @return The single {@link MainTimer} class.
+     */
+    public static MainTimer getTimerManager() {
+<span class="nc" id="L23">        return mainTimer;</span>
+    }
+
+    public Timer getTimer() {
+<span class="nc" id="L27">        return timer;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
