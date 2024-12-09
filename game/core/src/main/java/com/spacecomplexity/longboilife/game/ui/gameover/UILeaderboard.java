@@ -49,57 +49,57 @@ public class UILeaderboard extends UIElement {
 
         // Put names and scores on hash map
         for (int i = 0; i < namesList.length; i++) {
-          // Update score if user is already on leaderboard and has a higher score
-          if (namesList[i].equals(username)) {
-            if (score.compareTo(scoresList[i]) == 1) {
-              leaderboardHash.put(username, Float.valueOf(score));
-              scoresList[i] = score;
-              scores = "";
-              for (int j = 0; j < scoresList.length; j++) {
-                scores += scoresList[j] + ",";
-              }
-              LeaderboardPrefs.setScore(scores);
+            // Update score if user is already on leaderboard and has a higher score
+            if (namesList[i].equals(username)) {
+                if (Float.valueOf(score) >= Float.valueOf(scoresList[i])) {
+                    leaderboardHash.put(username, Float.valueOf(score));
+                    scoresList[i] = score;
+                    scores = "";
+                    for (int j = 0; j < scoresList.length; j++) {
+                        scores += scoresList[j] + ",";
+                    }
+                    LeaderboardPrefs.setScore(scores);
+                } else {
+                    leaderboardHash.put(username, Float.valueOf(scoresList[i]));
+                }
+                userCheck = true;
+            } else {
+                leaderboardHash.put(namesList[i], Float.valueOf(scoresList[i]));
             }
-            else {
-              leaderboardHash.put(username, Float.valueOf(scoresList[i]));
-            }
-            userCheck = true;
-          }
-          else {
-            leaderboardHash.put(namesList[i], Float.valueOf(scoresList[i]));
-          }
         }
         // Set new name and score if user not on leaderboard
         if (userCheck == false) {
-          leaderboardHash.put(username, Float.valueOf(score));
-          LeaderboardPrefs.setName(names + "," + username);
-          LeaderboardPrefs.setScore(scores + "," + score);
+            leaderboardHash.put(username, Float.valueOf(score));
+            LeaderboardPrefs.setName(names + "," + username);
+            LeaderboardPrefs.setScore(scores + "," + score);
         }
 
         // Sort leaderboard by scores
-        List<Map.Entry<String, Float>> Leaderboardlist = new LinkedList<Map.Entry<String, Float>>(leaderboardHash.entrySet());
+        List<Map.Entry<String, Float>> Leaderboardlist = new LinkedList<Map.Entry<String, Float>>(
+                leaderboardHash.entrySet());
+
         Collections.sort(Leaderboardlist, new Comparator<Map.Entry<String, Float>>() {
-        public int compare(Map.Entry<String, Float> o1,
-                          Map.Entry<String, Float> o2) {
-            return (o1.getValue()).compareTo(o2.getValue());
-        }
+            public int compare(Map.Entry<String, Float> o1,
+                    Map.Entry<String, Float> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
         });
-        
+
         // Sorted leaderboard list in descending order
         Collections.reverse(Leaderboardlist);
 
         // Create sorted leaderboard hash map
         Map<String, Float> sortedLeaderboard = new LinkedHashMap<String, Float>();
         for (Map.Entry<String, Float> entry : Leaderboardlist) {
-          sortedLeaderboard.put(entry.getKey(), entry.getValue());
+            sortedLeaderboard.put(entry.getKey(), entry.getValue());
         }
 
         // Add names and scores to the leaderboard display
         for (Map.Entry<String, Float> entry : sortedLeaderboard.entrySet()) {
-          allScores += index + "." + entry.getKey() + "    " + entry.getValue() + "\n";
-          index += 1;
+            allScores += index + "." + entry.getKey() + "    " + entry.getValue() + "\n";
+            index += 1;
         }
-        
+
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);
         label.setAlignment(Align.center);
@@ -113,9 +113,8 @@ public class UILeaderboard extends UIElement {
         table.setBackground(skin.getDrawable("panel1"));
         // Update height based on number of entries to display - minimum 4
         if (sortedLeaderboard.size() > 3) {
-            table.setSize(220, 100 + (sortedLeaderboard.size()-3)*15);
-        }
-        else {
+            table.setSize(220, 100 + (sortedLeaderboard.size() - 3) * 15);
+        } else {
             table.setSize(220, 100);
         }
         placeTable();
@@ -126,6 +125,7 @@ public class UILeaderboard extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()), uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);
+        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()),
+                uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);
     }
 }
