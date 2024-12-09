@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LeaderboardPrefs.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.globals</a> &gt; <span class="el_source">LeaderboardPrefs.java</span></div><h1>LeaderboardPrefs.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.globals;
+
+import com.badlogic.gdx.Preferences;
+
+import com.badlogic.gdx.Gdx;
+
+public class LeaderboardPrefs {
+    
+    private LeaderboardPrefs() {
+    // restricts instantiation of class
+  }
+
+<span class="nc" id="L13">  private static final Preferences prefs = Gdx.app.getPreferences(Constants.LEADERBOARD_PREFS);</span>
+
+  public static final String NAMES = &quot;leaderboard.names&quot;;
+  private static final String SCORES = &quot;leaderboard.scores&quot;;
+
+  public static final String initialNames = &quot;Longboi,Alice,Bob&quot;;
+  public static final String initialScores = &quot;75.00,50.00,10.00&quot;;
+
+  public static String getNames() {
+<span class="nc" id="L22">    return prefs.getString(NAMES, initialNames);</span>
+  }
+
+  public static void setName(String newNames) {
+<span class="nc" id="L26">    prefs.putString(NAMES, newNames);</span>
+<span class="nc" id="L27">    prefs.flush();</span>
+<span class="nc" id="L28">  }</span>
+
+  public static String getScores() {
+<span class="nc" id="L31">    return prefs.getString(SCORES, initialScores);</span>
+  }
+
+  public static void setScore(String score) {
+<span class="nc" id="L35">    prefs.putString(SCORES, score);</span>
+<span class="nc" id="L36">    prefs.flush();</span>
+<span class="nc" id="L37">  }</span>
+
+  public static void clear() {
+<span class="nc" id="L40">    prefs.clear();</span>
+<span class="nc" id="L41">    prefs.flush();</span>
+<span class="nc" id="L42">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
