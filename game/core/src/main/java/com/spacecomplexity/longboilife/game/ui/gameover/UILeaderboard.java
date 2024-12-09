@@ -126,6 +126,6 @@ public class UILeaderboard extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);
+        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()), uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);
     }
 }

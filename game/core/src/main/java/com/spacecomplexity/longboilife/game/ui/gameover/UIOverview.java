@@ -88,7 +88,7 @@ public class UIOverview extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, (uiViewport.getWorldHeight() - table.getHeight()) / 2);
+        table.setPosition(0, (uiViewport.getWorldHeight() - table.getHeight()) / 2);
     }
 
     /**
