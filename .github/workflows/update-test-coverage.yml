@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  dependency-submission:
+  update-test-coverage:
     runs-on: ubuntu-latest
 
     permissions:
@@ -48,7 +48,7 @@ jobs:
       run: |
         cd game
         chmod +x gradlew 
-        ./gradlew jacocoTestReport
+        ./gradlew clean build jacocoTestReport
 
     - name: Move reports to website
       run: cp -r game/headless/build/reports/jacoco/test/html website/jacoco
