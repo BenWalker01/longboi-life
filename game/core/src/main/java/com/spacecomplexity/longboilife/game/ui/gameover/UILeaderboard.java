@@ -35,10 +35,37 @@ public class UILeaderboard extends UIElement {
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
+        String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
+        Boolean userCheck = false;
+
         String username = System.getProperty("user.name");
         String allScores = "----------Leaderboard----------\n";
+
         TreeSet<String> sortedNames = new TreeSet<String>();
         TreeSet<String> sortedScores = new TreeSet<String>();
+
+        String names = LeaderboardPrefs.getNames();
+        String scores = LeaderboardPrefs.getScores();
+
+        String[] namesList = names.split("[,]");
+        String[] scoresList = scores.split("[,]");
+
+        for (int i = 0; i < namesList.length; i++) {
+          if (namesList[i] == username && score.compareTo(scoresList[i]) == 1) {
+            sortedNames.add(username);
+            sortedScores.add(score);
+            userCheck = true;
+          }
+          else {
+            sortedNames.add(namesList[i]);
+            sortedScores.add(scoresList[i]);
+          }
+        }
+
+        if (userCheck == false) {
+          sortedNames.add(username);
+          sortedScores.add(score);
+        }
 
         // Read in names and scores from the leaderboard
         // try {
@@ -58,21 +85,20 @@ public class UILeaderboard extends UIElement {
         //   allScores += "MISSING FILE - READ";
         // };
 
-
         // Write new score to leaderboard
-        try {
-          BufferedWriter leaderboardWriter = new BufferedWriter(new FileWriter(Filepaths.LEADERBOARD_DATA, true));
-          String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
-          if (username == currentUser && score.compareTo(prevScore) == 1) {
-            leaderboardWriter.append("\n" + username + "," + score);
-            leaderboardWriter.close();
-            sortedNames.add(username);
-            sortedScores.add(score);
-          }
-        } catch (IOException e) {
-          // TODO: Check for file as part of testing
-          allScores += "MISSING FILE - WRITE";
-        };
+        // try {
+        //   BufferedWriter leaderboardWriter = new BufferedWriter(new FileWriter(Filepaths.LEADERBOARD_DATA, true));
+        //   String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
+        //   if (username == currentUser && score.compareTo(prevScore) == 1) {
+        //     leaderboardWriter.append("\n" + username + "," + score);
+        //     leaderboardWriter.close();
+        //     sortedNames.add(username);
+        //     sortedScores.add(score);
+        //   }
+        // } catch (IOException e) {
+        //   // TODO: Check for file as part of testing
+        //   allScores += "MISSING FILE - WRITE";
+        // };
 
         // Save sorted names and scores
         List<String> nameList = new ArrayList<String>(sortedNames);
@@ -86,8 +112,8 @@ public class UILeaderboard extends UIElement {
 
         // LeaderboardPrefs.setName(username);
         // LeaderboardPrefs.setScore(prevScore);
-        System.out.println(LeaderboardPrefs.getNames());
-        System.out.println(LeaderboardPrefs.getScores());
+        // System.out.println(LeaderboardPrefs.getNames());
+        // System.out.println(LeaderboardPrefs.getScores());
         
         // Initialise leaderboard
         Label label = new Label(String.format(allScores), skin);

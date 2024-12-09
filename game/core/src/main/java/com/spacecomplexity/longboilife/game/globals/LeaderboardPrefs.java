@@ -4,8 +4,6 @@ import com.badlogic.gdx.Preferences;
 
 import java.util.ArrayList;
 
-import com.spacecomplexity.longboilife.game.globals.LeaderboardSave;
-
 import com.badlogic.gdx.Gdx;
 
 public class LeaderboardPrefs {
@@ -19,19 +17,20 @@ public class LeaderboardPrefs {
   public static final String NAMES = "leaderboard.names";
   private static final String SCORES = "leaderboard.scores";
 
-  public static final LeaderboardSave initialLeaderboard = new LeaderboardSave();
+  public static final String initialNames = "Longboi,Alice,Bob";
+  public static final String initialScores = "75.00,50.00,10.00";
 
-  public static LeaderboardSave getNames() {
-    return prefs.getClass(NAMES, initialLeaderboard);
+  public static String getNames() {
+    return prefs.getString(NAMES, initialNames);
   }
 
-  public static void setName(String name) {
-    prefs.putString(NAMES, name);
+  public static void setName(String newNames) {
+    prefs.putString(NAMES, newNames);
     prefs.flush();
   }
 
   public static String getScores() {
-    return prefs.getString(SCORES, "");
+    return prefs.getString(SCORES, initialScores);
   }
 
   public static void setScore(String score) {
