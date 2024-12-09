@@ -18,6 +18,7 @@ import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
+import com.spacecomplexity.longboilife.game.ui.gameover.UILeaderboard;
 import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
 import com.spacecomplexity.longboilife.game.globals.Filepaths;
@@ -106,6 +107,7 @@ public class UIManager {
             // Create the new end elements
             uiElements = new UIElement[] {
                     new UIOverview(viewport, table, skin),
+                    new UILeaderboard(viewport, table, skin)
             };
 
             // Pause the soundtrack and play the game over sound

@@ -84,4 +84,9 @@ public class Constants {
         put(BuildingCategory.RECREATIONAL, 5f);
         put(BuildingCategory.EDUCATIONAL, 10f);
     }};
+
+    /**
+     * Path to the leaderboard file.
+     */
+    public static final String LEADERBOARD_PREFS = "leaderboard";
 }

@@ -30,7 +30,7 @@ public class UIOverview extends UIElement {
     public UIOverview(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
-        String overview = String.format("Game Over\r\nSatisfaction Score: %.2f%%", GameState.getState().satisfactionScore * 100);
+        String overview = String.format("Game Over\r\nSatisfaction Score: %.2f", GameState.getState().satisfactionScore * 100);
 
         // Initialise game over label
         Label label = new Label(overview, skin);
@@ -88,7 +88,7 @@ public class UIOverview extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, (uiViewport.getWorldHeight() - table.getHeight()) / 2);
+        table.setPosition(0, (uiViewport.getWorldHeight() - table.getHeight()) / 2);
     }
 
     /**

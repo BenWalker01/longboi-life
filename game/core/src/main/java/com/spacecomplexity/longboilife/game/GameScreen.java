@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
         }
 
         // Create a new timer for 5 minutes
-        MainTimer.getTimerManager().getTimer().setTimer(5 * 60 * 1000);
+        MainTimer.getTimerManager().getTimer().setTimer(60 * 5 * 1000);
         MainTimer.getTimerManager().getTimer().setEvent(() -> {
             EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);
         });
@@ -249,6 +249,13 @@ public class GameScreen implements Screen {
         // Return to the menu
         eventHandler.createEvent(EventHandler.Event.RETURN_MENU, (params) -> {
             game.switchScreen(Main.ScreenType.MENU);
+
+            return null;
+        });
+
+        // Game over upon timer click
+        eventHandler.createEvent(EventHandler.Event.TIMER_CLICK, (params) -> {
+            MainTimer.getTimerManager().getTimer().setTimer(0);;
 
             return null;
         });
