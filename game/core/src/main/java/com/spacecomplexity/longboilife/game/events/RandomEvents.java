@@ -6,13 +6,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.spacecomplexity.longboilife.game.globals.GameState; 
 // NEW CLASS
 public enum RandomEvents {
-    LESS_INTERNATIONAL_STUDENTS(BiasType.HIGH_MONEY, "Due to changes in immigration policy international students\n are unwilling to choose this country let alone this university. \nYou will now lose income", 
+    LESS_INTERNATIONAL_STUDENTS(BiasType.HIGH_MONEY, "Due to changes in immigration policy international students\n are dropping out of the university", 
     (params) -> {  
         var gameState = GameState.getState(); 
         gameState.money *= MathUtils.clamp((float)Math.random(), 0.7f, 0.9f);
         return null;
     }), 
-    CHARITY(BiasType.LOW_MONEY, "A rich billionaire thinks your university could use some extra funds", (params) -> { 
+    CHARITY(BiasType.LOW_MONEY, "A billionaire donated to your university", (params) -> { 
         var gameState = GameState.getState(); 
         gameState.money *= 1.f + MathUtils.clamp((float)Math.random(), 0.1f, 0.4f); 
         return null;
