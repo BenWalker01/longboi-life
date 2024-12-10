@@ -1,4 +1,6 @@
 # Changes from v1.1.0 to v
+1. [Game] Enhancement - Added Random Events
+2. [Game] Enhancement - Changed uiElements member variable to a dynamic array
 
 # Changes from v1.0.0 to v1.1.0
 1. [Global] Enhancement - Added Changelog
@@ -26,5 +28,3 @@
 22. [Game] Enhancement - Added achievements system
 23. [Game] Enhancement - Added achievements display UI
 24. [Game] Bug fix - Counter background not resizing with counter text
-23. [Game] Feature? - Added Random Events
-24. [Game] Enhancement? - Changed uiElements member variable to a dynamic array
