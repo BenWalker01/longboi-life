@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
 <span class="nc" id="L67">        }</span>
 
         // Create a new timer for 5 minutes
-<span class="nc" id="L70">        MainTimer.getTimerManager().getTimer().setTimer(5 * 60 * 1000);</span>
+<span class="nc" id="L70">        MainTimer.getTimerManager().getTimer().setTimer(60 * 5 * 1000);</span>
 <span class="nc" id="L71">        MainTimer.getTimerManager().getTimer().setEvent(() -&gt; {</span>
 <span class="nc" id="L72">            EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);</span>
 <span class="nc" id="L73">        });</span>
@@ -252,7 +252,14 @@ public class GameScreen implements Screen {
 
 <span class="nc" id="L253">            return null;</span>
         });
-<span class="nc" id="L255">    }</span>
+
+        // Game over upon timer click
+<span class="nc" id="L257">        eventHandler.createEvent(EventHandler.Event.TIMER_CLICK, (params) -&gt; {</span>
+<span class="nc" id="L258">            MainTimer.getTimerManager().getTimer().setTimer(0);;</span>
+
+<span class="nc" id="L260">            return null;</span>
+        });
+<span class="nc" id="L262">    }</span>
 
     /**
      * Renders the game world, and make calls to handle continuous inputs.
@@ -261,59 +268,59 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         // Call to handles any constant input
-<span class="nc" id="L264">        inputManager.handleContinuousInput();</span>
+<span class="nc" id="L271">        inputManager.handleContinuousInput();</span>
 
         // Clear the screen
-<span class="nc" id="L267">        ScreenUtils.clear(0, 0, 0, 1f);</span>
+<span class="nc" id="L274">        ScreenUtils.clear(0, 0, 0, 1f);</span>
 
         // Applies viewport transformations and updates camera ready for rendering
-<span class="nc" id="L270">        viewport.apply();</span>
-<span class="nc" id="L271">        MainCamera.camera().update();</span>
+<span class="nc" id="L277">        viewport.apply();</span>
+<span class="nc" id="L278">        MainCamera.camera().update();</span>
         // Update the SpriteBatch and ShapeRenderer to match the updates camera
-<span class="nc" id="L273">        batch.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
-<span class="nc" id="L274">        shapeRenderer.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
+<span class="nc" id="L280">        batch.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
+<span class="nc" id="L281">        shapeRenderer.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
 
         // Darkened the world when paused
-<span class="nc bnc" id="L277" title="All 2 branches missed.">        Color worldTint = gameState.paused ? Color.LIGHT_GRAY : Color.WHITE;</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">        Color worldTint = gameState.paused ? Color.LIGHT_GRAY : Color.WHITE;</span>
 
         // Draw the world tiles
-<span class="nc" id="L280">        RenderUtils.drawWorld(batch, world, worldTint);</span>
+<span class="nc" id="L287">        RenderUtils.drawWorld(batch, world, worldTint);</span>
         // Draw the worlds buildings
-<span class="nc" id="L282">        RenderUtils.drawBuildings(batch, world, worldTint);</span>
+<span class="nc" id="L289">        RenderUtils.drawBuildings(batch, world, worldTint);</span>
         // If there is a building to be placed draw it as a ghost building
-<span class="nc bnc" id="L284" title="All 2 branches missed.">        if (gameState.placingBuilding != null) {</span>
-<span class="nc" id="L285">            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f),</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">        if (gameState.placingBuilding != null) {</span>
+<span class="nc" id="L292">            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f),</span>
                     new Color(1f, 0f, 0f, 0.75f));
         }
         // If we are placing a building or there is a building selected then draw
         // gridlines
-<span class="nc bnc" id="L290" title="All 4 branches missed.">        if (gameState.placingBuilding != null || gameState.selectedBuilding != null) {</span>
-<span class="nc" id="L291">            RenderUtils.drawWorldGridlines(shapeRenderer, world, Color.BLACK);</span>
+<span class="nc bnc" id="L297" title="All 4 branches missed.">        if (gameState.placingBuilding != null || gameState.selectedBuilding != null) {</span>
+<span class="nc" id="L298">            RenderUtils.drawWorldGridlines(shapeRenderer, world, Color.BLACK);</span>
         }
         // If there is a building selected then outline it
-<span class="nc bnc" id="L294" title="All 2 branches missed.">        if (gameState.selectedBuilding != null) {</span>
-<span class="nc" id="L295">            RenderUtils.outlineBuilding(shapeRenderer, gameState.selectedBuilding, Color.RED, 2);</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">        if (gameState.selectedBuilding != null) {</span>
+<span class="nc" id="L302">            RenderUtils.outlineBuilding(shapeRenderer, gameState.selectedBuilding, Color.RED, 2);</span>
         }
         // If there is a moving selected then outline where it was previously
-<span class="nc bnc" id="L298" title="All 2 branches missed.">        if (gameState.movingBuilding != null) {</span>
-<span class="nc" id="L299">            RenderUtils.outlineBuilding(shapeRenderer, gameState.movingBuilding, Color.PURPLE, 2);</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        if (gameState.movingBuilding != null) {</span>
+<span class="nc" id="L306">            RenderUtils.outlineBuilding(shapeRenderer, gameState.movingBuilding, Color.PURPLE, 2);</span>
         }
 
         // Render the UI
-<span class="nc" id="L303">        ui.render();</span>
+<span class="nc" id="L310">        ui.render();</span>
 
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
-<span class="nc bnc" id="L307" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
+<span class="nc bnc" id="L314" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
             // Update the satisfaction score
-<span class="nc" id="L309">            GameUtils.updateSatisfactionScore(world);</span>
+<span class="nc" id="L316">            GameUtils.updateSatisfactionScore(world);</span>
             // ASSESSMENT 2 - Check for achievements and display them
-<span class="nc" id="L311">            achievementsManager.checkAchievements();</span>
-<span class="nc" id="L312">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
+<span class="nc" id="L318">            achievementsManager.checkAchievements();</span>
+<span class="nc" id="L319">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
             // Update the unlocked achievements in the game state
-<span class="nc" id="L314">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
+<span class="nc" id="L321">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
         }
-<span class="nc" id="L316">    }</span>
+<span class="nc" id="L323">    }</span>
 
     /**
      * Handles resizing events, to ensure the game can be scaled.
@@ -325,27 +332,27 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         // Updates viewport to match new window size
-<span class="nc" id="L328">        viewport.update(width, height, false);</span>
+<span class="nc" id="L335">        viewport.update(width, height, false);</span>
 
         // Recalculate scaling factors with new height
-<span class="nc" id="L331">        GameUtils.calculateScaling();</span>
+<span class="nc" id="L338">        GameUtils.calculateScaling();</span>
 
         // Rescale UI
-<span class="nc" id="L334">        ui.resize(width, height);</span>
-<span class="nc" id="L335">    }</span>
+<span class="nc" id="L341">        ui.resize(width, height);</span>
+<span class="nc" id="L342">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L339">    }</span>
+<span class="nc" id="L346">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L343">    }</span>
+<span class="nc" id="L350">    }</span>
 
     @Override
     public void hide() {
 
-<span class="nc" id="L348">    }</span>
+<span class="nc" id="L355">    }</span>
 
     /**
      * Release all resources held by the game.
@@ -353,9 +360,9 @@ public class GameScreen implements Screen {
      */
     @Override
     public void dispose() {
-<span class="nc" id="L356">        batch.dispose();</span>
-<span class="nc" id="L357">        shapeRenderer.dispose();</span>
-<span class="nc" id="L358">        ui.dispose();</span>
-<span class="nc" id="L359">    }</span>
+<span class="nc" id="L363">        batch.dispose();</span>
+<span class="nc" id="L364">        shapeRenderer.dispose();</span>
+<span class="nc" id="L365">        ui.dispose();</span>
+<span class="nc" id="L366">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -26,6 +26,11 @@ jobs:
         with: 
           java-version: 17
           distribution: "temurin"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       
       - name: Update build version
         run: |
@@ -49,7 +54,7 @@ jobs:
 
       - name: Get release notes
         id: release_notes
-        run: python3 "game/_devUtils/generate_release_notes.py"
+        run: python "game/_devUtils/generate_release_notes.py"
 
       - run: echo "-> ${{ steps.release_notes.outputs.release_notes}}"
 

@@ -20,7 +20,8 @@ public class EventHandler {
         GAME_END,
         RETURN_MENU,   
         //NEW EVENT
-        RANDOM_EVENT
+        RANDOM_EVENT,
+        TIMER_CLICK,
         ;
 
         private Function<Object[], Object> callback;

@@ -1,4 +1,6 @@
-# Changes from v1.0.0 to v
+# Changes from v1.1.0 to v
+
+# Changes from v1.0.0 to v1.1.0
 1. [Global] Enhancement - Added Changelog
 2. [Game] Enhancement - Added class to manage asset filepaths
 3. [Game] Test - Added tests to check assets available
@@ -10,9 +12,10 @@
 9. [Game] Test - Added tests to check MainInputManagerClass 
 10. [Game] Enhancement - Added basketball court building
 11. [Game] Test - Added tests to check Event Handler class
-12. [Game] Test - Added tests to check GameUtils class
-13. [Game] Test - Added tests to check Timer class 
-14. [Game] Test - Added tests to check Main class
+12. [Game] Enhancement - Display leaderboard upon game over
+13. [Game] Test - Added tests to check GameUtils class
+14. [Game] Test - Added tests to check Timer class 
+15. [Game] Test - Added tests to check Main class
 15. [Game] Test - Added tests to check CameraManager class
 16. [Game] Bug fix - Fix crashing on shutdown due to double dispose in the game screen class 
 17. [Game] Test - Added tests to check UIUtils class
