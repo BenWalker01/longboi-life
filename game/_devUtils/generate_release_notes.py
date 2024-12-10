@@ -17,4 +17,4 @@ for d in data:
 print("\n".join(release_notes))
 
 with open(os.environ['GITHUB_OUTPUT'], 'a')as fh:
-    print(f"release_notes={'\n'.join(release_notes)}", file=fh)
+    print(f"release_notes={', '.join(release_notes)}", file=fh)
