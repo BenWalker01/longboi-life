@@ -18,22 +18,24 @@ import java.util.function.Function;
 <span class="fc" id="L18">        CLOSE_SELECTED_MENU,</span>
 <span class="fc" id="L19">        CLOSE_BUILD_MENU,</span>
 <span class="fc" id="L20">        GAME_END,</span>
-<span class="fc" id="L21">        RETURN_MENU,</span>
-<span class="fc" id="L22">        TIMER_CLICK,</span>
+<span class="fc" id="L21">        RETURN_MENU,   </span>
+        //NEW EVENT
+<span class="fc" id="L23">        RANDOM_EVENT,</span>
+<span class="fc" id="L24">        TIMER_CLICK,</span>
         ;
 
         private Function&lt;Object[], Object&gt; callback;
 
         private void setCallback(Function&lt;Object[], Object&gt; callback) {
-<span class="fc" id="L28">            this.callback = callback;</span>
-<span class="fc" id="L29">        }</span>
+<span class="fc" id="L30">            this.callback = callback;</span>
+<span class="fc" id="L31">        }</span>
 
         private Function&lt;Object[], Object&gt; getCallback() {
-<span class="fc" id="L32">            return callback;</span>
+<span class="fc" id="L34">            return callback;</span>
         }
     }
 
-<span class="fc" id="L36">    private static final EventHandler eventHandler = new EventHandler();</span>
+<span class="fc" id="L38">    private static final EventHandler eventHandler = new EventHandler();</span>
 
     /**
      * Create an event.
@@ -42,11 +44,11 @@ import java.util.function.Function;
      * @param callback the event method, this is what will be executed.
      */
     public void createEvent(Event event, Function&lt;Object[], Object&gt; callback) { 
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (event == null) { </span>
-<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (event == null) { </span>
+<span class="fc" id="L48">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
         }
-<span class="fc" id="L48">        event.setCallback(callback);</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L50">        event.setCallback(callback);</span>
+<span class="fc" id="L51">    }</span>
 
     /**
      * Call a previously defined event.
@@ -57,19 +59,19 @@ import java.util.function.Function;
      * @throws IllegalArgumentException if the event has not been defined.
      */
     public Object callEvent(Event event, Object... params) throws IllegalArgumentException { 
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (event == null) { </span>
-<span class="fc" id="L61">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (event == null) { </span>
+<span class="fc" id="L63">            throw new IllegalArgumentException(&quot;Event cannot be null&quot;);</span>
         } 
         
-<span class="fc" id="L64">        Function&lt;Object[], Object&gt; callback = event.getCallback();</span>
+<span class="fc" id="L66">        Function&lt;Object[], Object&gt; callback = event.getCallback();</span>
 
         // If the callback is not defined then throw an error
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (callback == null) {</span>
-<span class="fc" id="L68">            throw new IllegalArgumentException(&quot;No event defined for: \&quot;&quot; + event.name() + &quot;\&quot;&quot;);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (callback == null) {</span>
+<span class="fc" id="L70">            throw new IllegalArgumentException(&quot;No event defined for: \&quot;&quot; + event.name() + &quot;\&quot;&quot;);</span>
         }
 
         // Execute the callback and return the result
-<span class="fc" id="L72">        return callback.apply(params);</span>
+<span class="fc" id="L74">        return callback.apply(params);</span>
     }
 
     /**
@@ -78,7 +80,7 @@ import java.util.function.Function;
      * @return The single {@link EventHandler} class.
      */
     public static EventHandler getEventHandler() {
-<span class="fc" id="L81">        return eventHandler;</span>
+<span class="fc" id="L83">        return eventHandler;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

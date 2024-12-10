@@ -18,10 +18,10 @@ import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
-import com.spacecomplexity.longboilife.game.ui.gameover.UILeaderboard;
-import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
+import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.globals.Filepaths; 
+import java.util.ArrayList;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 import java.util.Queue;
@@ -33,105 +33,116 @@ public class UIManager {
     private Viewport viewport;
 
     private Stage stage;
-    private final Skin skin;
+    private final Skin skin; 
 
-    private UIElement[] uiElements;
+    //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
+<span class="nc" id="L39">    private ArrayList&lt;UIElement&gt; uiElements = new ArrayList&lt;&gt;();</span>
 
-<span class="nc" id="L40">    private long lastAchievementTime = 5*60*1000;</span>
+<span class="nc" id="L41">    private long lastAchievementTime = 5*60*1000;</span>
 
     /**
      * Initialise UI elements needed for the game.
      *
      * @param inputMultiplexer to add the UI events to the input processing
      */
-<span class="nc" id="L47">    public UIManager(InputMultiplexer inputMultiplexer) {</span>
+<span class="nc" id="L48">    public UIManager(InputMultiplexer inputMultiplexer) {</span>
         // Initialise viewport for rescaling
         // ASSESSMENT 2 - Moved default window size to Constants.DEFAULT_WINDOW_WIDTH and Constants.DEFAULT_WINDOW_HEIGHT
-<span class="nc" id="L50">        viewport = new ScalingViewport(Scaling.fit, Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);</span>
+<span class="nc" id="L51">        viewport = new ScalingViewport(Scaling.fit, Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);</span>
 
         // Initialise stage
-<span class="nc" id="L53">        stage = new Stage(viewport);</span>
-<span class="nc" id="L54">        inputMultiplexer.addProcessor(stage);</span>
+<span class="nc" id="L54">        stage = new Stage(viewport);</span>
+<span class="nc" id="L55">        inputMultiplexer.addProcessor(stage);</span>
 
         // Initialise root table
-<span class="nc" id="L57">        Table table = new Table();</span>
-<span class="nc" id="L58">        table.setFillParent(true);</span>
-<span class="nc" id="L59">        stage.addActor(table);</span>
+<span class="nc" id="L58">        Table table = new Table();</span>
+<span class="nc" id="L59">        table.setFillParent(true);</span>
+<span class="nc" id="L60">        stage.addActor(table);</span>
 
         // Load external UI skin
-<span class="nc" id="L62">        skin = new Skin(Gdx.files.internal(Filepaths.SKIN_JSON_ASSET));</span>
+<span class="nc" id="L63">        skin = new Skin(Gdx.files.internal(Filepaths.SKIN_JSON_ASSET));</span>
 
         // Load external font
-<span class="nc" id="L65">        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Filepaths.MEDIUM_FONT_ASSET));</span>
+<span class="nc" id="L66">        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Filepaths.MEDIUM_FONT_ASSET));</span>
         // Generate a bitmap font for size 12
-<span class="nc" id="L67">        BitmapFont ourFont12 = generator.generateFont(new FreeTypeFontGenerator.FreeTypeFontParameter() {</span>
+<span class="nc" id="L68">        BitmapFont ourFont12 = generator.generateFont(new FreeTypeFontGenerator.FreeTypeFontParameter() {</span>
             {
-<span class="nc" id="L69">                size = 12;</span>
-<span class="nc" id="L70">            }</span>
+<span class="nc" id="L70">                size = 12;</span>
+<span class="nc" id="L71">            }</span>
         });
         // Generate a bitmap font for size 14
-<span class="nc" id="L73">        BitmapFont ourFont16 = generator.generateFont(new FreeTypeFontGenerator.FreeTypeFontParameter() {</span>
+<span class="nc" id="L74">        BitmapFont ourFont16 = generator.generateFont(new FreeTypeFontGenerator.FreeTypeFontParameter() {</span>
             {
-<span class="nc" id="L75">                size = 14;</span>
-<span class="nc" id="L76">            }</span>
+<span class="nc" id="L76">                size = 14;</span>
+<span class="nc" id="L77">            }</span>
         });
-<span class="nc" id="L78">        generator.dispose();</span>
+<span class="nc" id="L79">        generator.dispose();</span>
 
         // Set skins font to our font
-<span class="nc" id="L81">        skin.get(&quot;default&quot;, Label.LabelStyle.class).font = ourFont12;</span>
-<span class="nc" id="L82">        skin.get(&quot;default&quot;, TextButton.TextButtonStyle.class).font = ourFont16;</span>
+<span class="nc" id="L82">        skin.get(&quot;default&quot;, Label.LabelStyle.class).font = ourFont12;</span>
+<span class="nc" id="L83">        skin.get(&quot;default&quot;, TextButton.TextButtonStyle.class).font = ourFont16;</span>
 
         // Create our UI elements
         // Note: The order of these is the order that they will be rendered
-<span class="nc" id="L86">        uiElements = new UIElement[] {</span>
-                new UIBuildingSelectedMenu(viewport, table, skin),
-                new UIBottomMenu(viewport, table, skin),
-                new UIClockMenu(viewport, table, skin),
-                new UISatisfactionMenu(viewport, table, skin),
-                new UIMoneyMenu(viewport, table, skin),
-                new UIBuildingCounter(viewport, table, skin),
-                new UIAchievementPopUp(viewport, table, skin)
-        };
+        //NEW: CHANGED FROM STATIC ARRAY TO DYNAMIC
+<span class="nc" id="L88">        uiElements.add(new UIBuildingSelectedMenu(viewport, table, skin));</span>
+<span class="nc" id="L89">        uiElements.add(new UIBottomMenu(viewport, table, skin));</span>
+<span class="nc" id="L90">        uiElements.add(new UIClockMenu(viewport, table, skin));</span>
+<span class="nc" id="L91">        uiElements.add(new UISatisfactionMenu(viewport, table, skin));</span>
+<span class="nc" id="L92">        uiElements.add(new UIMoneyMenu(viewport, table, skin));</span>
+<span class="nc" id="L93">        uiElements.add(new UIBuildingCounter(viewport, table, skin)); </span>
+<span class="nc" id="L94">        uiElements.add(new UIAchievementPopUp(viewport, table, skin));</span>
+        //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
-<span class="nc" id="L97">        EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -&gt; {</span>
-<span class="nc" id="L98">            GameState.getState().gameOver = true;</span>
-<span class="nc" id="L99">            EventHandler.getEventHandler().callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
+<span class="nc" id="L98">        EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -&gt; {</span>
+<span class="nc" id="L99">            GameState.getState().gameOver = true;</span>
+<span class="nc" id="L100">            EventHandler.getEventHandler().callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
 
             // Run dispose functions on UI elements
-<span class="nc bnc" id="L102" title="All 2 branches missed.">            for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L103">                uiElement.dispose();</span>
-            }
-<span class="nc" id="L105">            table.clear();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">            for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L104">                uiElement.dispose();</span>
+<span class="nc" id="L105">            }</span>
+<span class="nc" id="L106">            table.clear();</span>
 
             // Create the new end elements
-<span class="nc" id="L108">            uiElements = new UIElement[] {</span>
-                    new UIOverview(viewport, table, skin),
-                    new UILeaderboard(viewport, table, skin)
-            };
+            // NEW USE DYANMIC ARRAY INSTEAD;
+<span class="nc" id="L110">            uiElements = new ArrayList&lt;&gt;();  </span>
+
+<span class="nc" id="L112">            uiElements.add(new UIOverview(viewport, table, skin)); </span>
+<span class="nc" id="L113">            uiElements.add(new UILeaderboard(viewport, table, skin));</span>
 
             // Pause the soundtrack and play the game over sound
-<span class="nc" id="L114">            Soundtrack.getSoundtrack().pause();</span>
-<span class="nc" id="L115">            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();</span>
+<span class="nc" id="L116">            Soundtrack.getSoundtrack().pause();</span>
+<span class="nc" id="L117">            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();</span>
 
-<span class="nc" id="L117">            return null;</span>
+<span class="nc" id="L119">            return null;</span>
+        });   
+        //NEW ADDED EVENT
+<span class="nc" id="L122">        EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -&gt; {</span>
+           
+<span class="nc" id="L124">            uiElements.add(new UIEventsMenu(viewport, table, skin));  </span>
+            
+<span class="nc" id="L126">            return null;</span>
         });
-<span class="nc" id="L119">    }</span>
+    
+<span class="nc" id="L129">    }  </span>
+    
 
     /**
      * Apply and draw UI onto the screen.
      */
     public void render() {
         // Render on each of the UI elements
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L127">            uiElement.render();</span>
-        }
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L138">            uiElement.render();</span>
+<span class="nc" id="L139">        }</span>
 
         // Apply and then draw
-<span class="nc" id="L131">        viewport.apply();</span>
-<span class="nc" id="L132">        stage.act(Gdx.graphics.getDeltaTime());</span>
-<span class="nc" id="L133">        stage.draw();</span>
-<span class="nc" id="L134">    }</span>
+<span class="nc" id="L142">        viewport.apply();</span>
+<span class="nc" id="L143">        stage.act(Gdx.graphics.getDeltaTime());</span>
+<span class="nc" id="L144">        stage.draw();</span>
+<span class="nc" id="L145">    }</span>
 
     /**
      * Handles resizing events, to ensure the UI is scaled correctly.
@@ -141,18 +152,18 @@ public class UIManager {
      */
     public void resize(int width, int height) {
         // Update world size to match scaling of uiScaleFactor
-<span class="nc" id="L144">        viewport.setWorldSize(</span>
-<span class="nc" id="L145">                (float) width / GameState.getState().uiScaleFactor,</span>
-<span class="nc" id="L146">                (float) height / GameState.getState().uiScaleFactor);</span>
+<span class="nc" id="L155">        viewport.setWorldSize(</span>
+<span class="nc" id="L156">                (float) width / GameState.getState().uiScaleFactor,</span>
+<span class="nc" id="L157">                (float) height / GameState.getState().uiScaleFactor);</span>
 
         // Updates viewport to match new window size
-<span class="nc" id="L149">        viewport.update(width, height, true);</span>
+<span class="nc" id="L160">        viewport.update(width, height, true);</span>
 
         // Run resize functions on UI elements
-<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L153">            uiElement.resize();</span>
-        }
-<span class="nc" id="L155">    }</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L164">            uiElement.resize();</span>
+<span class="nc" id="L165">        }</span>
+<span class="nc" id="L166">    }</span>
 
     /**
      * Show the achievement pop up.
@@ -168,30 +179,30 @@ public class UIManager {
      * @param achievementQueue the queue of achievements to show.
      */
     public void showAchievement(Queue&lt;IAchievement&gt; achievementQueue) {
-<span class="nc" id="L171">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (lastAchievementTime - currentTime &lt; 5000) {</span>
-<span class="nc" id="L173">            return;</span>
+<span class="nc" id="L182">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (lastAchievementTime - currentTime &lt; 5000) {</span>
+<span class="nc" id="L184">            return;</span>
         }
-<span class="nc" id="L175">        ((UIAchievementPopUp) uiElements[6]).hideAchievement();</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (achievementQueue.isEmpty()) {</span>
-<span class="nc" id="L177">            return;</span>
+<span class="nc" id="L186">        ((UIAchievementPopUp) uiElements.get(6)).hideAchievement();</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (achievementQueue.isEmpty()) {</span>
+<span class="nc" id="L188">            return;</span>
         }
-<span class="nc" id="L179">        lastAchievementTime = currentTime;</span>
-<span class="nc" id="L180">        IAchievement achievement = achievementQueue.poll();</span>
-<span class="nc" id="L181">        ((UIAchievementPopUp) uiElements[6]).showAchievement(achievement.getName(), achievement.getDescription());</span>
-<span class="nc" id="L182">    }</span>
+<span class="nc" id="L190">        lastAchievementTime = currentTime;</span>
+<span class="nc" id="L191">        IAchievement achievement = achievementQueue.poll();</span>
+<span class="nc" id="L192">        ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());</span>
+<span class="nc" id="L193">    }</span>
 
     /**
      * Dispose of all loaded assets.
      */
     public void dispose() {
-<span class="nc" id="L188">        stage.dispose();</span>
-<span class="nc" id="L189">        skin.dispose();</span>
+<span class="nc" id="L199">        stage.dispose();</span>
+<span class="nc" id="L200">        skin.dispose();</span>
 
         // Run dispose functions on UI elements
-<span class="nc bnc" id="L192" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L193">            uiElement.dispose();</span>
-        }
-<span class="nc" id="L195">    }</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L204">            uiElement.dispose();</span>
+<span class="nc" id="L205">        }</span>
+<span class="nc" id="L206">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
