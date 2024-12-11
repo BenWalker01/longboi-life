@@ -7,13 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
-import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+
+import java.util.*;
 
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.LeaderboardPrefs;
@@ -32,7 +27,7 @@ public class UILeaderboard extends UIElement {
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
-        String score = String.format("%.2f", GameState.getState().satisfactionScore * 100);
+        String score = String.format(Locale.UK, "%.2f", GameState.getState().satisfactionScore * 100);
         Boolean userCheck = false;
         Integer index = 1;
 
