@@ -30,7 +30,8 @@ public class UIOverview extends UIElement {
     public UIOverview(Viewport uiViewport, Table parentTable, Skin skin) {
         super(uiViewport, parentTable, skin);
 
-        String overview = String.format("Game Over\r\nSatisfaction Score: %.2f", GameState.getState().satisfactionScore * 100);
+        String overview = String.format("Game Over\r\nSatisfaction Score: %.2f",
+                GameState.getState().satisfactionScore * 100);
 
         // Initialise game over label
         Label label = new Label(overview, skin);
@@ -92,14 +93,16 @@ public class UIOverview extends UIElement {
     }
 
     /**
-     * Build a string of unlocked achievements using the achievement set from the game state.
+     * Build a string of unlocked achievements using the achievement set from the
+     * game state.
      *
      * @return the string of unlocked achievements.
      */
     protected String buildUnlockedAchievementsString() {
         StringBuilder achievements = new StringBuilder();
         for (IAchievement achievement : GameState.getState().unlockedAchievements) {
-            achievements.append(achievement.getName()).append(" - ").append(achievement.getDescription()).append("\r\n");
+            achievements.append(achievement.getName()).append(" - ").append(achievement.getDescription())
+                    .append("\r\n");
         }
         return achievements.toString();
     }

@@ -31,7 +31,7 @@ public class UILeaderboard extends UIElement {
         Boolean userCheck = false;
         Integer index = 1;
 
-        String username = System.getProperty("user.name");
+        String username = LeaderboardPrefs.displayName;
         String allScores = "----------Leaderboard----------\n";
 
         HashMap<String, Float> leaderboardHash = new HashMap<String, Float>();
@@ -53,7 +53,7 @@ public class UILeaderboard extends UIElement {
                     for (int j = 0; j < scoresList.length; j++) {
                         scores += scoresList[j] + ",";
                     }
-                    LeaderboardPrefs.setScore(scores);
+                    LeaderboardPrefs.writeScores(scores);
                 } else {
                     leaderboardHash.put(username, Float.valueOf(scoresList[i]));
                 }
@@ -65,15 +65,15 @@ public class UILeaderboard extends UIElement {
         // Set new name and score if user not on leaderboard
         if (userCheck == false) {
             leaderboardHash.put(username, Float.valueOf(score));
-            LeaderboardPrefs.setName(names + "," + username);
-            LeaderboardPrefs.setScore(scores + "," + score);
+            LeaderboardPrefs.writeNames(names + "," + username);
+            LeaderboardPrefs.writeScores(scores + "," + score);
         }
 
         // Sort leaderboard by scores
-        List<Map.Entry<String, Float>> Leaderboardlist = new LinkedList<Map.Entry<String, Float>>(
+        List<Map.Entry<String, Float>> LeaderboardList = new LinkedList<Map.Entry<String, Float>>(
                 leaderboardHash.entrySet());
 
-        Collections.sort(Leaderboardlist, new Comparator<Map.Entry<String, Float>>() {
+        Collections.sort(LeaderboardList, new Comparator<Map.Entry<String, Float>>() {
             public int compare(Map.Entry<String, Float> o1,
                     Map.Entry<String, Float> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
@@ -81,11 +81,11 @@ public class UILeaderboard extends UIElement {
         });
 
         // Sorted leaderboard list in descending order
-        Collections.reverse(Leaderboardlist);
+        Collections.reverse(LeaderboardList);
 
         // Create sorted leaderboard hash map
         Map<String, Float> sortedLeaderboard = new LinkedHashMap<String, Float>();
-        for (Map.Entry<String, Float> entry : Leaderboardlist) {
+        for (Map.Entry<String, Float> entry : LeaderboardList) {
             sortedLeaderboard.put(entry.getKey(), entry.getValue());
         }
 
