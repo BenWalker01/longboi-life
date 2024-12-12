@@ -36,13 +36,15 @@ public class UILeaderboard extends UIElement {
         Boolean userCheck = false;
         Integer index = 1;
 
-        String username = System.getProperty("user.name");
+        String username = LeaderboardPrefs.displayName;
         String allScores = "----------Leaderboard----------\n";
 
         HashMap<String, Float> leaderboardHash = new HashMap<String, Float>();
 
         String names = LeaderboardPrefs.getNames();
         String scores = LeaderboardPrefs.getScores();
+        System.out.println(names);
+        System.out.println(score);
 
         String[] namesList = names.split("[,]");
         String[] scoresList = scores.split("[,]");

@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -54,29 +53,6 @@ public class UIOverview extends UIElement {
         achievementsLabel.setColor(Color.WHITE);
         achievementsLabel.setWrap(true);
 
-        // Initialise name entry label
-        Label givenNameLabel = new Label("Enter your name:", skin);
-        givenNameLabel.setAlignment(Align.center);
-        givenNameLabel.setFontScale(1.2f);
-        givenNameLabel.setColor(Color.WHITE);
-
-        // Initialise name entry
-        TextField givenName = new TextField(System.getProperty("user.name"), skin);
-        givenName.setMaxLength(20);
-        givenName.setAlignment(Align.center);
-        givenName.setColor(Color.WHITE);
-
-        // Initialise update button
-        TextButton updateName = new TextButton("Update Leaderboard", skin);
-        updateName.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                String enteredName = givenName.getText();
-                System.out.println(enteredName);
-
-            }
-        });
-
         // Initialise button
         TextButton button = new TextButton("Menu", skin);
         button.addListener(new ClickListener() {
@@ -90,12 +66,6 @@ public class UIOverview extends UIElement {
         // Place elements onto table
         table.add(label).align(Align.center);
         table.row();
-        table.add(givenNameLabel).align(Align.center).padTop(5);
-        table.row();
-        table.add(givenName).align(Align.center).padTop(5);
-        table.row();
-        table.add(updateName).align(Align.center).padTop(5);
-        table.row();
         if (GameState.getState().unlockedAchievements.size() > 0) {
             table.add(achievementsUnlockedLabel).align(Align.center).padTop(5);
             table.row();
@@ -107,9 +77,9 @@ public class UIOverview extends UIElement {
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
         if (GameState.getState().unlockedAchievements.size() > 0) {
-            table.setSize(220, 225 + GameState.getState().unlockedAchievements.size() * 35);
+            table.setSize(220, 150 + GameState.getState().unlockedAchievements.size() * 35);
         } else {
-            table.setSize(220, 175);
+            table.setSize(220, 100);
         }
         placeTable();
     }

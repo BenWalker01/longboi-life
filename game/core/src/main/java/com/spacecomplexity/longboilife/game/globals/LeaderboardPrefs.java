@@ -5,8 +5,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Gdx;
 
 public class LeaderboardPrefs {
-    
-    private LeaderboardPrefs() {
+
+  private LeaderboardPrefs() {
     // restricts instantiation of class
   }
 
@@ -17,6 +17,8 @@ public class LeaderboardPrefs {
 
   public static final String initialNames = "Longboi,Alice,Bob";
   public static final String initialScores = "75.00,50.00,10.00";
+
+  public static String displayName = System.getProperty("user.name");
 
   public static String getNames() {
     return prefs.getString(NAMES, initialNames);
@@ -39,5 +41,9 @@ public class LeaderboardPrefs {
   public static void clear() {
     prefs.clear();
     prefs.flush();
+  }
+
+  public void setDisplayName(String name) {
+    displayName = name;
   }
 }
