@@ -7,13 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
-import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+
+import java.util.*;
 
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.LeaderboardPrefs;
@@ -30,103 +25,103 @@ public class UILeaderboard extends UIElement {
      * @param skin        the provided skin.
      */
     public UILeaderboard(Viewport uiViewport, Table parentTable, Skin skin) {
-<span class="nc" id="L33">        super(uiViewport, parentTable, skin);</span>
+<span class="nc" id="L28">        super(uiViewport, parentTable, skin);</span>
 
-<span class="nc" id="L35">        String score = String.format(&quot;%.2f&quot;, GameState.getState().satisfactionScore * 100);</span>
-<span class="nc" id="L36">        Boolean userCheck = false;</span>
-<span class="nc" id="L37">        Integer index = 1;</span>
+<span class="nc" id="L30">        String score = String.format(Locale.UK, &quot;%.2f&quot;, GameState.getState().satisfactionScore * 100);</span>
+<span class="nc" id="L31">        Boolean userCheck = false;</span>
+<span class="nc" id="L32">        Integer index = 1;</span>
 
-<span class="nc" id="L39">        String username = System.getProperty(&quot;user.name&quot;);</span>
-<span class="nc" id="L40">        String allScores = &quot;----------Leaderboard----------\n&quot;;</span>
+<span class="nc" id="L34">        String username = System.getProperty(&quot;user.name&quot;);</span>
+<span class="nc" id="L35">        String allScores = &quot;----------Leaderboard----------\n&quot;;</span>
 
-<span class="nc" id="L42">        HashMap&lt;String, Float&gt; leaderboardHash = new HashMap&lt;String, Float&gt;();</span>
+<span class="nc" id="L37">        HashMap&lt;String, Float&gt; leaderboardHash = new HashMap&lt;String, Float&gt;();</span>
 
-<span class="nc" id="L44">        String names = LeaderboardPrefs.getNames();</span>
-<span class="nc" id="L45">        String scores = LeaderboardPrefs.getScores();</span>
+<span class="nc" id="L39">        String names = LeaderboardPrefs.getNames();</span>
+<span class="nc" id="L40">        String scores = LeaderboardPrefs.getScores();</span>
 
-<span class="nc" id="L47">        String[] namesList = names.split(&quot;[,]&quot;);</span>
-<span class="nc" id="L48">        String[] scoresList = scores.split(&quot;[,]&quot;);</span>
+<span class="nc" id="L42">        String[] namesList = names.split(&quot;[,]&quot;);</span>
+<span class="nc" id="L43">        String[] scoresList = scores.split(&quot;[,]&quot;);</span>
 
         // Put names and scores on hash map
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        for (int i = 0; i &lt; namesList.length; i++) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        for (int i = 0; i &lt; namesList.length; i++) {</span>
             // Update score if user is already on leaderboard and has a higher score
-<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (namesList[i].equals(username)) {</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">                if (Float.valueOf(score) &gt;= Float.valueOf(scoresList[i])) {</span>
-<span class="nc" id="L55">                    leaderboardHash.put(username, Float.valueOf(score));</span>
-<span class="nc" id="L56">                    scoresList[i] = score;</span>
-<span class="nc" id="L57">                    scores = &quot;&quot;;</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">                    for (int j = 0; j &lt; scoresList.length; j++) {</span>
-<span class="nc" id="L59">                        scores += scoresList[j] + &quot;,&quot;;</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (namesList[i].equals(username)) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (Float.valueOf(score) &gt;= Float.valueOf(scoresList[i])) {</span>
+<span class="nc" id="L50">                    leaderboardHash.put(username, Float.valueOf(score));</span>
+<span class="nc" id="L51">                    scoresList[i] = score;</span>
+<span class="nc" id="L52">                    scores = &quot;&quot;;</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                    for (int j = 0; j &lt; scoresList.length; j++) {</span>
+<span class="nc" id="L54">                        scores += scoresList[j] + &quot;,&quot;;</span>
                     }
-<span class="nc" id="L61">                    LeaderboardPrefs.setScore(scores);</span>
+<span class="nc" id="L56">                    LeaderboardPrefs.setScore(scores);</span>
                 } else {
-<span class="nc" id="L63">                    leaderboardHash.put(username, Float.valueOf(scoresList[i]));</span>
+<span class="nc" id="L58">                    leaderboardHash.put(username, Float.valueOf(scoresList[i]));</span>
                 }
-<span class="nc" id="L65">                userCheck = true;</span>
+<span class="nc" id="L60">                userCheck = true;</span>
             } else {
-<span class="nc" id="L67">                leaderboardHash.put(namesList[i], Float.valueOf(scoresList[i]));</span>
+<span class="nc" id="L62">                leaderboardHash.put(namesList[i], Float.valueOf(scoresList[i]));</span>
             }
         }
         // Set new name and score if user not on leaderboard
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (userCheck == false) {</span>
-<span class="nc" id="L72">            leaderboardHash.put(username, Float.valueOf(score));</span>
-<span class="nc" id="L73">            LeaderboardPrefs.setName(names + &quot;,&quot; + username);</span>
-<span class="nc" id="L74">            LeaderboardPrefs.setScore(scores + &quot;,&quot; + score);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (userCheck == false) {</span>
+<span class="nc" id="L67">            leaderboardHash.put(username, Float.valueOf(score));</span>
+<span class="nc" id="L68">            LeaderboardPrefs.setName(names + &quot;,&quot; + username);</span>
+<span class="nc" id="L69">            LeaderboardPrefs.setScore(scores + &quot;,&quot; + score);</span>
         }
 
         // Sort leaderboard by scores
-<span class="nc" id="L78">        List&lt;Map.Entry&lt;String, Float&gt;&gt; Leaderboardlist = new LinkedList&lt;Map.Entry&lt;String, Float&gt;&gt;(</span>
-<span class="nc" id="L79">                leaderboardHash.entrySet());</span>
+<span class="nc" id="L73">        List&lt;Map.Entry&lt;String, Float&gt;&gt; Leaderboardlist = new LinkedList&lt;Map.Entry&lt;String, Float&gt;&gt;(</span>
+<span class="nc" id="L74">                leaderboardHash.entrySet());</span>
 
-<span class="nc" id="L81">        Collections.sort(Leaderboardlist, new Comparator&lt;Map.Entry&lt;String, Float&gt;&gt;() {</span>
+<span class="nc" id="L76">        Collections.sort(Leaderboardlist, new Comparator&lt;Map.Entry&lt;String, Float&gt;&gt;() {</span>
             public int compare(Map.Entry&lt;String, Float&gt; o1,
                     Map.Entry&lt;String, Float&gt; o2) {
-<span class="nc" id="L84">                return (o1.getValue()).compareTo(o2.getValue());</span>
+<span class="nc" id="L79">                return (o1.getValue()).compareTo(o2.getValue());</span>
             }
         });
 
         // Sorted leaderboard list in descending order
-<span class="nc" id="L89">        Collections.reverse(Leaderboardlist);</span>
+<span class="nc" id="L84">        Collections.reverse(Leaderboardlist);</span>
 
         // Create sorted leaderboard hash map
-<span class="nc" id="L92">        Map&lt;String, Float&gt; sortedLeaderboard = new LinkedHashMap&lt;String, Float&gt;();</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        for (Map.Entry&lt;String, Float&gt; entry : Leaderboardlist) {</span>
-<span class="nc" id="L94">            sortedLeaderboard.put(entry.getKey(), entry.getValue());</span>
-<span class="nc" id="L95">        }</span>
+<span class="nc" id="L87">        Map&lt;String, Float&gt; sortedLeaderboard = new LinkedHashMap&lt;String, Float&gt;();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        for (Map.Entry&lt;String, Float&gt; entry : Leaderboardlist) {</span>
+<span class="nc" id="L89">            sortedLeaderboard.put(entry.getKey(), entry.getValue());</span>
+<span class="nc" id="L90">        }</span>
 
         // Add names and scores to the leaderboard display
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (Map.Entry&lt;String, Float&gt; entry : sortedLeaderboard.entrySet()) {</span>
-<span class="nc" id="L99">            allScores += index + &quot;.&quot; + entry.getKey() + &quot;    &quot; + entry.getValue() + &quot;\n&quot;;</span>
-<span class="nc" id="L100">            index += 1;</span>
-<span class="nc" id="L101">        }</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        for (Map.Entry&lt;String, Float&gt; entry : sortedLeaderboard.entrySet()) {</span>
+<span class="nc" id="L94">            allScores += index + &quot;.&quot; + entry.getKey() + &quot;    &quot; + entry.getValue() + &quot;\n&quot;;</span>
+<span class="nc" id="L95">            index += 1;</span>
+<span class="nc" id="L96">        }</span>
 
         // Initialise leaderboard
-<span class="nc" id="L104">        Label label = new Label(String.format(allScores), skin);</span>
-<span class="nc" id="L105">        label.setAlignment(Align.center);</span>
-<span class="nc" id="L106">        label.setFontScale(1.2f);</span>
-<span class="nc" id="L107">        label.setColor(Color.WHITE);</span>
+<span class="nc" id="L99">        Label label = new Label(String.format(allScores), skin);</span>
+<span class="nc" id="L100">        label.setAlignment(Align.center);</span>
+<span class="nc" id="L101">        label.setFontScale(1.2f);</span>
+<span class="nc" id="L102">        label.setColor(Color.WHITE);</span>
 
         // Place leaderboard onto table
-<span class="nc" id="L110">        table.add(label).align(Align.center);</span>
+<span class="nc" id="L105">        table.add(label).align(Align.center);</span>
 
         // Style and place the table
-<span class="nc" id="L113">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L108">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
         // Update height based on number of entries to display - minimum 4
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (sortedLeaderboard.size() &gt; 3) {</span>
-<span class="nc" id="L116">            table.setSize(220, 100 + (sortedLeaderboard.size() - 3) * 15);</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (sortedLeaderboard.size() &gt; 3) {</span>
+<span class="nc" id="L111">            table.setSize(220, 100 + (sortedLeaderboard.size() - 3) * 15);</span>
         } else {
-<span class="nc" id="L118">            table.setSize(220, 100);</span>
+<span class="nc" id="L113">            table.setSize(220, 100);</span>
         }
-<span class="nc" id="L120">        placeTable();</span>
-<span class="nc" id="L121">    }</span>
+<span class="nc" id="L115">        placeTable();</span>
+<span class="nc" id="L116">    }</span>
 
     public void render() {
-<span class="nc" id="L124">    }</span>
+<span class="nc" id="L119">    }</span>
 
     @Override
     protected void placeTable() {
-<span class="nc" id="L128">        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()),</span>
-<span class="nc" id="L129">                uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);</span>
-<span class="nc" id="L130">    }</span>
+<span class="nc" id="L123">        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()),</span>
+<span class="nc" id="L124">                uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);</span>
+<span class="nc" id="L125">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
