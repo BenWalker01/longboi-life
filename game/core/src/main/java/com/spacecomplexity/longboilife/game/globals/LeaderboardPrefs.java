@@ -24,7 +24,7 @@ public class LeaderboardPrefs {
     return prefs.getString(NAMES, initialNames);
   }
 
-  public static void setName(String newNames) {
+  public static void writeNames(String newNames) {
     prefs.putString(NAMES, newNames);
     prefs.flush();
   }
@@ -33,7 +33,7 @@ public class LeaderboardPrefs {
     return prefs.getString(SCORES, initialScores);
   }
 
-  public static void setScore(String score) {
+  public static void writeScores(String score) {
     prefs.putString(SCORES, score);
     prefs.flush();
   }
@@ -43,7 +43,7 @@ public class LeaderboardPrefs {
     prefs.flush();
   }
 
-  public void setDisplayName(String name) {
+  public static void setDisplayName(String name) {
     displayName = name;
   }
 }

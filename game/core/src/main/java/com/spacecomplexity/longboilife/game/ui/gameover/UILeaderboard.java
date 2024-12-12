@@ -60,7 +60,7 @@ public class UILeaderboard extends UIElement {
                     for (int j = 0; j < scoresList.length; j++) {
                         scores += scoresList[j] + ",";
                     }
-                    LeaderboardPrefs.setScore(scores);
+                    LeaderboardPrefs.writeScores(scores);
                 } else {
                     leaderboardHash.put(username, Float.valueOf(scoresList[i]));
                 }
@@ -72,8 +72,8 @@ public class UILeaderboard extends UIElement {
         // Set new name and score if user not on leaderboard
         if (userCheck == false) {
             leaderboardHash.put(username, Float.valueOf(score));
-            LeaderboardPrefs.setName(names + "," + username);
-            LeaderboardPrefs.setScore(scores + "," + score);
+            LeaderboardPrefs.writeNames(names + "," + username);
+            LeaderboardPrefs.writeScores(scores + "," + score);
         }
 
         // Sort leaderboard by scores

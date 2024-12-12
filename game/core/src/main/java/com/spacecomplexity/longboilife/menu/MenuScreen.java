@@ -117,7 +117,7 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 String enteredName = givenName.getText();
-                LeaderboardPrefs.setName(enteredName);
+                LeaderboardPrefs.setDisplayName(enteredName);
                 // Switch to game screen
                 game.switchScreen(Main.ScreenType.GAME);
             }
