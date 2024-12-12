@@ -43,8 +43,6 @@ public class UILeaderboard extends UIElement {
 
         String names = LeaderboardPrefs.getNames();
         String scores = LeaderboardPrefs.getScores();
-        System.out.println(names);
-        System.out.println(score);
 
         String[] namesList = names.split("[,]");
         String[] scoresList = scores.split("[,]");
@@ -77,10 +75,10 @@ public class UILeaderboard extends UIElement {
         }
 
         // Sort leaderboard by scores
-        List<Map.Entry<String, Float>> Leaderboardlist = new LinkedList<Map.Entry<String, Float>>(
+        List<Map.Entry<String, Float>> LeaderboardList = new LinkedList<Map.Entry<String, Float>>(
                 leaderboardHash.entrySet());
 
-        Collections.sort(Leaderboardlist, new Comparator<Map.Entry<String, Float>>() {
+        Collections.sort(LeaderboardList, new Comparator<Map.Entry<String, Float>>() {
             public int compare(Map.Entry<String, Float> o1,
                     Map.Entry<String, Float> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
@@ -88,11 +86,11 @@ public class UILeaderboard extends UIElement {
         });
 
         // Sorted leaderboard list in descending order
-        Collections.reverse(Leaderboardlist);
+        Collections.reverse(LeaderboardList);
 
         // Create sorted leaderboard hash map
         Map<String, Float> sortedLeaderboard = new LinkedHashMap<String, Float>();
-        for (Map.Entry<String, Float> entry : Leaderboardlist) {
+        for (Map.Entry<String, Float> entry : LeaderboardList) {
             sortedLeaderboard.put(entry.getKey(), entry.getValue());
         }
 
