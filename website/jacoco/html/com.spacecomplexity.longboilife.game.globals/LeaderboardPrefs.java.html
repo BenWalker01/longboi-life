@@ -5,8 +5,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Gdx;
 
 public class LeaderboardPrefs {
-    
-    private LeaderboardPrefs() {
+
+  private LeaderboardPrefs() {
     // restricts instantiation of class
   }
 
@@ -18,27 +18,33 @@ public class LeaderboardPrefs {
   public static final String initialNames = &quot;Longboi,Alice,Bob&quot;;
   public static final String initialScores = &quot;75.00,50.00,10.00&quot;;
 
+<span class="nc" id="L21">  public static String displayName = System.getProperty(&quot;user.name&quot;);</span>
+
   public static String getNames() {
-<span class="nc" id="L22">    return prefs.getString(NAMES, initialNames);</span>
+<span class="nc" id="L24">    return prefs.getString(NAMES, initialNames);</span>
   }
 
-  public static void setName(String newNames) {
-<span class="nc" id="L26">    prefs.putString(NAMES, newNames);</span>
-<span class="nc" id="L27">    prefs.flush();</span>
-<span class="nc" id="L28">  }</span>
+  public static void writeNames(String newNames) {
+<span class="nc" id="L28">    prefs.putString(NAMES, newNames);</span>
+<span class="nc" id="L29">    prefs.flush();</span>
+<span class="nc" id="L30">  }</span>
 
   public static String getScores() {
-<span class="nc" id="L31">    return prefs.getString(SCORES, initialScores);</span>
+<span class="nc" id="L33">    return prefs.getString(SCORES, initialScores);</span>
   }
 
-  public static void setScore(String score) {
-<span class="nc" id="L35">    prefs.putString(SCORES, score);</span>
-<span class="nc" id="L36">    prefs.flush();</span>
-<span class="nc" id="L37">  }</span>
+  public static void writeScores(String score) {
+<span class="nc" id="L37">    prefs.putString(SCORES, score);</span>
+<span class="nc" id="L38">    prefs.flush();</span>
+<span class="nc" id="L39">  }</span>
 
   public static void clear() {
-<span class="nc" id="L40">    prefs.clear();</span>
-<span class="nc" id="L41">    prefs.flush();</span>
-<span class="nc" id="L42">  }</span>
+<span class="nc" id="L42">    prefs.clear();</span>
+<span class="nc" id="L43">    prefs.flush();</span>
+<span class="nc" id="L44">  }</span>
+
+  public static void setDisplayName(String name) {
+<span class="nc" id="L47">    displayName = name;</span>
+<span class="nc" id="L48">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
