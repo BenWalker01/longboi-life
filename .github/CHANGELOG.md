@@ -1,4 +1,4 @@
-# Changes from v1.1.0 to v
+# Changes from v1.1.0 to v1.2.0
 1. [Game] Enhancement - Added Random Events
 2. [Game] Enhancement - Changed uiElements member variable to a dynamic array
 3. [Game] Bug fix - Fix crashing on game over screen on some localizations
