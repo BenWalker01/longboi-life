@@ -1,4 +1,4 @@
-package com.backlogged.univercity;
+package com.spacecomplexity.longboilife.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -22,11 +22,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.spacecomplexity.longboilife.Main;
+import com.spacecomplexity.longboilife.game.globals.Constants;
+import com.spacecomplexity.longboilife.game.globals.GamePreferences;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 
 /**
  * Handles rendering and logic for the settings screen.
+ * This whole file is new
  */
 public class SettingsScreen implements Screen {
+  private final Main game;
   private Skin skin;
   private Stage stage;
   private Table table;
@@ -78,6 +85,9 @@ public class SettingsScreen implements Screen {
   private Label keyboardBindingZoomOutLabel;
   private TextButton keyboardBindingZoomOutButton;
 
+  private Label keyboardBindingPauseLabel;
+  private TextButton keyboardBindingPauseButton;
+
   /**
    * Sets up the settings screen.
    *
@@ -85,14 +95,15 @@ public class SettingsScreen implements Screen {
    * @param previousScreen the screen to return to after the user is done changing
    *                       settings
    */
-  public SettingsScreen(Game game, Screen previousScreen) {
-    skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));
+  public SettingsScreen(Main game, Screen previousScreen) {
+    this.game = game;
+    skin = new Skin(Gdx.files.internal(Filepaths.SKIN_JSON_ASSET));
     stage = new Stage(new ScreenViewport());
     table = new Table(skin);
 
-    settingsLabel = new Label("SETTINGS", skin, "redFont");
+    settingsLabel = new Label("SETTINGS", skin);
     backButton = new TextButton("BACK", skin);
-    quitButton = new TextButton("QUIT", skin, "redTextButton");
+    quitButton = new TextButton("QUIT", skin);
     backButton.addListener(new ClickListener() {
       public void clicked(InputEvent e, float x, float y) {
         game.setScreen(previousScreen);
@@ -123,7 +134,8 @@ public class SettingsScreen implements Screen {
     table.setDebug(true);
     stage.addActor(table);
 
-    bgTexture = new Texture(Constants.BACKGROUND_PICTURE_PATH);
+    // TODO: ADD BACKGROUND TEXTURE
+    // bgTexture = new Texture(Constants.BACKGROUND_PICTURE_PATH);
 
   }
 
@@ -133,7 +145,7 @@ public class SettingsScreen implements Screen {
   private void createScrollPane() {
     Table preferencesTable = new Table(skin);
     preferencesTable.setDebug(true);
-    musicEnabledLabel = new Label("MUSIC ENABLED", skin, "lightOrangeFont");
+    musicEnabledLabel = new Label("MUSIC ENABLED", skin);
     musicEnabledCheckBox = new CheckBox("", skin);
     musicEnabledCheckBox.setChecked(GamePreferences.isMusicEnabled());
     musicEnabledCheckBox.addListener(
@@ -141,24 +153,25 @@ public class SettingsScreen implements Screen {
           public void clicked(InputEvent e, float x, float y) {
             GamePreferences.setMusicEnabled(musicEnabledCheckBox.isChecked());
             if (musicEnabledCheckBox.isChecked()) {
-              Soundtrack.play();
+              // TODO: Uncomment out when soundtrack is pushed to main
+              //Soundtrack.play();
             } else {
-              Soundtrack.pause();
+              //Soundtrack.pause();
             }
           }
         });
 
-    musicVolumeLabel = new Label("MUSIC VOLUME", skin, "lightOrangeFont");
+    musicVolumeLabel = new Label("MUSIC VOLUME", skin);
     musicVolumeSlider = new Slider(0, 1, 0.1f, false, skin);
     musicVolumeSlider.setValue(GamePreferences.getMusicVolume());
     musicVolumeSlider.addListener(new ChangeListener() {
       public void changed(ChangeEvent event, Actor actor) {
         GamePreferences.setMusicVolume(musicVolumeSlider.getValue());
-        Soundtrack.play();
+        //Soundtrack.play();
       }
     });
 
-    soundEnabledLabel = new Label("SOUND ENABLED", skin, "lightOrangeFont");
+    soundEnabledLabel = new Label("SOUND ENABLED", skin);
     soundEnabledCheckBox = new CheckBox("", skin);
     soundEnabledCheckBox.setChecked(GamePreferences.isSoundEnabled());
     soundEnabledCheckBox.addListener(new ClickListener() {
@@ -167,7 +180,7 @@ public class SettingsScreen implements Screen {
       }
     });
 
-    soundVolumeLabel = new Label("SOUND VOLUME", skin, "lightOrangeFont");
+    soundVolumeLabel = new Label("SOUND VOLUME", skin);
     soundVolumeSlider = new Slider(0, 1, 0.1f, false, skin);
     soundVolumeSlider.setValue(GamePreferences.getSoundVolume());
     soundVolumeSlider.addListener(new ChangeListener() {
@@ -176,7 +189,7 @@ public class SettingsScreen implements Screen {
       }
     });
 
-    fullScreenLabel = new Label("FULLSCREEN", skin, "lightOrangeFont");
+    fullScreenLabel = new Label("FULLSCREEN", skin);
     fullScreenCheckBox = new CheckBox("", skin);
     fullScreenCheckBox.setChecked(GamePreferences.isFullscreen());
     fullScreenCheckBox.addListener(new ClickListener() {
@@ -185,12 +198,12 @@ public class SettingsScreen implements Screen {
         if (fullScreenCheckBox.isChecked()) {
           Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
         } else {
-          Gdx.graphics.setWindowedMode(1280, 720);
+          Gdx.graphics.setWindowedMode(Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT);
         }
       }
     });
 
-    mouseSensitivityLabel = new Label("MOUSE SENSITIVITY", skin, "lightOrangeFont");
+    mouseSensitivityLabel = new Label("MOUSE SENSITIVITY", skin);
     mouseSensitivitySlider = new Slider(0.1f, 2f, 0.1f, false, skin);
     mouseSensitivitySlider.setValue(GamePreferences.getMouseSensitivity());
     mouseSensitivitySlider.addListener(new ChangeListener() {
@@ -199,7 +212,7 @@ public class SettingsScreen implements Screen {
       }
     });
 
-    keyboardSensitivityLabel = new Label("KEYBOARD SENSITIVITY", skin, "lightOrangeFont");
+    keyboardSensitivityLabel = new Label("KEYBOARD SENSITIVITY", skin);
     keyboardSensitivitySlider = new Slider(0.1f, 2f, 0.1f, false, skin);
     keyboardSensitivitySlider.setValue(GamePreferences.getKeyboardSensitivity());
     keyboardSensitivitySlider.addListener(new ChangeListener() {
@@ -208,7 +221,7 @@ public class SettingsScreen implements Screen {
       }
     });
 
-    keyboardBindingUpLabel = new Label("UP KEY", skin, "lightOrangeFont");
+    keyboardBindingUpLabel = new Label("UP KEY", skin);
     keyboardBindingUpButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingUp()), skin);
     keyboardBindingUpButton.addListener(
@@ -228,7 +241,7 @@ public class SettingsScreen implements Screen {
           }
         });
 
-    keyboardBindingDownLabel = new Label("DOWN KEY", skin, "lightOrangeFont");
+    keyboardBindingDownLabel = new Label("DOWN KEY", skin);
     keyboardBindingDownButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingDown()), skin);
     keyboardBindingDownButton.addListener(
@@ -248,7 +261,7 @@ public class SettingsScreen implements Screen {
           }
         });
 
-    keyboardBindingLeftLabel = new Label("LEFT KEY", skin, "lightOrangeFont");
+    keyboardBindingLeftLabel = new Label("LEFT KEY", skin);
     keyboardBindingLeftButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingLeft()), skin);
     keyboardBindingLeftButton.addListener(
@@ -268,7 +281,7 @@ public class SettingsScreen implements Screen {
           }
         });
 
-    keyboardBindingRightLabel = new Label("RIGHT KEY", skin, "lightOrangeFont");
+    keyboardBindingRightLabel = new Label("RIGHT KEY", skin);
     keyboardBindingRightButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingRight()), skin);
     keyboardBindingRightButton.addListener(
@@ -288,7 +301,7 @@ public class SettingsScreen implements Screen {
           }
         });
 
-    keyboardBindingZoomInLabel = new Label("ZOOM IN KEY", skin, "lightOrangeFont");
+    keyboardBindingZoomInLabel = new Label("ZOOM IN KEY", skin);
     keyboardBindingZoomInButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingZoomIn()), skin);
     keyboardBindingZoomInButton.addListener(
@@ -309,7 +322,7 @@ public class SettingsScreen implements Screen {
           }
         });
 
-    keyboardBindingZoomOutLabel = new Label("ZOOM OUT KEY", skin, "lightOrangeFont");
+    keyboardBindingZoomOutLabel = new Label("ZOOM OUT KEY", skin);
     keyboardBindingZoomOutButton = new TextButton(
         Input.Keys.toString(GamePreferences.getKeyboardBindingZoomOut()), skin);
     keyboardBindingZoomOutButton.addListener(
@@ -323,6 +336,27 @@ public class SettingsScreen implements Screen {
                   public boolean keyDown(int keycode) {
                     GamePreferences.setKeyboardBindingZoomOut(keycode);
                     keyboardBindingZoomOutButton.setText(Input.Keys.toString(keycode));
+                    Gdx.input.setInputProcessor(stage);
+                    return false;
+                  }
+                });
+          }
+        });
+    
+    keyboardBindingPauseLabel = new Label("PAUSE KEY", skin);
+    keyboardBindingPauseButton = new TextButton(
+        Input.Keys.toString(GamePreferences.getKeyboardBindingPause()), skin);
+    keyboardBindingPauseButton.addListener(
+        new ClickListener() {
+          public void clicked(InputEvent e, float x, float y) {
+            // add a listener that waits for the next key press and sets it as the zoom out
+            // key
+            keyboardBindingPauseButton.setText("...");
+            Gdx.input.setInputProcessor(
+                new InputAdapter() {
+                  public boolean keyDown(int keycode) {
+                    GamePreferences.setKeyboardBindingPause(keycode);
+                    keyboardBindingPauseButton.setText(Input.Keys.toString(keycode));
                     Gdx.input.setInputProcessor(stage);
                     return false;
                   }
@@ -391,6 +425,10 @@ public class SettingsScreen implements Screen {
     preferencesTable.add(keyboardBindingZoomOutButton).space(20)
         .width(Value.percentWidth(0.1f, table))
         .height(Value.percentWidth(0.032f, table));
+    preferencesTable.add(keyboardBindingPauseLabel).space(20);
+    preferencesTable.add(keyboardBindingPauseButton).space(20)
+        .width(Value.percentWidth(0.1f, table))
+        .height(Value.percentWidth(0.032f, table));
     scrollPane = new ScrollPane(preferencesTable);
     scrollPane.setScrollingDisabled(true, false);
     scrollPane.setDebug(true);
@@ -401,7 +439,7 @@ public class SettingsScreen implements Screen {
   @Override
   public void show() {
     Gdx.input.setInputProcessor(stage);
-    Soundtrack.play();
+    //Soundtrack.play();
   }
 
   @Override

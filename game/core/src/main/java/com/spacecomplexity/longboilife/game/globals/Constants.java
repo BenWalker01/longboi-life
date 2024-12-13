@@ -58,6 +58,36 @@ public class Constants {
     public static final float MAX_ZOOM = 0.5f;
 
     /**
+      * Default mouse sensitivity value.
+      * This is new
+    */
+    public static final float DEFAULT_MOUSE_SENSITIVITY = 0.025f;
+
+    /**
+      * Default keyboard sensitivity value.
+      * This is new
+    */
+    public static final float DEFAULT_KEYBOARD_SENSITIVITY = 0.02f;
+
+    /**
+      * Default button font scaling value.
+      * This is new
+    */
+    public static final float TEXT_BUTTON_FONT_SCALING_FACTOR = 1200f;
+
+    /**
+      * Font scaling factor for the Settings title label.
+      * This is new
+      */
+    public static final float SETTINGS_TITLE_FONT_SCALING_FACTOR = 1000f;
+    
+    /**
+      * Font scaling factor for the labels in the settings screen.
+      * This is new
+      */
+    public static final float SETTINGS_LABEL_FONT_SCALING_FACTOR = 1500f;
+
+    /**
      * The proportion of money the user will get back form selling the building.
      */
     public static float sellCostRecovery = 0.5f;

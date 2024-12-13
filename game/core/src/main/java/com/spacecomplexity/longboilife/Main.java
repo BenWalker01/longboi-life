@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.spacecomplexity.longboilife.game.GameScreen;
 import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.menu.MenuScreen;
+import com.spacecomplexity.longboilife.menu.SettingsScreen;
 
 import java.util.HashMap;
 
@@ -29,6 +30,7 @@ public class Main extends Game {
     public enum ScreenType {
         MENU(MenuScreen.class),
         GAME(GameScreen.class),
+        // Anything in relation to settings is new
         SETTINGS(SettingsScreen.class);
 
         private final Class<? extends Screen> screenClass;
