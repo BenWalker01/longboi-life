@@ -50,7 +50,7 @@ jobs:
         run: |
           cd game/lwjgl3/build/libs
           ls -la
-          zip -r ../Longboi-life-snapshot-${{ github.ref_name }}.zip .
+          zip -r ../Longboi-life-${{ github.ref_name }}.zip .
 
       - name: Get release notes
         id: release_notes
@@ -78,7 +78,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: game/lwjgl3/build/Longboi-life-snapshot-${{ github.ref_name }}.zip
-          asset_name: Longboi-life-snapshot-${{ github.ref_name }}.zip
+          asset_path: game/lwjgl3/build/Longboi-life-${{ github.ref_name }}.zip
+          asset_name: Longboi-life-${{ github.ref_name }}.zip
           asset_content_type: application/zip
         

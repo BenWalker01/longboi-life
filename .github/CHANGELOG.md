@@ -1,4 +1,7 @@
-# Changes from v1.2.0 to v
+# Changes from v1.2.1 to v
+
+# Changes from v1.2.0 to v1.2.1
+1. [Global] Bug - Remove reference to snapshot in stable release
 
 # Changes from v1.1.0 to v1.2.0
 1. [Game] Enhancement - Added Random Events
