@@ -69,6 +69,15 @@ public class AchievementsManager {
         };
     }
 
+    /**
+     * Initialises the achievements with a custom array of achievements.
+     *
+     * @param achievements the custom array of achievements.
+     */
+    public AchievementsManager(IAchievement[] achievements) {
+        this.achievements = achievements;
+    }
+
     public IAchievement[] getAchievements() {
         return achievements;
     }
@@ -100,7 +109,6 @@ public class AchievementsManager {
             if (!unlockedAchievements.contains(achievement) && achievement.checkUnlocked()) {
                 unlockedAchievements.add(achievement);
                 achievementQueue.add(achievement);
-                System.out.println("UNLOCKED: " + achievement.getName() + " - " + achievement.getDescription());
             }
         }
     }
