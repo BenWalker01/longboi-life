@@ -35,7 +35,7 @@ public class Filepaths {
     // UI Fonts
     public static final String MEDIUM_FONT_ASSET = "ui/fonts/Roboto-Medium.ttf";
     public static final String REGULAR_FONT_ASSET = "ui/fonts/Roboto-Regular.ttf";
-
+    
     // UI Skin
     public static final String BUTTON_FONT_ASSET = "ui/skin/font-button.fnt";
     public static final String LABEL_FONT_ASSET = "ui/skin/font-label.fnt";
@@ -51,5 +51,5 @@ public class Filepaths {
     public static final String SELECT_BUILDING_SOUND = "audio/10_select2.wav";
     public static final String BUILD_SOUND = "audio/12_exchange.wav";
     public static final String SELL_SOUND = "audio/50_flowers.wav";
-    public static final String PAUSE_SOUND = "audio/48_skip.wav";
+    public static final String PAUSE_SOUND = "audio/48_skip.wav"; 
 }

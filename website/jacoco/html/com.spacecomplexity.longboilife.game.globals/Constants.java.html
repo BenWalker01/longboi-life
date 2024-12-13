@@ -48,6 +48,11 @@ import java.util.TreeMap;
 <span class="fc" id="L48">    }};</span>
 
     /**
+     * Length of the game. First number determines the number of seconds
+     */
+<span class="fc" id="L53">    public static final Integer GAME_TIME = 300 * 1000;</span>
+
+    /**
      * Minimum camera zoom level.
      */
     public static final float MIN_ZOOM = 0.05f;
@@ -60,17 +65,17 @@ import java.util.TreeMap;
     /**
      * The proportion of money the user will get back form selling the building.
      */
-<span class="fc" id="L63">    public static float sellCostRecovery = 0.5f;</span>
+<span class="fc" id="L68">    public static float sellCostRecovery = 0.5f;</span>
 
     /**
      * The proportion of money the user will need in order to move the building.
      */
-<span class="fc" id="L68">    public static float moveCostRecovery = 0.25f;</span>
+<span class="fc" id="L73">    public static float moveCostRecovery = 0.25f;</span>
 
     /**
      * Which category of buildings will not be deselected when built.
      */
-<span class="fc" id="L73">    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[]{</span>
+<span class="fc" id="L78">    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[]{</span>
         BuildingCategory.PATHWAY
     };
 
@@ -79,10 +84,15 @@ import java.util.TreeMap;
      * &lt;p&gt;
      * Used for calculating satisfaction score
      */
-<span class="fc" id="L82">    public static HashMap&lt;BuildingCategory, Float&gt; satisfactoryDistance = new HashMap&lt;BuildingCategory, Float&gt;() {{</span>
-<span class="fc" id="L83">        put(BuildingCategory.FOOD, 5f);</span>
-<span class="fc" id="L84">        put(BuildingCategory.RECREATIONAL, 5f);</span>
-<span class="fc" id="L85">        put(BuildingCategory.EDUCATIONAL, 10f);</span>
-<span class="fc" id="L86">    }};</span>
+<span class="fc" id="L87">    public static HashMap&lt;BuildingCategory, Float&gt; satisfactoryDistance = new HashMap&lt;BuildingCategory, Float&gt;() {{</span>
+<span class="fc" id="L88">        put(BuildingCategory.FOOD, 5f);</span>
+<span class="fc" id="L89">        put(BuildingCategory.RECREATIONAL, 5f);</span>
+<span class="fc" id="L90">        put(BuildingCategory.EDUCATIONAL, 10f);</span>
+<span class="fc" id="L91">    }};</span>
+
+    /**
+     * Path to the leaderboard file.
+     */
+    public static final String LEADERBOARD_PREFS = &quot;leaderboard&quot;;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
