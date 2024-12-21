@@ -54,7 +54,8 @@ public class World {
             saveMap.buildBuildings(this);
         } catch (SerializationException e) {
             // If there is an issue in deserialising throw an exception
-            throw new InvalidSaveMapException("Issue deserialising map save file \"" + mapFile.name() + "\": " + e.getMessage());
+            throw new InvalidSaveMapException(
+                    "Issue deserialising map save file \"" + mapFile.name() + "\": " + e.getMessage());
         }
     }
 
@@ -157,10 +158,12 @@ public class World {
 
         // If we cannot build then throw an exception
         if (!canBuild(building.getType(), buildingPosition)) {
-            throw new IllegalStateException("Building \"" + building.getType().name() + "\" cannot build at (" + buildingPosition.x + ", " + buildingPosition.y + ")");
+            throw new IllegalStateException("Building \"" + building.getType().name() + "\" cannot build at ("
+                    + buildingPosition.x + ", " + buildingPosition.y + ")");
         }
 
-        // Set every tile underneath this building to un-buildable and assign the reference
+        // Set every tile underneath this building to un-buildable and assign the
+        // reference
         Vector2Int buildingSize = building.getType().getSize();
         for (int xi = buildingPosition.x; xi < buildingPosition.x + buildingSize.x; xi++) {
             for (int yi = buildingPosition.y; yi < buildingPosition.y + buildingSize.y; yi++) {
@@ -188,7 +191,8 @@ public class World {
      * @param building the building to remove.
      */
     public void demolish(Building building) {
-        // Set every tile underneath this building to its original buildable state and remove the building reference
+        // Set every tile underneath this building to its original buildable state and
+        // remove the building reference
         Vector2Int buildingSize = building.getType().getSize();
         Vector2Int buildingPosition = building.getPosition();
         for (int xi = buildingPosition.x; xi < buildingPosition.x + buildingSize.x; xi++) {
@@ -207,11 +211,11 @@ public class World {
             BuildingType thisBuildingType = building.getType();
 
             // Get neighbouring pathways
-            Vector2Int[] neighbours = new Vector2Int[]{
-                new Vector2Int(buildingPosition.x, buildingPosition.y + 1),
-                new Vector2Int(buildingPosition.x + 1, buildingPosition.y),
-                new Vector2Int(buildingPosition.x, buildingPosition.y - 1),
-                new Vector2Int(buildingPosition.x - 1, buildingPosition.y)
+            Vector2Int[] neighbours = new Vector2Int[] {
+                    new Vector2Int(buildingPosition.x, buildingPosition.y + 1),
+                    new Vector2Int(buildingPosition.x + 1, buildingPosition.y),
+                    new Vector2Int(buildingPosition.x, buildingPosition.y - 1),
+                    new Vector2Int(buildingPosition.x - 1, buildingPosition.y)
             };
             for (Vector2Int neighbour : neighbours) {
                 if (isOurPathway(neighbour, thisBuildingType)) {
@@ -224,7 +228,6 @@ public class World {
         // Update the game state counter with the removal of the building
         GameState.getState().changeBuildingCount(building.getType(), -1);
     }
-
 
     /**
      * Map of encoded neighbouring paths and the respective layout of this path.
@@ -252,7 +255,8 @@ public class World {
     };
 
     /**
-     * Update the pathways on the board recursively starting at the coordinates given.
+     * Update the pathways on the board recursively starting at the coordinates
+     * given.
      *
      * @param coordinate the coordinate of the pathway.
      */
@@ -273,12 +277,15 @@ public class World {
     }
 
     /**
-     * Update the pathways on the board recursively starting at the coordinates given.
+     * Update the pathways on the board recursively starting at the coordinates
+     * given.
      * <p>
-     * This should only be called recursive from this function and the starter function.
+     * This should only be called recursive from this function and the starter
+     * function.
      *
      * @param coordinate      the coordinate of the pathway.
-     * @param updatedPathways a list of all pathways which have already been updated.
+     * @param updatedPathways a list of all pathways which have already been
+     *                        updated.
      */
     private void updatePathwayPosition(Vector2Int coordinate, Vector<Vector2Int> updatedPathways) {
         // If this pathway has already been done then ignore
@@ -305,7 +312,8 @@ public class World {
         pathways[coordinate.x][coordinate.y] = position;
 
         // Recursively set nearby pathways positions
-        // The initial checks have already been done as `isOurPathway` will only return true if these passed
+        // The initial checks have already been done as `isOurPathway` will only return
+        // true if these passed
         updatedPathways.add(new Vector2Int(coordinate.x, coordinate.y));
 
         if (top) {
@@ -328,7 +336,7 @@ public class World {
      * @param coordinate the coordinate.
      * @return true if the coordinate is in the world bounds.
      */
-    private boolean isInWorld(Vector2Int coordinate) {
+    public boolean isInWorld(Vector2Int coordinate) {
         return coordinate.x >= 0 && coordinate.x < getWidth() && coordinate.y >= 0 && coordinate.y < getHeight();
     }
 
@@ -353,7 +361,8 @@ public class World {
     }
 
     /**
-     * Breadth first search along pathways to calculate the distance between two positions.
+     * Breadth first search along pathways to calculate the distance between two
+     * positions.
      *
      * @param from coordinates of the location to search from.
      * @param to   coordinates of the location to search for.
@@ -367,9 +376,11 @@ public class World {
             return -1;
         }
 
-        Queue<Vector2Int> queue = new LinkedList<>() {{
-            add(from);
-        }};
+        Queue<Vector2Int> queue = new LinkedList<>() {
+            {
+                add(from);
+            }
+        };
         Vector<Vector2Int> visited = new Vector<>();
 
         // Distance counter
@@ -389,11 +400,11 @@ public class World {
                 }
 
                 // Explore neighbors
-                Vector2Int[] possibleNext = new Vector2Int[]{
-                    new Vector2Int(current.x, current.y + 1),
-                    new Vector2Int(current.x + 1, current.y),
-                    new Vector2Int(current.x, current.y - 1),
-                    new Vector2Int(current.x - 1, current.y),
+                Vector2Int[] possibleNext = new Vector2Int[] {
+                        new Vector2Int(current.x, current.y + 1),
+                        new Vector2Int(current.x + 1, current.y),
+                        new Vector2Int(current.x, current.y - 1),
+                        new Vector2Int(current.x - 1, current.y),
                 };
                 for (Vector2Int next : possibleNext) {
 
