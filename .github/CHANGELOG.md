@@ -1,4 +1,5 @@
 # Changes from v1.2.1 to v
+x. [Game] Test - Increase test coverage
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
