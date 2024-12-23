@@ -23,12 +23,16 @@ import com.spacecomplexity.longboilife.game.world.World;
 public class WorldTests extends AbstractHeadlessGdxTest {
 
     private World world;
+    private GameState gameState;
     private Vector2Int origin = new Vector2Int(0, 0);
 
     @BeforeEach
     public void setUp() {
+        System.out.println(world);
         try {
             world = new World(Gdx.files.internal(Filepaths.MAP_ASSET));
+            gameState = GameState.getState();
+            gameState.reset();
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
         }
