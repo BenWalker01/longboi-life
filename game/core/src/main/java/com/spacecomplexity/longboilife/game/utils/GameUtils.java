@@ -33,9 +33,8 @@ public class GameUtils {
         // Divide these by the cell size (as the world starts at (0, 0))
         float cellSize = Constants.TILE_SIZE * GameState.getState().scaleFactor;
         return new Vector2Int(
-            Math.max(0, Math.min((int) (mouse.x / cellSize), world.getWidth() - 1)),
-            Math.max(0, Math.min((int) (mouse.y / cellSize), world.getHeight() - 1))
-        );
+                Math.max(0, Math.min((int) (mouse.x / cellSize), world.getWidth() - 1)),
+                Math.max(0, Math.min((int) (mouse.y / cellSize), world.getHeight() - 1)));
     }
 
     /**
@@ -44,7 +43,8 @@ public class GameUtils {
     public static void calculateScaling() {
         int screenHeight = Gdx.graphics.getHeight();
 
-        // If height is 0 then the window is minimised so don't bother calculating as this could cause unintended behaviour with scaling at 0
+        // If height is 0 then the window is minimised so don't bother calculating as
+        // this could cause unintended behaviour with scaling at 0
         if (screenHeight == 0)
             return;
 
@@ -57,10 +57,14 @@ public class GameUtils {
     /**
      * Update satisfaction score.
      * <p>
-     * Satisfaction score is calculated using {@link Constants#satisfactoryDistance}.
-     * For each accommodation building a modifier is created which is updated based on the positioning of other
-     * buildings with on {@link Constants#satisfactoryDistance}. After all modifiers are calculated the worst one is
-     * chosen to act as the satisfaction modifier, this then updates the satisfaction velocity.
+     * Satisfaction score is calculated using
+     * {@link Constants#satisfactoryDistance}.
+     * For each accommodation building a modifier is created which is updated based
+     * on the positioning of other
+     * buildings with on {@link Constants#satisfactoryDistance}. After all modifiers
+     * are calculated the worst one is
+     * chosen to act as the satisfaction modifier, this then updates the
+     * satisfaction velocity.
      *
      * @param world the world reference for buildings.
      */
@@ -72,7 +76,8 @@ public class GameUtils {
 
         // Get categories of buildings which will affect satisfaction score
         Set<BuildingCategory> searchBuildingCategories = new HashSet<>(Constants.satisfactoryDistance.keySet());
-        // Temporarily add accommodation category so that accommodation buildings will be split out of the main building array
+        // Temporarily add accommodation category so that accommodation buildings will
+        // be split out of the main building array
         searchBuildingCategories.add(BuildingCategory.ACCOMMODATION);
         // Initialise empty vectors
         for (BuildingCategory category : searchBuildingCategories) {
@@ -96,7 +101,8 @@ public class GameUtils {
             }
         }
 
-        // If there is, there is not required buildings this will be the default satisfaction modifier
+        // If there is, there is not required buildings this will be the default
+        // satisfaction modifier
         float satisfactionModifier = -2000f;
 
         if (!emptyCategory) {
@@ -119,12 +125,14 @@ public class GameUtils {
                         }
                     }
 
-                    // Update the modifier by the constants defined with the satisfactory distance from the category
+                    // Update the modifier by the constants defined with the satisfactory distance
+                    // from the category
                     modifier += Constants.satisfactoryDistance.get(category) - closest;
 
                 }
 
-                // Set the overall satisfaction modifier to the worst modifier from all accommodations
+                // Set the overall satisfaction modifier to the worst modifier from all
+                // accommodations
                 satisfactionModifier = Math.min(satisfactionModifier, modifier);
             }
         }
@@ -146,9 +154,12 @@ public class GameUtils {
         gameState.satisfactionScoreVelocity = newSatisfactionVelocity;
 
         // Update satisfaction score with velocity
-        float newSatisfactionScore = gameState.satisfactionScore + gameState.satisfactionScoreVelocity * Gdx.graphics.getDeltaTime();
-        // Limit satisfaction score between 0% and 10% * number of accommodation buildings
-        newSatisfactionScore = Math.max(0, Math.min(newSatisfactionScore, Math.min(categorisedBuildings.get(BuildingCategory.ACCOMMODATION).size() * 0.1f, 1f)));
+        float newSatisfactionScore = gameState.satisfactionScore
+                + gameState.satisfactionScoreVelocity * Gdx.graphics.getDeltaTime();
+        // Limit satisfaction score between 0% and 10% * number of accommodation
+        // buildings
+        newSatisfactionScore = Math.max(0,
+                Math.min(newSatisfactionScore, categorisedBuildings.get(BuildingCategory.ACCOMMODATION).size() * 0.1f));
         gameState.satisfactionScore = newSatisfactionScore;
     }
 }
