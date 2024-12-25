@@ -55,7 +55,7 @@ jobs:
           with:
             github-token: ${{ secrets.LONGBOI_CLEANUP_TOKEN }}
             script: |
-              const { owner, repo } = context.issue
+              const { owner, repo } = context.repo
               
               const res = await github.rest.actions.listArtifactsForRepo({
                 owner,
@@ -66,9 +66,9 @@ jobs:
                 .filter(({ name }) => name === '${{ steps.artifact-name.outputs.value }}')
                 .forEach(({ id }) => {
                   github.rest.actions.deleteArtifact({
-                    owner,
-                    repo,
-                    artifact_id: id,
+                  owner,
+                  repo,
+                  artifact_id: id,
                   })
                 })
             
