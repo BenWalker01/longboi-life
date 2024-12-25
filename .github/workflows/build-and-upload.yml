@@ -53,14 +53,15 @@ jobs:
           uses: actions/github-script@v4
           id: artifact
           with:
+            github-token: ${{ secrets.LONGBOI_CLEANUP_TOKEN }}
             script: |
               const { owner, repo } = context.issue
-
+              
               const res = await github.rest.actions.listArtifactsForRepo({
                 owner,
                 repo,
               })
-
+              
               res.data.artifacts
                 .filter(({ name }) => name === '${{ steps.artifact-name.outputs.value }}')
                 .forEach(({ id }) => {
