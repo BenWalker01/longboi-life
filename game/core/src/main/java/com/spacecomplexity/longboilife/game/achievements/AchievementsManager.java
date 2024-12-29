@@ -99,6 +99,7 @@ public class AchievementsManager {
             achievement.reset();
         }
         unlockedAchievements.clear();
+        achievementQueue.clear();
     }
 
     /**
