@@ -77,7 +77,8 @@ public class GameState {
     /**
      * The current count of buildings.
      * <p>
-     * This should be modified by {@link GameState#getBuildingCount(BuildingType)} and {@link GameState#changeBuildingCount(BuildingType, int)} not directly.
+     * This should be modified by {@link GameState#getBuildingCount(BuildingType)}
+     * and {@link GameState#changeBuildingCount(BuildingType, int)} not directly.
      * <p>
      * This is initialised in the constructor.
      */
@@ -149,12 +150,12 @@ public class GameState {
      * Reset all values to default.
      */
     public void reset() {
-//        scaleFactor = 1;
-//        uiScaleFactor = 1;
+        // scaleFactor = 1;
+        // uiScaleFactor = 1;
         cameraSpeed = 1400;
         cameraKeyZoomSpeed = 3;
         cameraScrollZoomSpeed = 32;
-//        fullscreen = false;
+        // fullscreen = false;
         money = 800000;
         satisfactionScore = 0f;
         placingBuilding = null;
