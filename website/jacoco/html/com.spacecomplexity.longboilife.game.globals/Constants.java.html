@@ -40,17 +40,19 @@ import java.util.TreeMap;
     /**
      * Map of the UI scaling at the specified window height.
      */
-<span class="fc" id="L43">    public static final TreeMap&lt;Integer, Float&gt; UI_SCALING_MAP = new TreeMap&lt;&gt;() {{</span>
-<span class="fc" id="L44">        put(0, 1f);</span>
-<span class="fc" id="L45">        put(720, 1.5f);</span>
-<span class="fc" id="L46">        put(1440, 2f);</span>
-<span class="fc" id="L47">        put(2160, 2.5f);</span>
-<span class="fc" id="L48">    }};</span>
+<span class="fc" id="L43">    public static final TreeMap&lt;Integer, Float&gt; UI_SCALING_MAP = new TreeMap&lt;&gt;() {</span>
+        {
+<span class="fc" id="L45">            put(0, 1f);</span>
+<span class="fc" id="L46">            put(720, 1.5f);</span>
+<span class="fc" id="L47">            put(1440, 2f);</span>
+<span class="fc" id="L48">            put(2160, 2.5f);</span>
+<span class="fc" id="L49">        }</span>
+    };
 
     /**
      * Length of the game. First number determines the number of seconds
      */
-<span class="fc" id="L53">    public static final Integer GAME_TIME = 300 * 1000;</span>
+<span class="fc" id="L55">    public static final Integer GAME_TIME = 300 * 1000;</span>
 
     /**
      * Minimum camera zoom level.
@@ -65,30 +67,57 @@ import java.util.TreeMap;
     /**
      * The proportion of money the user will get back form selling the building.
      */
-<span class="fc" id="L68">    public static float sellCostRecovery = 0.5f;</span>
+<span class="fc" id="L70">    public static float sellCostRecovery = 0.5f;</span>
 
     /**
      * The proportion of money the user will need in order to move the building.
      */
-<span class="fc" id="L73">    public static float moveCostRecovery = 0.25f;</span>
+<span class="fc" id="L75">    public static float moveCostRecovery = 0.25f;</span>
 
     /**
      * Which category of buildings will not be deselected when built.
      */
-<span class="fc" id="L78">    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[]{</span>
-        BuildingCategory.PATHWAY
+<span class="fc" id="L80">    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[] {</span>
+            BuildingCategory.PATHWAY
     };
 
     /**
-     * The satisfactory distances from accommodation to a specific category of building
+     * Number of students housed per accommodation building
+     * ASSESSMENT 2 - NEW
+     */
+<span class="fc" id="L88">    public static final Integer STUDENTS_PER_ACCOMMODATION = 12;</span>
+
+    /**
+     * Number of years the game represents
+     * ASSESSMENT 2 - NEW
+     */
+<span class="fc" id="L94">    public static final Integer GAME_YEARS = 3;</span>
+
+    /**
+     * How much income one student generates per year
+     * ASSESSMENT 2 - NEW
+     */
+<span class="fc" id="L100">    public static final Integer STUDENT_FEES = 1200;</span>
+
+    /**
+     * Keeps track of when the next student fees are due
+     * ASSESSMENT 2 - NEW
+     */
+<span class="fc" id="L106">    public static float nextPayDay = GAME_TIME;</span>
+
+    /**
+     * The satisfactory distances from accommodation to a specific category of
+     * building
      * &lt;p&gt;
      * Used for calculating satisfaction score
      */
-<span class="fc" id="L87">    public static HashMap&lt;BuildingCategory, Float&gt; satisfactoryDistance = new HashMap&lt;BuildingCategory, Float&gt;() {{</span>
-<span class="fc" id="L88">        put(BuildingCategory.FOOD, 5f);</span>
-<span class="fc" id="L89">        put(BuildingCategory.RECREATIONAL, 5f);</span>
-<span class="fc" id="L90">        put(BuildingCategory.EDUCATIONAL, 10f);</span>
-<span class="fc" id="L91">    }};</span>
+<span class="fc" id="L114">    public static HashMap&lt;BuildingCategory, Float&gt; satisfactoryDistance = new HashMap&lt;BuildingCategory, Float&gt;() {</span>
+        {
+<span class="fc" id="L116">            put(BuildingCategory.FOOD, 5f);</span>
+<span class="fc" id="L117">            put(BuildingCategory.RECREATIONAL, 5f);</span>
+<span class="fc" id="L118">            put(BuildingCategory.EDUCATIONAL, 10f);</span>
+<span class="fc" id="L119">        }</span>
+    };
 
     /**
      * Path to the leaderboard file.
