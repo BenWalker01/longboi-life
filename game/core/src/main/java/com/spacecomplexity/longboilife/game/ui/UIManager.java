@@ -24,7 +24,6 @@ import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import java.util.ArrayList;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -40,8 +39,6 @@ public class UIManager {
     private ArrayList<UIElement> uiElements = new ArrayList<>();
 
     private long lastAchievementTime = 5*60*1000;
-
-    private Queue<Integer> moneyChangeQueue = new LinkedList<>();
 
     /**
      * Initialise UI elements needed for the game.
@@ -196,6 +193,11 @@ public class UIManager {
         ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());
     }
 
+    /**
+     * Show the money pop up.
+     *
+     * @param moneyChange the number by which the balance is increased/decreased.
+     */
     public void showMoneyPopUp(int moneyChange) {
         ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);
     }

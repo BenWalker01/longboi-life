@@ -13,6 +13,11 @@ import com.spacecomplexity.longboilife.game.ui.UIElement;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Class to represent the Money Change Pop Up UI element.
+ *
+ * ASSESSMENT 2 - New feature
+ */
 public class UIMoneyPopUp extends UIElement {
     private Label label;
 
@@ -36,6 +41,7 @@ public class UIMoneyPopUp extends UIElement {
         // Place label onto table
         table.add(label).align(Align.center);
 
+        // Hide the table initially
         table.setVisible(false);
 
         // Style and place the table
@@ -56,6 +62,11 @@ public class UIMoneyPopUp extends UIElement {
         table.setPosition(uiViewport.getWorldWidth() - table.getWidth(), uiViewport.getWorldHeight() - table.getHeight() - 100);
     }
 
+    /**
+     * Show the money change pop up.
+     *
+     * @param moneyChange the number by which the balance is increased/decreased.
+     */
     public void show(int moneyChange) {
         if (moneyChange == 0) {
             return;
@@ -71,6 +82,9 @@ public class UIMoneyPopUp extends UIElement {
         }
     }
 
+    /**
+     * Hide the money change pop up.
+     */
     public void hide() {
         table.setVisible(false);
     }

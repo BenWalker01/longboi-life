@@ -1,5 +1,6 @@
 # Changes from v1.2.1 to v
 x. [Game] Enhancement - Added an income from students
+x. [Game] Enhancement - Added a UI pop up for income/expense
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
