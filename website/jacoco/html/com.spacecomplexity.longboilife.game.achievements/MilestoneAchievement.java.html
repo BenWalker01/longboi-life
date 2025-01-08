@@ -22,12 +22,12 @@ public class MilestoneAchievement implements IAchievement {
      * @param description description of the achievement
      * @param criterion criterion to unlock the achievement
      */
-<span class="nc" id="L25">    public MilestoneAchievement(String name, String description, Predicate&lt;GameState&gt; criterion) {</span>
-<span class="nc" id="L26">        this.name = name;</span>
-<span class="nc" id="L27">        this.description = description;</span>
-<span class="nc" id="L28">        this.unlocked = false;</span>
-<span class="nc" id="L29">        this.criterion = criterion;</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L25">    public MilestoneAchievement(String name, String description, Predicate&lt;GameState&gt; criterion) {</span>
+<span class="fc" id="L26">        this.name = name;</span>
+<span class="fc" id="L27">        this.description = description;</span>
+<span class="fc" id="L28">        this.unlocked = false;</span>
+<span class="fc" id="L29">        this.criterion = criterion;</span>
+<span class="fc" id="L30">    }</span>
 
     @Override
     public String getName() {
@@ -41,15 +41,15 @@ public class MilestoneAchievement implements IAchievement {
 
     @Override
     public boolean checkUnlocked() {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (!unlocked) {</span>
-<span class="nc" id="L45">            unlocked = criterion.test(GameState.getState());</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (!unlocked) {</span>
+<span class="fc" id="L45">            unlocked = criterion.test(GameState.getState());</span>
         }
-<span class="nc" id="L47">        return unlocked;</span>
+<span class="fc" id="L47">        return unlocked;</span>
     }
 
     @Override
     public void reset() {
-<span class="nc" id="L52">        unlocked = false;</span>
-<span class="nc" id="L53">    }</span>
+<span class="fc" id="L52">        unlocked = false;</span>
+<span class="fc" id="L53">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
