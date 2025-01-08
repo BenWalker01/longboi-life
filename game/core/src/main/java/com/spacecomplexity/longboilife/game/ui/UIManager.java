@@ -18,9 +18,10 @@ import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
-import com.spacecomplexity.longboilife.game.ui.gameover.UIOverview;
+import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
-import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.globals.Filepaths; 
+import java.util.ArrayList;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 import java.util.Queue;
@@ -32,9 +33,10 @@ public class UIManager {
     private Viewport viewport;
 
     private Stage stage;
-    private final Skin skin;
+    private final Skin skin; 
 
-    private UIElement[] uiElements;
+    //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
+    private ArrayList<UIElement> uiElements = new ArrayList<>();
 
     private long lastAchievementTime = 5*60*1000;
 
@@ -82,15 +84,15 @@ public class UIManager {
 
         // Create our UI elements
         // Note: The order of these is the order that they will be rendered
-        uiElements = new UIElement[] {
-                new UIBuildingSelectedMenu(viewport, table, skin),
-                new UIBottomMenu(viewport, table, skin),
-                new UIClockMenu(viewport, table, skin),
-                new UISatisfactionMenu(viewport, table, skin),
-                new UIMoneyMenu(viewport, table, skin),
-                new UIBuildingCounter(viewport, table, skin),
-                new UIAchievementPopUp(viewport, table, skin)
-        };
+        //NEW: CHANGED FROM STATIC ARRAY TO DYNAMIC
+        uiElements.add(new UIBuildingSelectedMenu(viewport, table, skin));
+        uiElements.add(new UIBottomMenu(viewport, table, skin));
+        uiElements.add(new UIClockMenu(viewport, table, skin));
+        uiElements.add(new UISatisfactionMenu(viewport, table, skin));
+        uiElements.add(new UIMoneyMenu(viewport, table, skin));
+        uiElements.add(new UIBuildingCounter(viewport, table, skin)); 
+        uiElements.add(new UIAchievementPopUp(viewport, table, skin));
+        //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
         EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -> {
@@ -104,17 +106,28 @@ public class UIManager {
             table.clear();
 
             // Create the new end elements
-            uiElements = new UIElement[] {
-                    new UIOverview(viewport, table, skin),
-            };
+            // NEW USE DYANMIC ARRAY INSTEAD;
+            uiElements = new ArrayList<>();  
+
+            uiElements.add(new UIOverview(viewport, table, skin)); 
+            uiElements.add(new UILeaderboard(viewport, table, skin));
 
             // Pause the soundtrack and play the game over sound
             Soundtrack.getSoundtrack().pause();
             new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;
+        });   
+        //NEW ADDED EVENT
+        EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -> {
+           
+            uiElements.add(new UIEventsMenu(viewport, table, skin));  
+            
+            return null;
         });
-    }
+    
+    }  
+    
 
     /**
      * Apply and draw UI onto the screen.
@@ -170,13 +183,13 @@ public class UIManager {
         if (lastAchievementTime - currentTime < 5000) {
             return;
         }
-        ((UIAchievementPopUp) uiElements[6]).hideAchievement();
+        ((UIAchievementPopUp) uiElements.get(6)).hideAchievement();
         if (achievementQueue.isEmpty()) {
             return;
         }
         lastAchievementTime = currentTime;
         IAchievement achievement = achievementQueue.poll();
-        ((UIAchievementPopUp) uiElements[6]).showAchievement(achievement.getName(), achievement.getDescription());
+        ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());
     }
 
     /**

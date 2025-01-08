@@ -26,6 +26,11 @@ jobs:
         with: 
           java-version: 17
           distribution: "temurin"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       
       - name: Update build version
         run: |
@@ -45,11 +50,11 @@ jobs:
         run: |
           cd game/lwjgl3/build/libs
           ls -la
-          zip -r ../Longboi-life-snapshot-${{ github.ref_name }}.zip .
+          zip -r ../Longboi-life-${{ github.ref_name }}.zip .
 
       - name: Get release notes
         id: release_notes
-        run: python3 "game/_devUtils/generate_release_notes.py"
+        run: python "game/_devUtils/generate_release_notes.py"
 
       - run: echo "-> ${{ steps.release_notes.outputs.release_notes}}"
 
@@ -73,7 +78,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: game/lwjgl3/build/Longboi-life-snapshot-${{ github.ref_name }}.zip
-          asset_name: Longboi-life-snapshot-${{ github.ref_name }}.zip
+          asset_path: game/lwjgl3/build/Longboi-life-${{ github.ref_name }}.zip
+          asset_name: Longboi-life-${{ github.ref_name }}.zip
           asset_content_type: application/zip
         

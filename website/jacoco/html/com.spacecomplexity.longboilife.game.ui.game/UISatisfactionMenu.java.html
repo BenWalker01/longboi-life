@@ -2,7 +2,6 @@
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -14,7 +13,6 @@ import com.spacecomplexity.longboilife.game.ui.UIElement;
  */
 public class UISatisfactionMenu extends UIElement {
     private Label scoreLabel;
-    private ProgressBar satisfactionBar;
 
     /**
      * Initialise satisfaction menu elements.
@@ -24,44 +22,39 @@ public class UISatisfactionMenu extends UIElement {
      * @param skin        the provided skin.
      */
     public UISatisfactionMenu(Viewport uiViewport, Table parentTable, Skin skin) {
-<span class="nc" id="L27">        super(uiViewport, parentTable, skin);</span>
+<span class="nc" id="L25">        super(uiViewport, parentTable, skin);</span>
 
         // Initialise label
-<span class="nc" id="L30">        Label label = new Label(&quot;Satisfaction Score:&quot;, skin);</span>
-<span class="nc" id="L31">        label.setFontScale(1f);</span>
-<span class="nc" id="L32">        label.setColor(Color.WHITE);</span>
+<span class="nc" id="L28">        Label label = new Label(&quot;Satisfaction Score:&quot;, skin);</span>
+<span class="nc" id="L29">        label.setFontScale(1f);</span>
+<span class="nc" id="L30">        label.setColor(Color.WHITE);</span>
 
         // Initialise score label
-<span class="nc" id="L35">        scoreLabel = new Label(null, skin);</span>
-<span class="nc" id="L36">        scoreLabel.setFontScale(1f);</span>
-
-        // Initialise satisfaction bar
-<span class="nc" id="L39">        satisfactionBar = new ProgressBar(0, 1, 0.01f, false, skin);</span>
+<span class="nc" id="L33">        scoreLabel = new Label(null, skin);</span>
+<span class="nc" id="L34">        scoreLabel.setFontScale(1f);</span>
 
         // Place elements onto table
-<span class="nc" id="L42">        Table labelTable = new Table(skin);</span>
-<span class="nc" id="L43">        labelTable.add(label);</span>
-<span class="nc" id="L44">        labelTable.add(scoreLabel).padLeft(5);</span>
-<span class="nc" id="L45">        table.add(labelTable);</span>
-<span class="nc" id="L46">        table.row();</span>
-<span class="nc" id="L47">        table.add(satisfactionBar).padTop(2);</span>
+<span class="nc" id="L37">        Table labelTable = new Table(skin);</span>
+<span class="nc" id="L38">        labelTable.add(label);</span>
+<span class="nc" id="L39">        labelTable.add(scoreLabel).padLeft(5);</span>
+<span class="nc" id="L40">        table.add(labelTable);</span>
+<span class="nc" id="L41">        table.row();</span>
 
         // Style and place the table
-<span class="nc" id="L50">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
-<span class="nc" id="L51">        table.setSize(185, 60);</span>
-<span class="nc" id="L52">        placeTable();</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L44">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L45">        table.setSize(185, 60);</span>
+<span class="nc" id="L46">        placeTable();</span>
+<span class="nc" id="L47">    }</span>
 
     public void render() {
-<span class="nc" id="L56">        scoreLabel.setText(String.format(&quot;%.2f%%&quot;, GameState.getState().satisfactionScore * 100));</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        scoreLabel.setColor(GameState.getState().satisfactionModifierPositive ? Color.GREEN : Color.RED);</span>
-<span class="nc" id="L58">        satisfactionBar.setValue(GameState.getState().satisfactionScore);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L50">        scoreLabel.setText(String.format(&quot;%.2f&quot;, GameState.getState().satisfactionScore * 100));</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        scoreLabel.setColor(GameState.getState().satisfactionModifierPositive ? Color.GREEN : Color.RED);</span>
+<span class="nc" id="L52">    }</span>
 
     @Override
     protected void placeTable() {
-<span class="nc" id="L63">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),</span>
-<span class="nc" id="L64">                uiViewport.getWorldHeight() - table.getHeight());</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L56">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),</span>
+<span class="nc" id="L57">                uiViewport.getWorldHeight() - table.getHeight());</span>
+<span class="nc" id="L58">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

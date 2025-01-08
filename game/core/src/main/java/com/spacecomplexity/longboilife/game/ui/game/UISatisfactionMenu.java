@@ -2,7 +2,6 @@ package com.spacecomplexity.longboilife.game.ui.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -14,7 +13,6 @@ import com.spacecomplexity.longboilife.game.ui.UIElement;
  */
 public class UISatisfactionMenu extends UIElement {
     private Label scoreLabel;
-    private ProgressBar satisfactionBar;
 
     /**
      * Initialise satisfaction menu elements.
@@ -35,16 +33,12 @@ public class UISatisfactionMenu extends UIElement {
         scoreLabel = new Label(null, skin);
         scoreLabel.setFontScale(1f);
 
-        // Initialise satisfaction bar
-        satisfactionBar = new ProgressBar(0, 1, 0.01f, false, skin);
-
         // Place elements onto table
         Table labelTable = new Table(skin);
         labelTable.add(label);
         labelTable.add(scoreLabel).padLeft(5);
         table.add(labelTable);
         table.row();
-        table.add(satisfactionBar).padTop(2);
 
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
@@ -53,9 +47,8 @@ public class UISatisfactionMenu extends UIElement {
     }
 
     public void render() {
-        scoreLabel.setText(String.format("%.2f%%", GameState.getState().satisfactionScore * 100));
+        scoreLabel.setText(String.format("%.2f", GameState.getState().satisfactionScore * 100));
         scoreLabel.setColor(GameState.getState().satisfactionModifierPositive ? Color.GREEN : Color.RED);
-        satisfactionBar.setValue(GameState.getState().satisfactionScore);
     }
 
     @Override

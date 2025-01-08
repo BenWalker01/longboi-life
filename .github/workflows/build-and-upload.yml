@@ -10,7 +10,7 @@ name: Build, upload, and Test
 on:
   pull_request:
     branches: ['main']
-    paths: ['game/*']
+    paths: ['game/**']
   workflow_dispatch:
 
 
