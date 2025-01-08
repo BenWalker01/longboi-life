@@ -15,8 +15,8 @@ import java.util.Queue;
  */
 public class AchievementsManager {
     private final IAchievement[] achievements;
-<span class="nc" id="L18">    private final HashSet&lt;IAchievement&gt; unlockedAchievements = new HashSet&lt;&gt;();</span>
-<span class="nc" id="L19">    private final Queue&lt;IAchievement&gt; achievementQueue = new LinkedList&lt;&gt;();</span>
+<span class="pc" id="L18">    private final HashSet&lt;IAchievement&gt; unlockedAchievements = new HashSet&lt;&gt;();</span>
+<span class="pc" id="L19">    private final Queue&lt;IAchievement&gt; achievementQueue = new LinkedList&lt;&gt;();</span>
 
     /**
      * Initialises the achievements.
@@ -69,8 +69,17 @@ public class AchievementsManager {
         };
 <span class="nc" id="L70">    }</span>
 
+    /**
+     * Initialises the achievements with a custom array of achievements.
+     *
+     * @param achievements the custom array of achievements.
+     */
+<span class="fc" id="L77">    public AchievementsManager(IAchievement[] achievements) {</span>
+<span class="fc" id="L78">        this.achievements = achievements;</span>
+<span class="fc" id="L79">    }</span>
+
     public IAchievement[] getAchievements() {
-<span class="nc" id="L73">        return achievements;</span>
+<span class="nc" id="L82">        return achievements;</span>
     }
 
     /**
@@ -79,31 +88,31 @@ public class AchievementsManager {
      * @return the set of unlocked achievements.
      */
     public HashSet&lt;IAchievement&gt; getUnlockedAchievements() {
-<span class="nc" id="L82">        return unlockedAchievements;</span>
+<span class="fc" id="L91">        return unlockedAchievements;</span>
     }
 
     /**
      * Resets all achievements.
      */
     public void resetAchievements() {
-<span class="nc bnc" id="L89" title="All 2 branches missed.">        for (IAchievement achievement : achievements) {</span>
-<span class="nc" id="L90">            achievement.reset();</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for (IAchievement achievement : achievements) {</span>
+<span class="fc" id="L99">            achievement.reset();</span>
         }
-<span class="nc" id="L92">        unlockedAchievements.clear();</span>
-<span class="nc" id="L93">    }</span>
+<span class="fc" id="L101">        unlockedAchievements.clear();</span>
+<span class="fc" id="L102">        achievementQueue.clear();</span>
+<span class="fc" id="L103">    }</span>
 
     /**
      * Checks all achievements to see if they have been unlocked. Adds newly unlocked achievements to the queue.
      */
     public void checkAchievements() {
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (IAchievement achievement : achievements) {</span>
-<span class="nc bnc" id="L100" title="All 4 branches missed.">            if (!unlockedAchievements.contains(achievement) &amp;&amp; achievement.checkUnlocked()) {</span>
-<span class="nc" id="L101">                unlockedAchievements.add(achievement);</span>
-<span class="nc" id="L102">                achievementQueue.add(achievement);</span>
-<span class="nc" id="L103">                System.out.println(&quot;UNLOCKED: &quot; + achievement.getName() + &quot; - &quot; + achievement.getDescription());</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (IAchievement achievement : achievements) {</span>
+<span class="pc bpc" id="L110" title="1 of 4 branches missed.">            if (!unlockedAchievements.contains(achievement) &amp;&amp; achievement.checkUnlocked()) {</span>
+<span class="fc" id="L111">                unlockedAchievements.add(achievement);</span>
+<span class="fc" id="L112">                achievementQueue.add(achievement);</span>
             }
         }
-<span class="nc" id="L106">    }</span>
+<span class="fc" id="L115">    }</span>
 
     /**
      * Gets the queue of achievements.
@@ -111,7 +120,7 @@ public class AchievementsManager {
      * @return the queue of achievements.
      */
     public Queue&lt;IAchievement&gt; getAchievementQueue() {
-<span class="nc" id="L114">        return achievementQueue;</span>
+<span class="fc" id="L123">        return achievementQueue;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
