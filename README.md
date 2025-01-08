@@ -1,12 +1,11 @@
 [![Code Tests](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml)
-[![Stable Release](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml)
+[![Release](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml)
 
 # longboi-life
 
 *University of York ENG1 Project.*
 
-Short single-player game that allows the player to build their own university
-campus trying to reach the highest student satisfaction possible.
+Short single-player game that allows the player to build their own university campus trying to reach the highest student satisfaction possible.
 
 A [libGDX](https://libgdx.com/) project.
 
@@ -43,3 +42,5 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 ## DevUtils
 
 `/_devUtils/` contains useful scripts (not necessarily in Java) for developing the project.
+
+## Attributions
