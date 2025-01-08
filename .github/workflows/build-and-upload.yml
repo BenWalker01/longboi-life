@@ -42,52 +42,16 @@ jobs:
         - name: Make jar executable
           run: chmod +x game/lwjgl3/build/libs/*.jar
 
-          # https://stackoverflow.com/questions/68481561/github-actions-keep-artifacts-only-for-the-latest-build-on-each-branch
-        - name: store artifact name
-          id: artifact-name
-          env:
-            REF: ${{ github.ref }}
-          run: echo "::set-output name=value::${REF////-}-build-artifact"
-
-        - name: Filter and delete artifacts
-          uses: actions/github-script@v4
-          id: artifact
-          with:
-            github-token: ${{ secrets.LONGBOI_CLEANUP_TOKEN }}
-            script: |
-              const { owner, repo } = context.issue
-              
-              const res = await github.rest.actions.listArtifactsForRepo({
-                owner,
-                repo,
-              })
-              console.log(res.data)
-              
-              res.data.artifacts
-                .filter(({ name }) => name === '${{ steps.artifact-name.outputs.value }}')
-                .forEach(({ id }) => {
-                  github.rest.actions.deleteArtifact({
-                  owner,
-                  repo,
-                  artifact_id: id,
-                  })
-                })
-            
         - name: Upload JaCoCo report 
           uses: actions/upload-artifact@v4
           with:
-            name: jacoco-report-${{ github.head_ref || github.ref_name }}
+            name: jacoco-report-${{ github.event.pull_request.head.sha }}
             path: game/headless/build/reports/jacoco/test/html
 
         - name: Upload build as artifact
           uses: actions/upload-artifact@v4
-          env:
-            REF: ${{ github.ref }}
           with:
             include-hidden-files: true
-            name: ${{ steps.artifact-name.outputs.value }}
+            name: build-artifact-${{ github.event.pull_request.head.sha }}
             path: game/lwjgl3/build/libs
-
-        
     
-
