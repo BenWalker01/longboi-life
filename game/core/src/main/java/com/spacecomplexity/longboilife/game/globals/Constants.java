@@ -40,12 +40,14 @@ public class Constants {
     /**
      * Map of the UI scaling at the specified window height.
      */
-    public static final TreeMap<Integer, Float> UI_SCALING_MAP = new TreeMap<>() {{
-        put(0, 1f);
-        put(720, 1.5f);
-        put(1440, 2f);
-        put(2160, 2.5f);
-    }};
+    public static final TreeMap<Integer, Float> UI_SCALING_MAP = new TreeMap<>() {
+        {
+            put(0, 1f);
+            put(720, 1.5f);
+            put(1440, 2f);
+            put(2160, 2.5f);
+        }
+    };
 
     /**
      * Length of the game. First number determines the number of seconds
@@ -75,20 +77,47 @@ public class Constants {
     /**
      * Which category of buildings will not be deselected when built.
      */
-    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[]{
-        BuildingCategory.PATHWAY
+    public static BuildingCategory[] dontRemoveSelection = new BuildingCategory[] {
+            BuildingCategory.PATHWAY
     };
 
     /**
-     * The satisfactory distances from accommodation to a specific category of building
+     * Number of students housed per accommodation building
+     * ASSESSMENT 2 - NEW
+     */
+    public static final Integer STUDENTS_PER_ACCOMMODATION = 12;
+
+    /**
+     * Number of years the game represents
+     * ASSESSMENT 2 - NEW
+     */
+    public static final Integer GAME_YEARS = 3;
+
+    /**
+     * How much income one student generates per year
+     * ASSESSMENT 2 - NEW
+     */
+    public static final Integer STUDENT_FEES = 1200;
+
+    /**
+     * Keeps track of when the next student fees are due
+     * ASSESSMENT 2 - NEW
+     */
+    public static float nextPayDay = GAME_TIME;
+
+    /**
+     * The satisfactory distances from accommodation to a specific category of
+     * building
      * <p>
      * Used for calculating satisfaction score
      */
-    public static HashMap<BuildingCategory, Float> satisfactoryDistance = new HashMap<BuildingCategory, Float>() {{
-        put(BuildingCategory.FOOD, 5f);
-        put(BuildingCategory.RECREATIONAL, 5f);
-        put(BuildingCategory.EDUCATIONAL, 10f);
-    }};
+    public static HashMap<BuildingCategory, Float> satisfactoryDistance = new HashMap<BuildingCategory, Float>() {
+        {
+            put(BuildingCategory.FOOD, 5f);
+            put(BuildingCategory.RECREATIONAL, 5f);
+            put(BuildingCategory.EDUCATIONAL, 10f);
+        }
+    };
 
     /**
      * Path to the leaderboard file.
