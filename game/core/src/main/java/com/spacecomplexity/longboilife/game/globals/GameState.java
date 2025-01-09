@@ -134,6 +134,11 @@ public class GameState {
     public boolean gameOver = false;
 
     /**
+     * If the sound is on
+     */
+    public boolean soundOn = true;
+
+    /**
      * Get the singleton instance of the {@link GameState} class.
      *
      * @return The single {@link GameState} class.
