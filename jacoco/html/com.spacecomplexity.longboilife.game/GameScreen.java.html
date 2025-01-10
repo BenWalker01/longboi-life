@@ -67,192 +67,204 @@ public class GameScreen implements Screen {
 <span class="nc" id="L67">        }</span>
 
         // Create a new timer for 5 minutes
-<span class="nc" id="L70">        MainTimer.getTimerManager().getTimer().setTimer(5 * 60 * 1000);</span>
-<span class="nc" id="L71">        MainTimer.getTimerManager().getTimer().setEvent(() -&gt; {</span>
-<span class="nc" id="L72">            EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);</span>
-<span class="nc" id="L73">        });</span>
+
+<span class="nc" id="L71">        MainTimer.getTimerManager().getTimer().setTimer(Constants.GAME_TIME);</span>
+<span class="nc" id="L72">        MainTimer.getTimerManager().getTimer().setEvent(() -&gt; {</span>
+<span class="nc" id="L73">            EventHandler.getEventHandler().callEvent(EventHandler.Event.GAME_END);</span>
+<span class="nc" id="L74">        });</span>
 
         // ASSESSMENT 2 - Initialise the achievements manager
-<span class="nc" id="L76">        achievementsManager = new AchievementsManager();</span>
+<span class="nc" id="L77">        achievementsManager = new AchievementsManager();</span>
 
         // Create an input multiplexer to handle input from all sources
-<span class="nc" id="L79">        InputMultiplexer inputMultiplexer = new InputMultiplexer(new MainInputManager());</span>
+<span class="nc" id="L80">        InputMultiplexer inputMultiplexer = new InputMultiplexer(new MainInputManager());</span>
 
         // Initialises camera with CameraManager
-<span class="nc" id="L82">        CameraManager camera = new CameraManager(world);</span>
-<span class="nc" id="L83">        MainCamera.setMainCamera(camera);</span>
+<span class="nc" id="L83">        CameraManager camera = new CameraManager(world);</span>
+<span class="nc" id="L84">        MainCamera.setMainCamera(camera);</span>
 
         // Initialise viewport for rescaling
-<span class="nc" id="L86">        viewport = new ScreenViewport(MainCamera.camera().getCamera());</span>
+<span class="nc" id="L87">        viewport = new ScreenViewport(MainCamera.camera().getCamera());</span>
 
         // Calculates the scaling factor based initial screen height
-<span class="nc" id="L89">        GameUtils.calculateScaling();</span>
+<span class="nc" id="L90">        GameUtils.calculateScaling();</span>
 
         // Initialise UI elements with UIManager
-<span class="nc" id="L92">        ui = new UIManager(inputMultiplexer);</span>
+<span class="nc" id="L93">        ui = new UIManager(inputMultiplexer);</span>
 
         // Position camera in the center of the world map
-<span class="nc" id="L95">        MainCamera.camera().position.set(new Vector3(</span>
-<span class="nc" id="L96">                world.getWidth() * Constants.TILE_SIZE * gameState.scaleFactor / 2,</span>
-<span class="nc" id="L97">                world.getHeight() * Constants.TILE_SIZE * gameState.scaleFactor / 2,</span>
+<span class="nc" id="L96">        MainCamera.camera().position.set(new Vector3(</span>
+<span class="nc" id="L97">                world.getWidth() * Constants.TILE_SIZE * gameState.scaleFactor / 2,</span>
+<span class="nc" id="L98">                world.getHeight() * Constants.TILE_SIZE * gameState.scaleFactor / 2,</span>
                 0));
 
         // Set up an InputManager to handle user inputs
-<span class="nc" id="L101">        inputManager = new InputManager(inputMultiplexer);</span>
+<span class="nc" id="L102">        inputManager = new InputManager(inputMultiplexer);</span>
         // Set the Gdx input processor to handle all our input processes
-<span class="nc" id="L103">        Gdx.input.setInputProcessor(inputMultiplexer);</span>
+<span class="nc" id="L104">        Gdx.input.setInputProcessor(inputMultiplexer);</span>
 
         // Initialise the events performed from this script.
-<span class="nc" id="L106">        initialiseEvents();</span>
+<span class="nc" id="L107">        initialiseEvents();</span>
 
         // Play the game soundtrack
-<span class="nc" id="L109">        Soundtrack.getSoundtrack().play();</span>
-<span class="nc" id="L110">    }</span>
+<span class="nc" id="L110">        Soundtrack.getSoundtrack().play();</span>
+<span class="nc" id="L111">    }</span>
 
     /**
      * Initialise events for the event handler.
      */
     private void initialiseEvents() {
-<span class="nc" id="L116">        EventHandler eventHandler = EventHandler.getEventHandler();</span>
+<span class="nc" id="L117">        EventHandler eventHandler = EventHandler.getEventHandler();</span>
 
         // Build the selected building
-<span class="nc" id="L119">        eventHandler.createEvent(EventHandler.Event.BUILD, (params) -&gt; {</span>
-<span class="nc" id="L120">            BuildingType toBuild = gameState.placingBuilding;</span>
+<span class="nc" id="L120">        eventHandler.createEvent(EventHandler.Event.BUILD, (params) -&gt; {</span>
+<span class="nc" id="L121">            BuildingType toBuild = gameState.placingBuilding;</span>
 
             // If there is no selected building do nothing
-<span class="nc bnc" id="L123" title="All 2 branches missed.">            if (toBuild == null) {</span>
-<span class="nc" id="L124">                return null;</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (toBuild == null) {</span>
+<span class="nc" id="L125">                return null;</span>
             }
 
             // If the building is in an invalid location then don't built
-<span class="nc" id="L128">            Vector2Int mouse = GameUtils.getMouseOnGrid(world);</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">            if (!world.canBuild(toBuild, mouse)) {</span>
-<span class="nc" id="L130">                return null;</span>
+<span class="nc" id="L129">            Vector2Int mouse = GameUtils.getMouseOnGrid(world);</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            if (!world.canBuild(toBuild, mouse)) {</span>
+<span class="nc" id="L131">                return null;</span>
             }
 
             // If there is no moving building then this is a new build
-<span class="nc bnc" id="L134" title="All 2 branches missed.">            if (gameState.movingBuilding == null) {</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (gameState.movingBuilding == null) {</span>
                 // If the user doesn't have enough money to buy the building then don't build
-<span class="nc" id="L136">                float cost = toBuild.getCost();</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">                if (gameState.money &lt; cost) {</span>
-<span class="nc" id="L138">                    return null;</span>
+<span class="nc" id="L137">                float cost = toBuild.getCost();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">                if (gameState.money &lt; cost) {</span>
+<span class="nc" id="L139">                    return null;</span>
                 }
 
                 // Build the building at the mouse location and charge the player accordingly
-<span class="nc" id="L142">                world.build(toBuild, mouse);</span>
-<span class="nc" id="L143">                gameState.money -= cost;</span>
+<span class="nc" id="L143">                world.build(toBuild, mouse);</span>
+<span class="nc" id="L144">                gameState.money -= cost;</span>
+<span class="nc" id="L145">                ui.showMoneyPopUp((int) -cost);</span>
 
                 // Play the build sound
-<span class="nc" id="L146">                new SoundEffect(Filepaths.BUILD_SOUND).play();</span>
+<span class="nc" id="L148">                new SoundEffect(Filepaths.BUILD_SOUND).play();</span>
 
                 // Remove the selected building if it is wanted to do so
-<span class="nc" id="L149">                if (Arrays.stream(Constants.dontRemoveSelection)</span>
-<span class="nc bnc" id="L150" title="All 4 branches missed.">                        .noneMatch(category -&gt; gameState.placingBuilding.getCategory() == category)) {</span>
-<span class="nc" id="L151">                    gameState.placingBuilding = null;</span>
+<span class="nc" id="L151">                if (Arrays.stream(Constants.dontRemoveSelection)</span>
+<span class="nc bnc" id="L152" title="All 4 branches missed.">                        .noneMatch(category -&gt; gameState.placingBuilding.getCategory() == category)) {</span>
+<span class="nc" id="L153">                    gameState.placingBuilding = null;</span>
                 }
-<span class="nc" id="L153">            }</span>
+<span class="nc" id="L155">            }</span>
             // If there is a moving building then this is a moved building.
             else {
                 // If the user doesn't have enough money to buy the building then don't build
-<span class="nc" id="L157">                float cost = toBuild.getCost() * Constants.moveCostRecovery;</span>
-<span class="nc bnc" id="L158" title="All 2 branches missed.">                if (gameState.money &lt; cost) {</span>
-<span class="nc" id="L159">                    return null;</span>
+<span class="nc" id="L159">                float cost = toBuild.getCost() * Constants.moveCostRecovery;</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                if (gameState.money &lt; cost) {</span>
+<span class="nc" id="L161">                    return null;</span>
                 }
 
                 // Build the building at the mouse location and charge the player accordingly
-<span class="nc" id="L163">                world.build(gameState.movingBuilding, mouse);</span>
-<span class="nc" id="L164">                gameState.money -= cost;</span>
+<span class="nc" id="L165">                world.build(gameState.movingBuilding, mouse);</span>
+<span class="nc" id="L166">                gameState.money -= cost;</span>
+<span class="nc" id="L167">                ui.showMoneyPopUp((int) -cost);</span>
 
                 // Play the build sound
-<span class="nc" id="L167">                new SoundEffect(Filepaths.BUILD_SOUND).play();</span>
+<span class="nc" id="L170">                new SoundEffect(Filepaths.BUILD_SOUND).play();</span>
 
                 // Remove the old moving building and selected building
-<span class="nc" id="L170">                gameState.movingBuilding = null;</span>
-<span class="nc" id="L171">                gameState.placingBuilding = null;</span>
+<span class="nc" id="L173">                gameState.movingBuilding = null;</span>
+<span class="nc" id="L174">                gameState.placingBuilding = null;</span>
             }
 
-<span class="nc" id="L174">            return null;</span>
+<span class="nc" id="L177">            return null;</span>
         });
 
         // Select a previously built building
-<span class="nc" id="L178">        eventHandler.createEvent(EventHandler.Event.SELECT_BUILDING, (params) -&gt; {</span>
+<span class="nc" id="L181">        eventHandler.createEvent(EventHandler.Event.SELECT_BUILDING, (params) -&gt; {</span>
             // Get the tile at the mouse coordinates
-<span class="nc" id="L180">            Tile tile = world.getTile(GameUtils.getMouseOnGrid(world));</span>
+<span class="nc" id="L183">            Tile tile = world.getTile(GameUtils.getMouseOnGrid(world));</span>
             // Get the building on the tile
-<span class="nc" id="L182">            Building selectedBuilding = tile.getBuildingRef();</span>
+<span class="nc" id="L185">            Building selectedBuilding = tile.getBuildingRef();</span>
 
             // If there is no building here then do nothing
-<span class="nc bnc" id="L185" title="All 2 branches missed.">            if (selectedBuilding == null) {</span>
-<span class="nc" id="L186">                return null;</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            if (selectedBuilding == null) {</span>
+<span class="nc" id="L189">                return null;</span>
             }
 
             // Set the selected building
-<span class="nc" id="L190">            gameState.selectedBuilding = selectedBuilding;</span>
+<span class="nc" id="L193">            gameState.selectedBuilding = selectedBuilding;</span>
 
             // Open the selected building menu
-<span class="nc" id="L193">            eventHandler.callEvent(EventHandler.Event.OPEN_SELECTED_MENU);</span>
+<span class="nc" id="L196">            eventHandler.callEvent(EventHandler.Event.OPEN_SELECTED_MENU);</span>
 
-<span class="nc" id="L195">            return null;</span>
+<span class="nc" id="L198">            return null;</span>
         });
 
         // Cancel all events
-<span class="nc" id="L199">        eventHandler.createEvent(EventHandler.Event.CANCEL_OPERATIONS, (params) -&gt; {</span>
+<span class="nc" id="L202">        eventHandler.createEvent(EventHandler.Event.CANCEL_OPERATIONS, (params) -&gt; {</span>
             // Close menus and deselect any buildings
-<span class="nc" id="L201">            eventHandler.callEvent(EventHandler.Event.CLOSE_BUILD_MENU);</span>
-<span class="nc" id="L202">            gameState.placingBuilding = null;</span>
-<span class="nc" id="L203">            eventHandler.callEvent(EventHandler.Event.CLOSE_SELECTED_MENU);</span>
-<span class="nc" id="L204">            gameState.selectedBuilding = null;</span>
+<span class="nc" id="L204">            eventHandler.callEvent(EventHandler.Event.CLOSE_BUILD_MENU);</span>
+<span class="nc" id="L205">            gameState.placingBuilding = null;</span>
+<span class="nc" id="L206">            eventHandler.callEvent(EventHandler.Event.CLOSE_SELECTED_MENU);</span>
+<span class="nc" id="L207">            gameState.selectedBuilding = null;</span>
 
             // If there is a building move in progress cancel this
-<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (gameState.movingBuilding != null) {</span>
-<span class="nc" id="L208">                world.build(gameState.movingBuilding);</span>
-<span class="nc" id="L209">                gameState.movingBuilding = null;</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            if (gameState.movingBuilding != null) {</span>
+<span class="nc" id="L211">                world.build(gameState.movingBuilding);</span>
+<span class="nc" id="L212">                gameState.movingBuilding = null;</span>
             }
 
-<span class="nc" id="L212">            return null;</span>
+<span class="nc" id="L215">            return null;</span>
         });
 
         // Sell the selected building
-<span class="nc" id="L216">        eventHandler.createEvent(EventHandler.Event.SELL_BUILDING, (params) -&gt; {</span>
+<span class="nc" id="L219">        eventHandler.createEvent(EventHandler.Event.SELL_BUILDING, (params) -&gt; {</span>
             // Delete the building
-<span class="nc" id="L218">            world.demolish(gameState.selectedBuilding);</span>
+<span class="nc" id="L221">            world.demolish(gameState.selectedBuilding);</span>
             // Refund the specified amount
-<span class="nc" id="L220">            gameState.money += gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery;</span>
+<span class="nc" id="L223">            gameState.money += gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery;</span>
+<span class="nc" id="L224">            ui.showMoneyPopUp((int) (gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery));</span>
             // Deselect the removed building
-<span class="nc" id="L222">            gameState.selectedBuilding = null;</span>
+<span class="nc" id="L226">            gameState.selectedBuilding = null;</span>
 
-<span class="nc" id="L224">            return null;</span>
+<span class="nc" id="L228">            return null;</span>
         });
 
         // Start the move of the selected building
-<span class="nc" id="L228">        eventHandler.createEvent(EventHandler.Event.MOVE_BUILDING, (params) -&gt; {</span>
-<span class="nc" id="L229">            float cost = gameState.selectedBuilding.getType().getCost() * Constants.moveCostRecovery;</span>
+<span class="nc" id="L232">        eventHandler.createEvent(EventHandler.Event.MOVE_BUILDING, (params) -&gt; {</span>
+<span class="nc" id="L233">            float cost = gameState.selectedBuilding.getType().getCost() * Constants.moveCostRecovery;</span>
             // If we don't have enough money then don't allow the move
-<span class="nc bnc" id="L231" title="All 2 branches missed.">            if (gameState.money &lt; cost) {</span>
-<span class="nc" id="L232">                return null;</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">            if (gameState.money &lt; cost) {</span>
+<span class="nc" id="L236">                return null;</span>
             }
 
             // Delete the original building
-<span class="nc" id="L236">            world.demolish(gameState.selectedBuilding);</span>
+<span class="nc" id="L240">            world.demolish(gameState.selectedBuilding);</span>
             // Select the same type of building to be placed again
-<span class="nc" id="L238">            gameState.placingBuilding = gameState.selectedBuilding.getType();</span>
+<span class="nc" id="L242">            gameState.placingBuilding = gameState.selectedBuilding.getType();</span>
             // Deselect the removed building and set it to the building to be moved
-<span class="nc" id="L240">            gameState.movingBuilding = gameState.selectedBuilding;</span>
-<span class="nc" id="L241">            gameState.selectedBuilding = null;</span>
+<span class="nc" id="L244">            gameState.movingBuilding = gameState.selectedBuilding;</span>
+<span class="nc" id="L245">            gameState.selectedBuilding = null;</span>
 
             // Close the menu
-<span class="nc" id="L244">            eventHandler.callEvent(EventHandler.Event.CLOSE_SELECTED_MENU);</span>
+<span class="nc" id="L248">            eventHandler.callEvent(EventHandler.Event.CLOSE_SELECTED_MENU);</span>
 
-<span class="nc" id="L246">            return null;</span>
+<span class="nc" id="L250">            return null;</span>
         });
 
         // Return to the menu
-<span class="nc" id="L250">        eventHandler.createEvent(EventHandler.Event.RETURN_MENU, (params) -&gt; {</span>
-<span class="nc" id="L251">            game.switchScreen(Main.ScreenType.MENU);</span>
+<span class="nc" id="L254">        eventHandler.createEvent(EventHandler.Event.RETURN_MENU, (params) -&gt; {</span>
+<span class="nc" id="L255">            game.switchScreen(Main.ScreenType.MENU);</span>
 
-<span class="nc" id="L253">            return null;</span>
+<span class="nc" id="L257">            return null;</span>
         });
-<span class="nc" id="L255">    }</span>
+
+        // Game over upon timer click
+<span class="nc" id="L261">        eventHandler.createEvent(EventHandler.Event.TIMER_CLICK, (params) -&gt; {</span>
+<span class="nc" id="L262">            MainTimer.getTimerManager().getTimer().setTimer(0);</span>
+            ;
+
+<span class="nc" id="L265">            return null;</span>
+        });
+<span class="nc" id="L267">    }</span>
 
     /**
      * Renders the game world, and make calls to handle continuous inputs.
@@ -261,59 +273,76 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         // Call to handles any constant input
-<span class="nc" id="L264">        inputManager.handleContinuousInput();</span>
+<span class="nc" id="L276">        inputManager.handleContinuousInput();</span>
 
         // Clear the screen
-<span class="nc" id="L267">        ScreenUtils.clear(0, 0, 0, 1f);</span>
+<span class="nc" id="L279">        ScreenUtils.clear(0, 0, 0, 1f);</span>
 
         // Applies viewport transformations and updates camera ready for rendering
-<span class="nc" id="L270">        viewport.apply();</span>
-<span class="nc" id="L271">        MainCamera.camera().update();</span>
+<span class="nc" id="L282">        viewport.apply();</span>
+<span class="nc" id="L283">        MainCamera.camera().update();</span>
         // Update the SpriteBatch and ShapeRenderer to match the updates camera
-<span class="nc" id="L273">        batch.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
-<span class="nc" id="L274">        shapeRenderer.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
+<span class="nc" id="L285">        batch.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
+<span class="nc" id="L286">        shapeRenderer.setProjectionMatrix(MainCamera.camera().getCombinedMatrix());</span>
 
         // Darkened the world when paused
-<span class="nc bnc" id="L277" title="All 2 branches missed.">        Color worldTint = gameState.paused ? Color.LIGHT_GRAY : Color.WHITE;</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">        Color worldTint = gameState.paused ? Color.LIGHT_GRAY : Color.WHITE;</span>
 
         // Draw the world tiles
-<span class="nc" id="L280">        RenderUtils.drawWorld(batch, world, worldTint);</span>
+<span class="nc" id="L292">        RenderUtils.drawWorld(batch, world, worldTint);</span>
         // Draw the worlds buildings
-<span class="nc" id="L282">        RenderUtils.drawBuildings(batch, world, worldTint);</span>
+<span class="nc" id="L294">        RenderUtils.drawBuildings(batch, world, worldTint);</span>
         // If there is a building to be placed draw it as a ghost building
-<span class="nc bnc" id="L284" title="All 2 branches missed.">        if (gameState.placingBuilding != null) {</span>
-<span class="nc" id="L285">            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f),</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        if (gameState.placingBuilding != null) {</span>
+<span class="nc" id="L297">            RenderUtils.drawPlacingBuilding(batch, world, gameState.placingBuilding, new Color(1f, 1f, 1f, 0.75f),</span>
                     new Color(1f, 0f, 0f, 0.75f));
         }
         // If we are placing a building or there is a building selected then draw
         // gridlines
-<span class="nc bnc" id="L290" title="All 4 branches missed.">        if (gameState.placingBuilding != null || gameState.selectedBuilding != null) {</span>
-<span class="nc" id="L291">            RenderUtils.drawWorldGridlines(shapeRenderer, world, Color.BLACK);</span>
+<span class="nc bnc" id="L302" title="All 4 branches missed.">        if (gameState.placingBuilding != null || gameState.selectedBuilding != null) {</span>
+<span class="nc" id="L303">            RenderUtils.drawWorldGridlines(shapeRenderer, world, Color.BLACK);</span>
         }
         // If there is a building selected then outline it
-<span class="nc bnc" id="L294" title="All 2 branches missed.">        if (gameState.selectedBuilding != null) {</span>
-<span class="nc" id="L295">            RenderUtils.outlineBuilding(shapeRenderer, gameState.selectedBuilding, Color.RED, 2);</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        if (gameState.selectedBuilding != null) {</span>
+<span class="nc" id="L307">            RenderUtils.outlineBuilding(shapeRenderer, gameState.selectedBuilding, Color.RED, 2);</span>
         }
         // If there is a moving selected then outline where it was previously
-<span class="nc bnc" id="L298" title="All 2 branches missed.">        if (gameState.movingBuilding != null) {</span>
-<span class="nc" id="L299">            RenderUtils.outlineBuilding(shapeRenderer, gameState.movingBuilding, Color.PURPLE, 2);</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">        if (gameState.movingBuilding != null) {</span>
+<span class="nc" id="L311">            RenderUtils.outlineBuilding(shapeRenderer, gameState.movingBuilding, Color.PURPLE, 2);</span>
         }
 
         // Render the UI
-<span class="nc" id="L303">        ui.render();</span>
+<span class="nc" id="L315">        ui.render();</span>
 
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        if (MainTimer.getTimerManager().getTimer().getTimeLeft() &lt; Constants.nextPayDay) {</span>
+<span class="nc" id="L318">            Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;</span>
+<span class="nc" id="L319">            payPlayer();</span>
+        }
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
-<span class="nc bnc" id="L307" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
+<span class="nc bnc" id="L323" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
             // Update the satisfaction score
-<span class="nc" id="L309">            GameUtils.updateSatisfactionScore(world);</span>
+<span class="nc" id="L325">            GameUtils.updateSatisfactionScore(world);</span>
             // ASSESSMENT 2 - Check for achievements and display them
-<span class="nc" id="L311">            achievementsManager.checkAchievements();</span>
-<span class="nc" id="L312">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
+<span class="nc" id="L327">            achievementsManager.checkAchievements();</span>
+<span class="nc" id="L328">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
             // Update the unlocked achievements in the game state
-<span class="nc" id="L314">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
+<span class="nc" id="L330">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
         }
-<span class="nc" id="L316">    }</span>
+<span class="nc" id="L332">    }</span>
+
+    /**
+     * Adds an amount of money proportional to the number of students to the
+     * players account
+     *
+     * ASSESSMENT 2 - NEW
+     */
+    private void payPlayer() {
+<span class="nc" id="L341">        gameState.money += Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
+<span class="nc" id="L342">                * gameState.getBuildingCount(BuildingType.HALLS);</span>
+<span class="nc" id="L343">        ui.showMoneyPopUp((int) (Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
+<span class="nc" id="L344">                * gameState.getBuildingCount(BuildingType.HALLS)));</span>
+<span class="nc" id="L345">    }</span>
 
     /**
      * Handles resizing events, to ensure the game can be scaled.
@@ -325,27 +354,27 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         // Updates viewport to match new window size
-<span class="nc" id="L328">        viewport.update(width, height, false);</span>
+<span class="nc" id="L357">        viewport.update(width, height, false);</span>
 
         // Recalculate scaling factors with new height
-<span class="nc" id="L331">        GameUtils.calculateScaling();</span>
+<span class="nc" id="L360">        GameUtils.calculateScaling();</span>
 
         // Rescale UI
-<span class="nc" id="L334">        ui.resize(width, height);</span>
-<span class="nc" id="L335">    }</span>
+<span class="nc" id="L363">        ui.resize(width, height);</span>
+<span class="nc" id="L364">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L339">    }</span>
+<span class="nc" id="L368">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L343">    }</span>
+<span class="nc" id="L372">    }</span>
 
     @Override
     public void hide() {
 
-<span class="nc" id="L348">    }</span>
+<span class="nc" id="L377">    }</span>
 
     /**
      * Release all resources held by the game.
@@ -353,9 +382,9 @@ public class GameScreen implements Screen {
      */
     @Override
     public void dispose() {
-<span class="nc" id="L356">        batch.dispose();</span>
-<span class="nc" id="L357">        shapeRenderer.dispose();</span>
-<span class="nc" id="L358">        ui.dispose();</span>
-<span class="nc" id="L359">    }</span>
+<span class="nc" id="L385">        batch.dispose();</span>
+<span class="nc" id="L386">        shapeRenderer.dispose();</span>
+<span class="nc" id="L387">        ui.dispose();</span>
+<span class="nc" id="L388">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

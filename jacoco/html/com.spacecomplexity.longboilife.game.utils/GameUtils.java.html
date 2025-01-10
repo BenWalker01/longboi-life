@@ -33,18 +33,18 @@ import java.util.Vector;
         // Divide these by the cell size (as the world starts at (0, 0))
 <span class="fc" id="L34">        float cellSize = Constants.TILE_SIZE * GameState.getState().scaleFactor;</span>
 <span class="fc" id="L35">        return new Vector2Int(</span>
-<span class="fc" id="L36">            Math.max(0, Math.min((int) (mouse.x / cellSize), world.getWidth() - 1)),</span>
-<span class="fc" id="L37">            Math.max(0, Math.min((int) (mouse.y / cellSize), world.getHeight() - 1))</span>
-        );
+<span class="fc" id="L36">                Math.max(0, Math.min((int) (mouse.x / cellSize), world.getWidth() - 1)),</span>
+<span class="fc" id="L37">                Math.max(0, Math.min((int) (mouse.y / cellSize), world.getHeight() - 1)));</span>
     }
 
     /**
      * Calculate and set scaling factors using the window size.
      */
     public static void calculateScaling() {
-<span class="nc" id="L45">        int screenHeight = Gdx.graphics.getHeight();</span>
+<span class="nc" id="L44">        int screenHeight = Gdx.graphics.getHeight();</span>
 
-        // If height is 0 then the window is minimised so don't bother calculating as this could cause unintended behaviour with scaling at 0
+        // If height is 0 then the window is minimised so don't bother calculating as
+        // this could cause unintended behaviour with scaling at 0
 <span class="nc bnc" id="L48" title="All 2 branches missed.">        if (screenHeight == 0)</span>
 <span class="nc" id="L49">            return;</span>
 
@@ -57,99 +57,110 @@ import java.util.Vector;
     /**
      * Update satisfaction score.
      * &lt;p&gt;
-     * Satisfaction score is calculated using {@link Constants#satisfactoryDistance}.
-     * For each accommodation building a modifier is created which is updated based on the positioning of other
-     * buildings with on {@link Constants#satisfactoryDistance}. After all modifiers are calculated the worst one is
-     * chosen to act as the satisfaction modifier, this then updates the satisfaction velocity.
+     * Satisfaction score is calculated using
+     * {@link Constants#satisfactoryDistance}.
+     * For each accommodation building a modifier is created which is updated based
+     * on the positioning of other
+     * buildings with on {@link Constants#satisfactoryDistance}. After all modifiers
+     * are calculated the worst one is
+     * chosen to act as the satisfaction modifier, this then updates the
+     * satisfaction velocity.
      *
      * @param world the world reference for buildings.
      */
     public static void updateSatisfactionScore(World world) {
-<span class="fc" id="L68">        Vector&lt;Building&gt; buildings = world.getBuildings();</span>
+<span class="fc" id="L72">        Vector&lt;Building&gt; buildings = world.getBuildings();</span>
 
         // Map containing buildings split into categories
-<span class="fc" id="L71">        HashMap&lt;BuildingCategory, Vector&lt;Building&gt;&gt; categorisedBuildings = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L75">        HashMap&lt;BuildingCategory, Vector&lt;Building&gt;&gt; categorisedBuildings = new HashMap&lt;&gt;();</span>
 
         // Get categories of buildings which will affect satisfaction score
-<span class="fc" id="L74">        Set&lt;BuildingCategory&gt; searchBuildingCategories = new HashSet&lt;&gt;(Constants.satisfactoryDistance.keySet());</span>
-        // Temporarily add accommodation category so that accommodation buildings will be split out of the main building array
-<span class="fc" id="L76">        searchBuildingCategories.add(BuildingCategory.ACCOMMODATION);</span>
+<span class="fc" id="L78">        Set&lt;BuildingCategory&gt; searchBuildingCategories = new HashSet&lt;&gt;(Constants.satisfactoryDistance.keySet());</span>
+        // Temporarily add accommodation category so that accommodation buildings will
+        // be split out of the main building array
+<span class="fc" id="L81">        searchBuildingCategories.add(BuildingCategory.ACCOMMODATION);</span>
         // Initialise empty vectors
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
-<span class="fc" id="L79">            categorisedBuildings.put(category, new Vector&lt;&gt;());</span>
-<span class="fc" id="L80">        }</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc" id="L84">            categorisedBuildings.put(category, new Vector&lt;&gt;());</span>
+<span class="fc" id="L85">        }</span>
         // Split buildings into categories
-<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Building building : buildings) {</span>
-<span class="fc" id="L83">            BuildingCategory category = building.getType().getCategory();</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (searchBuildingCategories.contains(category)) {</span>
-<span class="fc" id="L85">                categorisedBuildings.get(category).add(building);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (Building building : buildings) {</span>
+<span class="fc" id="L88">            BuildingCategory category = building.getType().getCategory();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (searchBuildingCategories.contains(category)) {</span>
+<span class="fc" id="L90">                categorisedBuildings.get(category).add(building);</span>
             }
-<span class="fc" id="L87">        }</span>
+<span class="fc" id="L92">        }</span>
         // Remove the accommodation category
-<span class="fc" id="L89">        searchBuildingCategories.remove(BuildingCategory.ACCOMMODATION);</span>
+<span class="fc" id="L94">        searchBuildingCategories.remove(BuildingCategory.ACCOMMODATION);</span>
 
         // Check if any categories are empty, hence missing required buildings
-<span class="fc" id="L92">        boolean emptyCategory = false;</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
-<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (categorisedBuildings.get(category).isEmpty()) {</span>
-<span class="fc" id="L95">                emptyCategory = true;</span>
+<span class="fc" id="L97">        boolean emptyCategory = false;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            if (categorisedBuildings.get(category).isEmpty()) {</span>
+<span class="fc" id="L100">                emptyCategory = true;</span>
             }
-<span class="fc" id="L97">        }</span>
+<span class="fc" id="L102">        }</span>
 
-        // If there is, there is not required buildings this will be the default satisfaction modifier
-<span class="fc" id="L100">        float satisfactionModifier = -2000f;</span>
+        // If there is, there is not required buildings this will be the default
+        // satisfaction modifier
+<span class="fc" id="L106">        float satisfactionModifier = -2000f;</span>
 
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (!emptyCategory) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (!emptyCategory) {</span>
             // Get the maximum distance if items were placed on other sides of the map
-<span class="fc" id="L104">            float mapMax = new Vector2Int(world.getWidth(), world.getHeight()).mag();</span>
-<span class="fc" id="L105">            satisfactionModifier = Float.MAX_VALUE;</span>
+<span class="fc" id="L110">            float mapMax = new Vector2Int(world.getWidth(), world.getHeight()).mag();</span>
+<span class="fc" id="L111">            satisfactionModifier = Float.MAX_VALUE;</span>
 
             // For every accommodation building
-<span class="fc bfc" id="L108" title="All 2 branches covered.">            for (Building accomidationBuilding : categorisedBuildings.get(BuildingCategory.ACCOMMODATION)) {</span>
-<span class="fc" id="L109">                float modifier = 0;</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            for (Building accomidationBuilding : categorisedBuildings.get(BuildingCategory.ACCOMMODATION)) {</span>
+<span class="fc" id="L115">                float modifier = 0;</span>
 
                 // Go through each other category of building
-<span class="fc bfc" id="L112" title="All 2 branches covered.">                for (BuildingCategory category : searchBuildingCategories) {</span>
-<span class="fc" id="L113">                    float closest = mapMax;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                for (BuildingCategory category : searchBuildingCategories) {</span>
+<span class="fc" id="L119">                    float closest = mapMax;</span>
                     // Find the closest of this category of building
-<span class="fc bfc" id="L115" title="All 2 branches covered.">                    for (Building building : categorisedBuildings.get(category)) {</span>
-<span class="fc" id="L116">                        float distance = (accomidationBuilding.getPosition().subtract(building.getPosition())).mag();</span>
-<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                        if (distance &lt; closest) {</span>
-<span class="fc" id="L118">                            closest = distance;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">                    for (Building building : categorisedBuildings.get(category)) {</span>
+<span class="fc" id="L122">                        float distance = (accomidationBuilding.getPosition().subtract(building.getPosition())).mag();</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">                        if (distance &lt; closest) {</span>
+<span class="fc" id="L124">                            closest = distance;</span>
                         }
-<span class="fc" id="L120">                    }</span>
+<span class="fc" id="L126">                    }</span>
 
-                    // Update the modifier by the constants defined with the satisfactory distance from the category
-<span class="fc" id="L123">                    modifier += Constants.satisfactoryDistance.get(category) - closest;</span>
+                    // Update the modifier by the constants defined with the satisfactory distance
+                    // from the category
+<span class="fc" id="L130">                    modifier += Constants.satisfactoryDistance.get(category) - closest;</span>
 
-<span class="fc" id="L125">                }</span>
+<span class="fc" id="L132">                }</span>
 
-                // Set the overall satisfaction modifier to the worst modifier from all accommodations
-<span class="fc" id="L128">                satisfactionModifier = Math.min(satisfactionModifier, modifier);</span>
-<span class="fc" id="L129">            }</span>
+                // Set the overall satisfaction modifier to the worst modifier from all
+                // accommodations
+<span class="fc" id="L136">                satisfactionModifier = Math.min(satisfactionModifier, modifier);</span>
+<span class="fc" id="L137">            }</span>
         }
 
-<span class="fc" id="L132">        GameState gameState = GameState.getState();</span>
+<span class="fc" id="L140">        GameState gameState = GameState.getState();</span>
 
         // Update whether the last satisfaction modifier was positive
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        boolean newSatisfactionModifierPositive = satisfactionModifier &gt;= 0;</span>
-<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (newSatisfactionModifierPositive != gameState.satisfactionModifierPositive) {</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        boolean newSatisfactionModifierPositive = satisfactionModifier &gt;= 0;</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (newSatisfactionModifierPositive != gameState.satisfactionModifierPositive) {</span>
             // Reset satisfaction velocity direction flips
-<span class="fc" id="L138">            gameState.satisfactionScoreVelocity = 0;</span>
+<span class="fc" id="L146">            gameState.satisfactionScoreVelocity = 0;</span>
         }
-<span class="fc" id="L140">        gameState.satisfactionModifierPositive = newSatisfactionModifierPositive;</span>
+<span class="fc" id="L148">        gameState.satisfactionModifierPositive = newSatisfactionModifierPositive;</span>
 
         // Increase satisfaction velocity based on the satisfaction modifier
-<span class="fc" id="L143">        float newSatisfactionVelocity = gameState.satisfactionScoreVelocity + (satisfactionModifier / 1_000_000f);</span>
+<span class="fc" id="L151">        float newSatisfactionVelocity = gameState.satisfactionScoreVelocity + (satisfactionModifier / 1_000_000f);</span>
         // Limit satisfaction velocity to -1% to 1%
-<span class="fc" id="L145">        newSatisfactionVelocity = Math.max(-0.01f, Math.min(newSatisfactionVelocity, 0.01f));</span>
-<span class="fc" id="L146">        gameState.satisfactionScoreVelocity = newSatisfactionVelocity;</span>
+<span class="fc" id="L153">        newSatisfactionVelocity = Math.max(-0.01f, Math.min(newSatisfactionVelocity, 0.01f));</span>
+<span class="fc" id="L154">        gameState.satisfactionScoreVelocity = newSatisfactionVelocity;</span>
 
         // Update satisfaction score with velocity
-<span class="fc" id="L149">        float newSatisfactionScore = gameState.satisfactionScore + gameState.satisfactionScoreVelocity * Gdx.graphics.getDeltaTime();</span>
-        // Limit satisfaction score between 0% and 10% * number of accommodation buildings
-<span class="fc" id="L151">        newSatisfactionScore = Math.max(0, Math.min(newSatisfactionScore, Math.min(categorisedBuildings.get(BuildingCategory.ACCOMMODATION).size() * 0.1f, 1f)));</span>
-<span class="fc" id="L152">        gameState.satisfactionScore = newSatisfactionScore;</span>
-<span class="fc" id="L153">    }</span>
+<span class="fc" id="L157">        float newSatisfactionScore = gameState.satisfactionScore</span>
+<span class="fc" id="L158">                + gameState.satisfactionScoreVelocity * Gdx.graphics.getDeltaTime();</span>
+        // Limit satisfaction score between 0% and 10% * number of accommodation
+        // buildings
+<span class="fc" id="L161">        newSatisfactionScore = Math.max(0,</span>
+<span class="fc" id="L162">                Math.min(newSatisfactionScore, categorisedBuildings.get(BuildingCategory.ACCOMMODATION).size() * 0.1f));</span>
+<span class="fc" id="L163">        gameState.satisfactionScore = newSatisfactionScore;</span>
+<span class="fc" id="L164">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

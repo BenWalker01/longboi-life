@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UIEventsMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">headless</a> &gt; <a href="index.source.html" class="el_package">com.spacecomplexity.longboilife.game.ui.game</a> &gt; <span class="el_source">UIEventsMenu.java</span></div><h1>UIEventsMenu.java</h1><pre class="source lang-java linenums">package com.spacecomplexity.longboilife.game.ui.game;
+
+
+
+import com.badlogic.gdx.graphics.Color;
+
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import com.spacecomplexity.longboilife.game.events.RandomEvents;
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
+import com.spacecomplexity.longboilife.game.globals.GameState;
+import com.spacecomplexity.longboilife.game.globals.MainTimer;
+import com.spacecomplexity.longboilife.game.ui.UIElement;
+import com.spacecomplexity.longboilife.game.utils.UIUtils; 
+import com.spacecomplexity.longboilife.game.utils.SoundEffect;
+
+
+//NEW CLASS
+public class UIEventsMenu extends UIElement{
+
+    public UIEventsMenu(Viewport uiViewport, Table parentTable, Skin skin) {
+<span class="nc" id="L30">        super(uiViewport, parentTable, skin);</span>
+
+    
+<span class="nc" id="L33">        var event = RandomEvents.getRandomEvent();</span>
+
+<span class="nc" id="L35">        Label label = new Label(&quot;Event!\n\n&quot; + event.eventDescription, skin);</span>
+<span class="nc" id="L36">        label.setAlignment(Align.center);</span>
+<span class="nc" id="L37">        label.setFontScale(1.2f);</span>
+<span class="nc" id="L38">        label.setColor(Color.WHITE); </span>
+<span class="nc" id="L39">        label.setWrap(false);</span>
+<span class="nc" id="L40">        MainTimer.getTimerManager().getTimer().pauseTimer();</span>
+        //GameState.getState().paused = true;
+<span class="nc" id="L42">        UIUtils.disableAllActors(table.getStage());</span>
+        // Place leaderboard onto table
+<span class="nc" id="L44">        table.add(label).align(Align.center);</span>
+<span class="nc" id="L45">        Table choiceButtonsTable = new Table(skin); </span>
+<span class="nc" id="L46">        table.row(); </span>
+<span class="nc" id="L47">        float maxButtonWidth = -1;</span>
+<span class="nc" id="L48">        float maxButtonHeight = -1;</span>
+        
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (event.choices.length &gt;= 1) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            for (var choice : event.choices) {</span>
+<span class="nc" id="L52">                TextButton button = new TextButton(choice.choiceDescription, skin);</span>
+                
+                
+<span class="nc" id="L55">                button.addListener(new ClickListener() {</span>
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+<span class="nc" id="L58">                        choice.event.apply(new Object[0]); </span>
+<span class="nc" id="L59">                        MainTimer.getTimerManager().getTimer().resumeTimer(); </span>
+<span class="nc" id="L60">                        UIUtils.enableAllActors(table.getStage()); </span>
+<span class="nc" id="L61">                        GameState.getState().paused = false;</span>
+<span class="nc" id="L62">                        table.remove(); </span>
+<span class="nc" id="L63">                        new SoundEffect(Filepaths.CLICK_SOUND).play();</span>
+<span class="nc" id="L64">                    }</span>
+                }); 
+<span class="nc" id="L66">                float buttonWidth = button.getWidth(); </span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                if (buttonWidth &gt; maxButtonWidth) maxButtonWidth = buttonWidth;</span>
+
+
+<span class="nc" id="L70">                choiceButtonsTable.add(button).expandX().padLeft(2);</span>
+            } 
+        } else {  
+            
+<span class="nc" id="L74">            var button = new TextButton(&quot;close&quot;, skin); </span>
+<span class="nc" id="L75">            var eventEffect = event.event;</span>
+<span class="nc" id="L76">            button.addListener(new ClickListener() { </span>
+                @Override 
+                public void clicked(InputEvent event, float x, float y) { 
+<span class="nc" id="L79">                    eventEffect.apply(new Object[0]); </span>
+<span class="nc" id="L80">                    MainTimer.getTimerManager().getTimer().resumeTimer(); </span>
+<span class="nc" id="L81">                    UIUtils.enableAllActors(table.getStage()); </span>
+<span class="nc" id="L82">                    GameState.getState().paused = false;</span>
+<span class="nc" id="L83">                    table.remove(); </span>
+<span class="nc" id="L84">                    new SoundEffect(Filepaths.CLICK_SOUND).play();</span>
+<span class="nc" id="L85">                }</span>
+            });
+<span class="nc" id="L87">            choiceButtonsTable.add(button).expandX().padLeft(2); </span>
+<span class="nc" id="L88">            maxButtonHeight = button.getHeight(); </span>
+<span class="nc" id="L89">            System.out.println(maxButtonHeight);</span>
+        } 
+        
+        // Add the buttons onto the main table
+<span class="nc" id="L93">        table.add(choiceButtonsTable).expandX();</span>
+        // Style and place the table
+<span class="nc" id="L95">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L96">        table.setSize(label.getPrefWidth() + 20f, label.getPrefHeight() + maxButtonHeight + 20f);</span>
+<span class="nc" id="L97">        placeTable(); </span>
+<span class="nc" id="L98">        UIUtils.enableActor(table);</span>
+<span class="nc" id="L99">    }</span>
+
+    @Override
+    public void render() {
+<span class="nc" id="L103">    }</span>
+
+    @Override
+    protected void placeTable() {
+<span class="nc" id="L107">        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, uiViewport.getWorldHeight() / 2 - table.getHeight() / 2);</span>
+<span class="nc" id="L108">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -77,7 +77,8 @@ public class GameState {
     /**
      * The current count of buildings.
      * &lt;p&gt;
-     * This should be modified by {@link GameState#getBuildingCount(BuildingType)} and {@link GameState#changeBuildingCount(BuildingType, int)} not directly.
+     * This should be modified by {@link GameState#getBuildingCount(BuildingType)}
+     * and {@link GameState#changeBuildingCount(BuildingType, int)} not directly.
      * &lt;p&gt;
      * This is initialised in the constructor.
      */
@@ -97,13 +98,13 @@ public class GameState {
      * @return the building count for this specific building.
      */
     public Integer getBuildingCount(BuildingType buildingType) {
-<span class="fc" id="L100">        Integer count = buildingsCount.get(buildingType);</span>
+<span class="fc" id="L101">        Integer count = buildingsCount.get(buildingType);</span>
         // If this has not yet been set return 0
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (count == null) {</span>
-<span class="fc" id="L103">            return 0;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (count == null) {</span>
+<span class="fc" id="L104">            return 0;</span>
         }
 
-<span class="fc" id="L106">        return count;</span>
+<span class="fc" id="L107">        return count;</span>
     }
 
     /**
@@ -113,24 +114,29 @@ public class GameState {
      * @param change       the amount to change it by.
      */
     public void changeBuildingCount(BuildingType buildingType, int change) {
-<span class="fc" id="L116">        int count = getBuildingCount(buildingType);</span>
-<span class="fc" id="L117">        buildingsCount.put(buildingType, count + change);</span>
-<span class="fc" id="L118">    }</span>
+<span class="fc" id="L117">        int count = getBuildingCount(buildingType);</span>
+<span class="fc" id="L118">        buildingsCount.put(buildingType, count + change);</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * The value that the satisfaction score changes by each second.
      */
-<span class="fc" id="L123">    public float satisfactionScoreVelocity = 0;</span>
+<span class="fc" id="L124">    public float satisfactionScoreVelocity = 0;</span>
 
     /**
      * If the last satisfaction modifier calculated was positive.
      */
-<span class="fc" id="L128">    public boolean satisfactionModifierPositive = false;</span>
+<span class="fc" id="L129">    public boolean satisfactionModifierPositive = false;</span>
 
     /**
      * If the game has ended
      */
-<span class="fc" id="L133">    public boolean gameOver = false;</span>
+<span class="fc" id="L134">    public boolean gameOver = false;</span>
+
+    /**
+     * If the sound is on
+     */
+<span class="fc" id="L139">    public boolean soundOn = true;</span>
 
     /**
      * Get the singleton instance of the {@link GameState} class.
@@ -138,34 +144,34 @@ public class GameState {
      * @return The single {@link GameState} class.
      */
     public static GameState getState() {
-<span class="fc" id="L141">        return gameState;</span>
+<span class="fc" id="L147">        return gameState;</span>
     }
 
-<span class="fc" id="L144">    private GameState() {</span>
-<span class="fc" id="L145">        reset();</span>
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L150">    private GameState() {</span>
+<span class="fc" id="L151">        reset();</span>
+<span class="fc" id="L152">    }</span>
 
     /**
      * Reset all values to default.
      */
     public void reset() {
-//        scaleFactor = 1;
-//        uiScaleFactor = 1;
-<span class="fc" id="L154">        cameraSpeed = 1400;</span>
-<span class="fc" id="L155">        cameraKeyZoomSpeed = 3;</span>
-<span class="fc" id="L156">        cameraScrollZoomSpeed = 32;</span>
-//        fullscreen = false;
-<span class="fc" id="L158">        money = 800000;</span>
-<span class="fc" id="L159">        satisfactionScore = 0f;</span>
-<span class="fc" id="L160">        placingBuilding = null;</span>
-<span class="fc" id="L161">        selectedBuilding = null;</span>
-<span class="fc" id="L162">        movingBuilding = null;</span>
-<span class="fc" id="L163">        paused = false;</span>
-<span class="fc" id="L164">        buildingsCount = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L165">        satisfactionScoreVelocity = 0;</span>
-<span class="fc" id="L166">        satisfactionModifierPositive = false;</span>
-<span class="fc" id="L167">        gameOver = false;</span>
-<span class="fc" id="L168">        unlockedAchievements = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L169">    }</span>
+        // scaleFactor = 1;
+        // uiScaleFactor = 1;
+<span class="fc" id="L160">        cameraSpeed = 1400;</span>
+<span class="fc" id="L161">        cameraKeyZoomSpeed = 3;</span>
+<span class="fc" id="L162">        cameraScrollZoomSpeed = 32;</span>
+        // fullscreen = false;
+<span class="fc" id="L164">        money = 800000;</span>
+<span class="fc" id="L165">        satisfactionScore = 0f;</span>
+<span class="fc" id="L166">        placingBuilding = null;</span>
+<span class="fc" id="L167">        selectedBuilding = null;</span>
+<span class="fc" id="L168">        movingBuilding = null;</span>
+<span class="fc" id="L169">        paused = false;</span>
+<span class="fc" id="L170">        buildingsCount = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L171">        satisfactionScoreVelocity = 0;</span>
+<span class="fc" id="L172">        satisfactionModifierPositive = false;</span>
+<span class="fc" id="L173">        gameOver = false;</span>
+<span class="fc" id="L174">        unlockedAchievements = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L175">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

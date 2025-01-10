@@ -30,78 +30,81 @@ public class UIOverview extends UIElement {
     public UIOverview(Viewport uiViewport, Table parentTable, Skin skin) {
 <span class="nc" id="L31">        super(uiViewport, parentTable, skin);</span>
 
-<span class="nc" id="L33">        String overview = String.format(&quot;Game Over\r\nSatisfaction Score: %.2f%%&quot;, GameState.getState().satisfactionScore * 100);</span>
+<span class="nc" id="L33">        String overview = String.format(&quot;Game Over\r\nSatisfaction Score: %.2f&quot;,</span>
+<span class="nc" id="L34">                GameState.getState().satisfactionScore * 100);</span>
 
         // Initialise game over label
-<span class="nc" id="L36">        Label label = new Label(overview, skin);</span>
-<span class="nc" id="L37">        label.setAlignment(Align.center);</span>
-<span class="nc" id="L38">        label.setFontScale(1.2f);</span>
-<span class="nc" id="L39">        label.setColor(Color.WHITE);</span>
+<span class="nc" id="L37">        Label label = new Label(overview, skin);</span>
+<span class="nc" id="L38">        label.setAlignment(Align.center);</span>
+<span class="nc" id="L39">        label.setFontScale(1.2f);</span>
+<span class="nc" id="L40">        label.setColor(Color.WHITE);</span>
 
         // Initialise achievements unlocked label
-<span class="nc" id="L42">        Label achievementsUnlockedLabel = new Label(&quot;Achievements Unlocked:&quot;, skin);</span>
-<span class="nc" id="L43">        achievementsUnlockedLabel.setAlignment(Align.center);</span>
-<span class="nc" id="L44">        achievementsUnlockedLabel.setFontScale(1.2f);</span>
-<span class="nc" id="L45">        achievementsUnlockedLabel.setColor(Color.WHITE);</span>
+<span class="nc" id="L43">        Label achievementsUnlockedLabel = new Label(&quot;Achievements Unlocked:&quot;, skin);</span>
+<span class="nc" id="L44">        achievementsUnlockedLabel.setAlignment(Align.center);</span>
+<span class="nc" id="L45">        achievementsUnlockedLabel.setFontScale(1.2f);</span>
+<span class="nc" id="L46">        achievementsUnlockedLabel.setColor(Color.WHITE);</span>
 
         // Initialise list of unlocked achievements label
-<span class="nc" id="L48">        String achievements = buildUnlockedAchievementsString();</span>
-<span class="nc" id="L49">        achievementsLabel = new Label(achievements, skin);</span>
-<span class="nc" id="L50">        achievementsLabel.setAlignment(Align.center);</span>
-<span class="nc" id="L51">        achievementsLabel.setFontScale(1.2f);</span>
-<span class="nc" id="L52">        achievementsLabel.setColor(Color.WHITE);</span>
-<span class="nc" id="L53">        achievementsLabel.setWrap(true);</span>
+<span class="nc" id="L49">        String achievements = buildUnlockedAchievementsString();</span>
+<span class="nc" id="L50">        achievementsLabel = new Label(achievements, skin);</span>
+<span class="nc" id="L51">        achievementsLabel.setAlignment(Align.center);</span>
+<span class="nc" id="L52">        achievementsLabel.setFontScale(1.2f);</span>
+<span class="nc" id="L53">        achievementsLabel.setColor(Color.WHITE);</span>
+<span class="nc" id="L54">        achievementsLabel.setWrap(true);</span>
 
         // Initialise button
-<span class="nc" id="L56">        TextButton button = new TextButton(&quot;Menu&quot;, skin);</span>
-<span class="nc" id="L57">        button.addListener(new ClickListener() {</span>
+<span class="nc" id="L57">        TextButton button = new TextButton(&quot;Menu&quot;, skin);</span>
+<span class="nc" id="L58">        button.addListener(new ClickListener() {</span>
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Call the events to return to the menu
-<span class="nc" id="L61">                EventHandler.getEventHandler().callEvent(EventHandler.Event.RETURN_MENU);</span>
-<span class="nc" id="L62">            }</span>
+<span class="nc" id="L62">                EventHandler.getEventHandler().callEvent(EventHandler.Event.RETURN_MENU);</span>
+<span class="nc" id="L63">            }</span>
         });
 
         // Place elements onto table
-<span class="nc" id="L66">        table.add(label).align(Align.center);</span>
-<span class="nc" id="L67">        table.row();</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (GameState.getState().unlockedAchievements.size() &gt; 0) {</span>
-<span class="nc" id="L69">            table.add(achievementsUnlockedLabel).align(Align.center).padTop(5);</span>
-<span class="nc" id="L70">            table.row();</span>
-<span class="nc" id="L71">            table.add(achievementsLabel).align(Align.center).width(200);</span>
-<span class="nc" id="L72">            table.row();</span>
+<span class="nc" id="L67">        table.add(label).align(Align.center);</span>
+<span class="nc" id="L68">        table.row();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (GameState.getState().unlockedAchievements.size() &gt; 0) {</span>
+<span class="nc" id="L70">            table.add(achievementsUnlockedLabel).align(Align.center).padTop(5);</span>
+<span class="nc" id="L71">            table.row();</span>
+<span class="nc" id="L72">            table.add(achievementsLabel).align(Align.center).width(200);</span>
+<span class="nc" id="L73">            table.row();</span>
         }
-<span class="nc" id="L74">        table.add(button).padTop(5).align(Align.center);</span>
+<span class="nc" id="L75">        table.add(button).padTop(5).align(Align.center);</span>
 
         // Style and place the table
-<span class="nc" id="L77">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (GameState.getState().unlockedAchievements.size() &gt; 0) {</span>
-<span class="nc" id="L79">            table.setSize(220, 150 + GameState.getState().unlockedAchievements.size() * 35);</span>
+<span class="nc" id="L78">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (GameState.getState().unlockedAchievements.size() &gt; 0) {</span>
+<span class="nc" id="L80">            table.setSize(220, 150 + GameState.getState().unlockedAchievements.size() * 35);</span>
         } else {
-<span class="nc" id="L81">            table.setSize(220, 100);</span>
+<span class="nc" id="L82">            table.setSize(220, 100);</span>
         }
-<span class="nc" id="L83">        placeTable();</span>
-<span class="nc" id="L84">    }</span>
+<span class="nc" id="L84">        placeTable();</span>
+<span class="nc" id="L85">    }</span>
 
     public void render() {
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L88">    }</span>
 
     @Override
     protected void placeTable() {
-<span class="nc" id="L91">        table.setPosition((uiViewport.getWorldWidth() - table.getWidth()) / 2, (uiViewport.getWorldHeight() - table.getHeight()) / 2);</span>
-<span class="nc" id="L92">    }</span>
+<span class="nc" id="L92">        table.setPosition(0, (uiViewport.getWorldHeight() - table.getHeight()) / 2);</span>
+<span class="nc" id="L93">    }</span>
 
     /**
-     * Build a string of unlocked achievements using the achievement set from the game state.
+     * Build a string of unlocked achievements using the achievement set from the
+     * game state.
      *
      * @return the string of unlocked achievements.
      */
     protected String buildUnlockedAchievementsString() {
-<span class="nc" id="L100">        StringBuilder achievements = new StringBuilder();</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (IAchievement achievement : GameState.getState().unlockedAchievements) {</span>
-<span class="nc" id="L102">            achievements.append(achievement.getName()).append(&quot; - &quot;).append(achievement.getDescription()).append(&quot;\r\n&quot;);</span>
-<span class="nc" id="L103">        }</span>
-<span class="nc" id="L104">        return achievements.toString();</span>
+<span class="nc" id="L102">        StringBuilder achievements = new StringBuilder();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (IAchievement achievement : GameState.getState().unlockedAchievements) {</span>
+<span class="nc" id="L104">            achievements.append(achievement.getName()).append(&quot; - &quot;).append(achievement.getDescription())</span>
+<span class="nc" id="L105">                    .append(&quot;\r\n&quot;);</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">        return achievements.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
