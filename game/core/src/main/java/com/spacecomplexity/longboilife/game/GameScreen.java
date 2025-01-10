@@ -142,6 +142,7 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
+                ui.showMoneyPopUp((int) -cost);
 
                 // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
@@ -163,6 +164,7 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
+                ui.showMoneyPopUp((int) -cost);
 
                 // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
@@ -219,6 +221,7 @@ public class GameScreen implements Screen {
             world.demolish(gameState.selectedBuilding);
             // Refund the specified amount
             gameState.money += gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery;
+            ui.showMoneyPopUp((int) (gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery));
             // Deselect the removed building
             gameState.selectedBuilding = null;
 
@@ -331,12 +334,14 @@ public class GameScreen implements Screen {
     /**
      * Adds an amount of money proportional to the number of students to the
      * players account
-     * 
+     *
      * ASSESSMENT 2 - NEW
      */
     private void payPlayer() {
         gameState.money += Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION
                 * gameState.getBuildingCount(BuildingType.HALLS);
+        ui.showMoneyPopUp((int) (Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION
+                * gameState.getBuildingCount(BuildingType.HALLS)));
     }
 
     /**

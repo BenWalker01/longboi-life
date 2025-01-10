@@ -25,20 +25,23 @@ public class Soundtrack {
 <span class="nc" id="L25">    private final Music music = Gdx.audio.newMusic(Gdx.files.internal(Filepaths.SOUNDTRACK));</span>
 
     /**
-     * Play the soundtrack.
+     * Play the soundtrack if game sound is on.
      */
     public void play() {
-        // TODO: change volume when preferences are implemented
-<span class="nc" id="L32">        music.setVolume(0.5f);</span>
-<span class="nc" id="L33">        music.setLooping(true);</span>
-<span class="nc" id="L34">        music.play();</span>
-<span class="nc" id="L35">    }</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (GameState.getState().soundOn) {</span>
+<span class="nc" id="L32">            music.setVolume(0.5f);</span>
+        } else {
+<span class="nc" id="L34">            music.setVolume(0);</span>
+        }
+<span class="nc" id="L36">        music.setLooping(true);</span>
+<span class="nc" id="L37">        music.play();</span>
+<span class="nc" id="L38">    }</span>
 
     /**
      * Pause the soundtrack.
      */
     public void pause() {
-<span class="nc" id="L41">        music.pause();</span>
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L44">        music.pause();</span>
+<span class="nc" id="L45">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
