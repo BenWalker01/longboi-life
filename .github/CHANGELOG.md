@@ -4,7 +4,8 @@
 3. [Game] Enhancement - Added a UI pop up for income/expense
 4. [Game] Enhancement - Added a mute button
 5. [Game] Bug - Fix crashing on game over screen
-x. [Game] Test - Increase test coverage
+6. [Game] Test - Increase test coverage
+7. [Game] Bug - Fix mute button not displaying the actual sound state after replaying the game
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
