@@ -110,10 +110,9 @@ public class UIBottomMenu extends UIElement {
         // Initialise sound button
         ImageButton soundButton = new ImageButton(skin);
         soundButton.setSize(textureSize, textureSize);
-        // Initially set background to sound on
         soundButton.setStyle(new ImageButton.ImageButtonStyle() {{
-            up = soundOnDrawable;
-            down = soundOnDrawable;
+            up = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
+            down = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
         }});
         // Mute/unmute the game when clicked
         soundButton.addListener(new ClickListener() {
