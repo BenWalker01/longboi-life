@@ -10,7 +10,7 @@ name: Update website
 on:
   push:
     branches: ['main']
-    paths: ['website/*']
+    paths: ['website/**']
   workflow_dispatch:
 
 permissions:
