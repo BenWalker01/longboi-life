@@ -2,6 +2,7 @@
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.spacecomplexity.longboilife.game.globals.GameState;
 
 /**
  * Class to represent a sound effect.
@@ -16,16 +17,16 @@ public class SoundEffect {
      *
      * @param path the path to the sound effect file.
      */
-<span class="nc" id="L19">    public SoundEffect(String path) {</span>
-<span class="nc" id="L20">        sound = Gdx.audio.newSound(Gdx.files.internal(path));</span>
-<span class="nc" id="L21">    }</span>
+<span class="nc" id="L20">    public SoundEffect(String path) {</span>
+<span class="nc" id="L21">        sound = Gdx.audio.newSound(Gdx.files.internal(path));</span>
+<span class="nc" id="L22">    }</span>
 
     /**
-     * Play the sound effect.
+     * Play the sound effect if game sound is on.
      */
     public void play() {
-        // TODO: change volume when preferences are implemented
-<span class="nc" id="L28">        sound.play(0.5f);</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if(GameState.getState().soundOn)</span>
+<span class="nc" id="L29">            sound.play(0.5f);</span>
+<span class="nc" id="L30">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -199,20 +199,21 @@ public class UIManager {
      * @param moneyChange the number by which the balance is increased/decreased.
      */
     public void showMoneyPopUp(int moneyChange) {
-<span class="nc" id="L202">        ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);</span>
-<span class="nc" id="L203">    }</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        if (!GameState.getState().gameOver)</span>
+<span class="nc" id="L203">            ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);</span>
+<span class="nc" id="L204">    }</span>
 
     /**
      * Dispose of all loaded assets.
      */
     public void dispose() {
-<span class="nc" id="L209">        stage.dispose();</span>
-<span class="nc" id="L210">        skin.dispose();</span>
+<span class="nc" id="L210">        stage.dispose();</span>
+<span class="nc" id="L211">        skin.dispose();</span>
 
         // Run dispose functions on UI elements
-<span class="nc bnc" id="L213" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L214">            uiElement.dispose();</span>
-<span class="nc" id="L215">        }</span>
-<span class="nc" id="L216">    }</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L215">            uiElement.dispose();</span>
+<span class="nc" id="L216">        }</span>
+<span class="nc" id="L217">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
