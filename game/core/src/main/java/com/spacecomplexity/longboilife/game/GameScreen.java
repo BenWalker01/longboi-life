@@ -142,6 +142,7 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(toBuild, mouse);
                 gameState.money -= cost;
+                ui.showMoneyPopUp((int) -cost);
 
                 // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
@@ -163,6 +164,7 @@ public class GameScreen implements Screen {
                 // Build the building at the mouse location and charge the player accordingly
                 world.build(gameState.movingBuilding, mouse);
                 gameState.money -= cost;
+                ui.showMoneyPopUp((int) -cost);
 
                 // Play the build sound
                 new SoundEffect(Filepaths.BUILD_SOUND).play();
@@ -219,6 +221,7 @@ public class GameScreen implements Screen {
             world.demolish(gameState.selectedBuilding);
             // Refund the specified amount
             gameState.money += gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery;
+            ui.showMoneyPopUp((int) (gameState.selectedBuilding.getType().getCost() * Constants.sellCostRecovery));
             // Deselect the removed building
             gameState.selectedBuilding = null;
 
@@ -256,7 +259,8 @@ public class GameScreen implements Screen {
 
         // Game over upon timer click
         eventHandler.createEvent(EventHandler.Event.TIMER_CLICK, (params) -> {
-            MainTimer.getTimerManager().getTimer().setTimer(0);;
+            MainTimer.getTimerManager().getTimer().setTimer(0);
+            ;
 
             return null;
         });
@@ -310,6 +314,10 @@ public class GameScreen implements Screen {
         // Render the UI
         ui.render();
 
+        if (MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
+            Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;
+            payPlayer();
+        }
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {
@@ -321,6 +329,19 @@ public class GameScreen implements Screen {
             // Update the unlocked achievements in the game state
             gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();
         }
+    }
+
+    /**
+     * Adds an amount of money proportional to the number of students to the
+     * players account
+     *
+     * ASSESSMENT 2 - NEW
+     */
+    private void payPlayer() {
+        gameState.money += Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION
+                * gameState.getBuildingCount(BuildingType.HALLS);
+        ui.showMoneyPopUp((int) (Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION
+                * gameState.getBuildingCount(BuildingType.HALLS)));
     }
 
     /**

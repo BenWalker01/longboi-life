@@ -2,6 +2,7 @@ package com.spacecomplexity.longboilife.game.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.spacecomplexity.longboilife.game.globals.GameState;
 
 /**
  * Class to represent a sound effect.
@@ -21,10 +22,10 @@ public class SoundEffect {
     }
 
     /**
-     * Play the sound effect.
+     * Play the sound effect if game sound is on.
      */
     public void play() {
-        // TODO: change volume when preferences are implemented
-        sound.play(0.5f);
+        if(GameState.getState().soundOn)
+            sound.play(0.5f);
     }
 }

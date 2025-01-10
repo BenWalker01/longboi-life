@@ -1,4 +1,9 @@
 # Changes from v1.2.1 to v
+1. [Game] Test - Added tests to check MilestoneAchievement, SustainedAchievement, AchievementManager classes
+2. [Game] Enhancement - Added an income from students
+3. [Game] Enhancement - Added a UI pop up for income/expense
+4. [Game] Enhancement - Added a mute button
+5. [Game] Bug - Fix crashing on game over screen
 x. [Game] Test - Increase test coverage
 
 # Changes from v1.2.0 to v1.2.1

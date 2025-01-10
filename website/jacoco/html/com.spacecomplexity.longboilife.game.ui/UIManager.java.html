@@ -20,7 +20,7 @@ import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
-import com.spacecomplexity.longboilife.game.globals.Filepaths; 
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import java.util.ArrayList;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
@@ -33,7 +33,7 @@ public class UIManager {
     private Viewport viewport;
 
     private Stage stage;
-    private final Skin skin; 
+    private final Skin skin;
 
     //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
 <span class="nc" id="L39">    private ArrayList&lt;UIElement&gt; uiElements = new ArrayList&lt;&gt;();</span>
@@ -90,59 +90,60 @@ public class UIManager {
 <span class="nc" id="L90">        uiElements.add(new UIClockMenu(viewport, table, skin));</span>
 <span class="nc" id="L91">        uiElements.add(new UISatisfactionMenu(viewport, table, skin));</span>
 <span class="nc" id="L92">        uiElements.add(new UIMoneyMenu(viewport, table, skin));</span>
-<span class="nc" id="L93">        uiElements.add(new UIBuildingCounter(viewport, table, skin)); </span>
+<span class="nc" id="L93">        uiElements.add(new UIBuildingCounter(viewport, table, skin));</span>
 <span class="nc" id="L94">        uiElements.add(new UIAchievementPopUp(viewport, table, skin));</span>
+<span class="nc" id="L95">        uiElements.add(new UIMoneyPopUp(viewport, table, skin));</span>
         //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
-<span class="nc" id="L98">        EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -&gt; {</span>
-<span class="nc" id="L99">            GameState.getState().gameOver = true;</span>
-<span class="nc" id="L100">            EventHandler.getEventHandler().callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
+<span class="nc" id="L99">        EventHandler.getEventHandler().createEvent(EventHandler.Event.GAME_END, (params) -&gt; {</span>
+<span class="nc" id="L100">            GameState.getState().gameOver = true;</span>
+<span class="nc" id="L101">            EventHandler.getEventHandler().callEvent(EventHandler.Event.CANCEL_OPERATIONS);</span>
 
             // Run dispose functions on UI elements
-<span class="nc bnc" id="L103" title="All 2 branches missed.">            for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L104">                uiElement.dispose();</span>
-<span class="nc" id="L105">            }</span>
-<span class="nc" id="L106">            table.clear();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L105">                uiElement.dispose();</span>
+<span class="nc" id="L106">            }</span>
+<span class="nc" id="L107">            table.clear();</span>
 
             // Create the new end elements
             // NEW USE DYANMIC ARRAY INSTEAD;
-<span class="nc" id="L110">            uiElements = new ArrayList&lt;&gt;();  </span>
+<span class="nc" id="L111">            uiElements = new ArrayList&lt;&gt;();</span>
 
-<span class="nc" id="L112">            uiElements.add(new UIOverview(viewport, table, skin)); </span>
-<span class="nc" id="L113">            uiElements.add(new UILeaderboard(viewport, table, skin));</span>
+<span class="nc" id="L113">            uiElements.add(new UIOverview(viewport, table, skin));</span>
+<span class="nc" id="L114">            uiElements.add(new UILeaderboard(viewport, table, skin));</span>
 
             // Pause the soundtrack and play the game over sound
-<span class="nc" id="L116">            Soundtrack.getSoundtrack().pause();</span>
-<span class="nc" id="L117">            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();</span>
+<span class="nc" id="L117">            Soundtrack.getSoundtrack().pause();</span>
+<span class="nc" id="L118">            new SoundEffect(Filepaths.GAME_OVER_SOUND).play();</span>
 
-<span class="nc" id="L119">            return null;</span>
-        });   
-        //NEW ADDED EVENT
-<span class="nc" id="L122">        EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -&gt; {</span>
-           
-<span class="nc" id="L124">            uiElements.add(new UIEventsMenu(viewport, table, skin));  </span>
-            
-<span class="nc" id="L126">            return null;</span>
+<span class="nc" id="L120">            return null;</span>
         });
-    
-<span class="nc" id="L129">    }  </span>
-    
+        //NEW ADDED EVENT
+<span class="nc" id="L123">        EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -&gt; {</span>
+
+<span class="nc" id="L125">            uiElements.add(new UIEventsMenu(viewport, table, skin));</span>
+
+<span class="nc" id="L127">            return null;</span>
+        });
+
+<span class="nc" id="L130">    }</span>
+
 
     /**
      * Apply and draw UI onto the screen.
      */
     public void render() {
         // Render on each of the UI elements
-<span class="nc bnc" id="L137" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L138">            uiElement.render();</span>
-<span class="nc" id="L139">        }</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L139">            uiElement.render();</span>
+<span class="nc" id="L140">        }</span>
 
         // Apply and then draw
-<span class="nc" id="L142">        viewport.apply();</span>
-<span class="nc" id="L143">        stage.act(Gdx.graphics.getDeltaTime());</span>
-<span class="nc" id="L144">        stage.draw();</span>
-<span class="nc" id="L145">    }</span>
+<span class="nc" id="L143">        viewport.apply();</span>
+<span class="nc" id="L144">        stage.act(Gdx.graphics.getDeltaTime());</span>
+<span class="nc" id="L145">        stage.draw();</span>
+<span class="nc" id="L146">    }</span>
 
     /**
      * Handles resizing events, to ensure the UI is scaled correctly.
@@ -152,18 +153,18 @@ public class UIManager {
      */
     public void resize(int width, int height) {
         // Update world size to match scaling of uiScaleFactor
-<span class="nc" id="L155">        viewport.setWorldSize(</span>
-<span class="nc" id="L156">                (float) width / GameState.getState().uiScaleFactor,</span>
-<span class="nc" id="L157">                (float) height / GameState.getState().uiScaleFactor);</span>
+<span class="nc" id="L156">        viewport.setWorldSize(</span>
+<span class="nc" id="L157">                (float) width / GameState.getState().uiScaleFactor,</span>
+<span class="nc" id="L158">                (float) height / GameState.getState().uiScaleFactor);</span>
 
         // Updates viewport to match new window size
-<span class="nc" id="L160">        viewport.update(width, height, true);</span>
+<span class="nc" id="L161">        viewport.update(width, height, true);</span>
 
         // Run resize functions on UI elements
-<span class="nc bnc" id="L163" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L164">            uiElement.resize();</span>
-<span class="nc" id="L165">        }</span>
-<span class="nc" id="L166">    }</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L165">            uiElement.resize();</span>
+<span class="nc" id="L166">        }</span>
+<span class="nc" id="L167">    }</span>
 
     /**
      * Show the achievement pop up.
@@ -179,30 +180,39 @@ public class UIManager {
      * @param achievementQueue the queue of achievements to show.
      */
     public void showAchievement(Queue&lt;IAchievement&gt; achievementQueue) {
-<span class="nc" id="L182">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
-<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (lastAchievementTime - currentTime &lt; 5000) {</span>
-<span class="nc" id="L184">            return;</span>
+<span class="nc" id="L183">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (lastAchievementTime - currentTime &lt; 5000) {</span>
+<span class="nc" id="L185">            return;</span>
         }
-<span class="nc" id="L186">        ((UIAchievementPopUp) uiElements.get(6)).hideAchievement();</span>
-<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (achievementQueue.isEmpty()) {</span>
-<span class="nc" id="L188">            return;</span>
+<span class="nc" id="L187">        ((UIAchievementPopUp) uiElements.get(6)).hideAchievement();</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (achievementQueue.isEmpty()) {</span>
+<span class="nc" id="L189">            return;</span>
         }
-<span class="nc" id="L190">        lastAchievementTime = currentTime;</span>
-<span class="nc" id="L191">        IAchievement achievement = achievementQueue.poll();</span>
-<span class="nc" id="L192">        ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());</span>
-<span class="nc" id="L193">    }</span>
+<span class="nc" id="L191">        lastAchievementTime = currentTime;</span>
+<span class="nc" id="L192">        IAchievement achievement = achievementQueue.poll();</span>
+<span class="nc" id="L193">        ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());</span>
+<span class="nc" id="L194">    }</span>
+
+    /**
+     * Show the money pop up.
+     *
+     * @param moneyChange the number by which the balance is increased/decreased.
+     */
+    public void showMoneyPopUp(int moneyChange) {
+<span class="nc" id="L202">        ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);</span>
+<span class="nc" id="L203">    }</span>
 
     /**
      * Dispose of all loaded assets.
      */
     public void dispose() {
-<span class="nc" id="L199">        stage.dispose();</span>
-<span class="nc" id="L200">        skin.dispose();</span>
+<span class="nc" id="L209">        stage.dispose();</span>
+<span class="nc" id="L210">        skin.dispose();</span>
 
         // Run dispose functions on UI elements
-<span class="nc bnc" id="L203" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
-<span class="nc" id="L204">            uiElement.dispose();</span>
-<span class="nc" id="L205">        }</span>
-<span class="nc" id="L206">    }</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        for (UIElement uiElement : uiElements) {</span>
+<span class="nc" id="L214">            uiElement.dispose();</span>
+<span class="nc" id="L215">        }</span>
+<span class="nc" id="L216">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

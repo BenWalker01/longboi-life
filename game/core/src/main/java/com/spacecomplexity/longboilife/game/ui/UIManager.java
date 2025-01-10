@@ -20,7 +20,7 @@ import com.spacecomplexity.longboilife.game.globals.Soundtrack;
 import com.spacecomplexity.longboilife.game.ui.game.*;
 import com.spacecomplexity.longboilife.game.ui.gameover.*;
 import com.spacecomplexity.longboilife.game.utils.EventHandler;
-import com.spacecomplexity.longboilife.game.globals.Filepaths; 
+import com.spacecomplexity.longboilife.game.globals.Filepaths;
 import java.util.ArrayList;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
@@ -33,7 +33,7 @@ public class UIManager {
     private Viewport viewport;
 
     private Stage stage;
-    private final Skin skin; 
+    private final Skin skin;
 
     //NEW CHANGED FROM STATIC ARRRAY TO DYNAMIC ARRAY
     private ArrayList<UIElement> uiElements = new ArrayList<>();
@@ -90,8 +90,9 @@ public class UIManager {
         uiElements.add(new UIClockMenu(viewport, table, skin));
         uiElements.add(new UISatisfactionMenu(viewport, table, skin));
         uiElements.add(new UIMoneyMenu(viewport, table, skin));
-        uiElements.add(new UIBuildingCounter(viewport, table, skin)); 
+        uiElements.add(new UIBuildingCounter(viewport, table, skin));
         uiElements.add(new UIAchievementPopUp(viewport, table, skin));
+        uiElements.add(new UIMoneyPopUp(viewport, table, skin));
         //uiElements.add(new UIEventsMenu(viewport, table, skin));
 
         // Hide game UI and show end UI
@@ -107,9 +108,9 @@ public class UIManager {
 
             // Create the new end elements
             // NEW USE DYANMIC ARRAY INSTEAD;
-            uiElements = new ArrayList<>();  
+            uiElements = new ArrayList<>();
 
-            uiElements.add(new UIOverview(viewport, table, skin)); 
+            uiElements.add(new UIOverview(viewport, table, skin));
             uiElements.add(new UILeaderboard(viewport, table, skin));
 
             // Pause the soundtrack and play the game over sound
@@ -117,17 +118,17 @@ public class UIManager {
             new SoundEffect(Filepaths.GAME_OVER_SOUND).play();
 
             return null;
-        });   
+        });
         //NEW ADDED EVENT
         EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -> {
-           
-            uiElements.add(new UIEventsMenu(viewport, table, skin));  
-            
+
+            uiElements.add(new UIEventsMenu(viewport, table, skin));
+
             return null;
         });
-    
-    }  
-    
+
+    }
+
 
     /**
      * Apply and draw UI onto the screen.
@@ -190,6 +191,16 @@ public class UIManager {
         lastAchievementTime = currentTime;
         IAchievement achievement = achievementQueue.poll();
         ((UIAchievementPopUp) uiElements.get(6)).showAchievement(achievement.getName(), achievement.getDescription());
+    }
+
+    /**
+     * Show the money pop up.
+     *
+     * @param moneyChange the number by which the balance is increased/decreased.
+     */
+    public void showMoneyPopUp(int moneyChange) {
+        if (!GameState.getState().gameOver)
+            ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);
     }
 
     /**

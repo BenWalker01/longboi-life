@@ -14,7 +14,7 @@ public class SustainedAchievement implements IAchievement {
     private final String name;
     private final String description;
     private final BiPredicate&lt;GameState, HashMap&lt;String, Object&gt;&gt; criterion;
-<span class="nc" id="L17">    private HashMap&lt;String, Object&gt; memory = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L17">    private HashMap&lt;String, Object&gt; memory = new HashMap&lt;&gt;();</span>
     private boolean unlocked;
     private long startTime;
     private final long threshold;
@@ -27,13 +27,13 @@ public class SustainedAchievement implements IAchievement {
      * @param threshold time in seconds the criterion must be met for
      * @param criterion criterion to unlock the achievement
      */
-<span class="nc" id="L30">    public SustainedAchievement(String name, String description, int threshold, BiPredicate&lt;GameState, HashMap&lt;String, Object&gt;&gt; criterion) {</span>
-<span class="nc" id="L31">        this.name = name;</span>
-<span class="nc" id="L32">        this.description = description;</span>
-<span class="nc" id="L33">        this.criterion = criterion;</span>
-<span class="nc" id="L34">        this.threshold = threshold * 1000;</span>
-<span class="nc" id="L35">        this.unlocked = false;</span>
-<span class="nc" id="L36">    }</span>
+<span class="fc" id="L30">    public SustainedAchievement(String name, String description, int threshold, BiPredicate&lt;GameState, HashMap&lt;String, Object&gt;&gt; criterion) {</span>
+<span class="fc" id="L31">        this.name = name;</span>
+<span class="fc" id="L32">        this.description = description;</span>
+<span class="fc" id="L33">        this.criterion = criterion;</span>
+<span class="fc" id="L34">        this.threshold = threshold * 1000;</span>
+<span class="fc" id="L35">        this.unlocked = false;</span>
+<span class="fc" id="L36">    }</span>
 
     @Override
     public String getName() {
@@ -47,25 +47,25 @@ public class SustainedAchievement implements IAchievement {
 
     @Override
     public boolean checkUnlocked() {
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (!unlocked) {</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (criterion.test(GameState.getState(), memory)) {</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (startTime == 0) {</span>
-<span class="nc" id="L53">                    startTime = System.currentTimeMillis();</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">                } else if (System.currentTimeMillis() - startTime &gt;= threshold) {</span>
-<span class="nc" id="L55">                    unlocked = true;</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (!unlocked) {</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (criterion.test(GameState.getState(), memory)) {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                if (startTime == 0) {</span>
+<span class="fc" id="L53">                    startTime = System.currentTimeMillis();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                } else if (System.currentTimeMillis() - startTime &gt;= threshold) {</span>
+<span class="fc" id="L55">                    unlocked = true;</span>
                 }
             } else {
-<span class="nc" id="L58">                reset();</span>
+<span class="fc" id="L58">                reset();</span>
             }
         }
-<span class="nc" id="L61">        return unlocked;</span>
+<span class="fc" id="L61">        return unlocked;</span>
     }
 
     @Override
     public void reset() {
-<span class="nc" id="L66">        startTime = 0;</span>
-<span class="nc" id="L67">        unlocked = false;</span>
-<span class="nc" id="L68">        memory = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L69">    }</span>
+<span class="fc" id="L66">        startTime = 0;</span>
+<span class="fc" id="L67">        unlocked = false;</span>
+<span class="fc" id="L68">        memory = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L69">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
