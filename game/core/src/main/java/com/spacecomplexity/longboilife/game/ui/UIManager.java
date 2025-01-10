@@ -199,7 +199,8 @@ public class UIManager {
      * @param moneyChange the number by which the balance is increased/decreased.
      */
     public void showMoneyPopUp(int moneyChange) {
-        ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);
+        if (!GameState.getState().gameOver)
+            ((UIMoneyPopUp) uiElements.get(7)).show(moneyChange);
     }
 
     /**
