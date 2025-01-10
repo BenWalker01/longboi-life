@@ -5,6 +5,8 @@
 # Manual dispatch
 #
 
+name: Reset release value
+
 on:
     schedule:
       - cron: "59 23 * * 0" # Sunday 23:59
