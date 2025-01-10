@@ -134,17 +134,22 @@ public class GameState {
 <span class="fc" id="L134">    public boolean gameOver = false;</span>
 
     /**
+     * If the sound is on
+     */
+<span class="fc" id="L139">    public boolean soundOn = true;</span>
+
+    /**
      * Get the singleton instance of the {@link GameState} class.
      *
      * @return The single {@link GameState} class.
      */
     public static GameState getState() {
-<span class="fc" id="L142">        return gameState;</span>
+<span class="fc" id="L147">        return gameState;</span>
     }
 
-<span class="fc" id="L145">    private GameState() {</span>
-<span class="fc" id="L146">        reset();</span>
-<span class="fc" id="L147">    }</span>
+<span class="fc" id="L150">    private GameState() {</span>
+<span class="fc" id="L151">        reset();</span>
+<span class="fc" id="L152">    }</span>
 
     /**
      * Reset all values to default.
@@ -152,21 +157,21 @@ public class GameState {
     public void reset() {
         // scaleFactor = 1;
         // uiScaleFactor = 1;
-<span class="fc" id="L155">        cameraSpeed = 1400;</span>
-<span class="fc" id="L156">        cameraKeyZoomSpeed = 3;</span>
-<span class="fc" id="L157">        cameraScrollZoomSpeed = 32;</span>
+<span class="fc" id="L160">        cameraSpeed = 1400;</span>
+<span class="fc" id="L161">        cameraKeyZoomSpeed = 3;</span>
+<span class="fc" id="L162">        cameraScrollZoomSpeed = 32;</span>
         // fullscreen = false;
-<span class="fc" id="L159">        money = 800000;</span>
-<span class="fc" id="L160">        satisfactionScore = 0f;</span>
-<span class="fc" id="L161">        placingBuilding = null;</span>
-<span class="fc" id="L162">        selectedBuilding = null;</span>
-<span class="fc" id="L163">        movingBuilding = null;</span>
-<span class="fc" id="L164">        paused = false;</span>
-<span class="fc" id="L165">        buildingsCount = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L166">        satisfactionScoreVelocity = 0;</span>
-<span class="fc" id="L167">        satisfactionModifierPositive = false;</span>
-<span class="fc" id="L168">        gameOver = false;</span>
-<span class="fc" id="L169">        unlockedAchievements = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L170">    }</span>
+<span class="fc" id="L164">        money = 800000;</span>
+<span class="fc" id="L165">        satisfactionScore = 0f;</span>
+<span class="fc" id="L166">        placingBuilding = null;</span>
+<span class="fc" id="L167">        selectedBuilding = null;</span>
+<span class="fc" id="L168">        movingBuilding = null;</span>
+<span class="fc" id="L169">        paused = false;</span>
+<span class="fc" id="L170">        buildingsCount = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L171">        satisfactionScoreVelocity = 0;</span>
+<span class="fc" id="L172">        satisfactionModifierPositive = false;</span>
+<span class="fc" id="L173">        gameOver = false;</span>
+<span class="fc" id="L174">        unlockedAchievements = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L175">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
