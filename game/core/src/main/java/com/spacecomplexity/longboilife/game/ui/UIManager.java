@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.spacecomplexity.longboilife.game.achievements.IAchievement;
+import com.spacecomplexity.longboilife.game.events.RandomEvents;
 import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
@@ -119,10 +120,20 @@ public class UIManager {
 
             return null;
         });
-        //NEW ADDED EVENT
+        
+        /**
+         * Adds random event to the event handler
+         * 
+         *
+         * ASSESSMENT 2 - NEW
+         */
         EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -> {
-
-            uiElements.add(new UIEventsMenu(viewport, table, skin));
+            var event = RandomEvents.getRandomEvent();
+         
+            if (event != null) { 
+                GameState.getState().paused = true;
+                uiElements.add(new UIEventsMenu(viewport, table, skin, event));
+            }
 
             return null;
         });
