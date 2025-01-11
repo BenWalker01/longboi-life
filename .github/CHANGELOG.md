@@ -4,7 +4,7 @@
 3. [Game] Enhancement - Added a UI pop up for income/expense
 4. [Game] Enhancement - Added a mute button
 5. [Game] Bug - Fix crashing on game over screen
-6. [Website] Updated website for Assessment 2 with placeholders for PDFs
+6. [Website] - Updated website for Assessment 2 with placeholders for PDFs
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
