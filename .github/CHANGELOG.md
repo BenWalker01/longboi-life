@@ -5,7 +5,7 @@
 4. [Game] Enhancement - Added a mute button
 5. [Game] Bug - Fix crashing on game over screen
 x. [Game] Test - Increase test coverage
-
+X. [Game] Enhancement - Integrate random events into game
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
 
