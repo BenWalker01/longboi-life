@@ -32,7 +32,7 @@ public enum RandomEvents {
     }),
     DUCK_EVENT(BiasType.LOW_BUILDING_COUNT, "There has been a Longboi sighting! There is a sudden influx of new students", (params) -> {
         var gameState = GameState.getState();
-        gameState.money *= 1.f + MathUtils.clamp((float) Math.random(), 0.5f, 0.8f);
+        gameState.money *= 1.f + MathUtils.clamp((float) Math.random(), 0.2f, 0.5f);
         return null;
     }),
     NO_EVENT;

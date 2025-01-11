@@ -8,6 +8,7 @@
 7. [Game] Bug - Fix mute button not displaying the actual sound state after replaying the game
 8. [Website] Enhancement - Updated website for Assessment 2 with placeholders for PDFs
 9. [Game] Enhancement - Integrate random events into game
+10. [Game] Enhancement - Added events for high and low building cases
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
@@ -44,4 +45,3 @@
 22. [Game] Enhancement - Added achievements system
 23. [Game] Enhancement - Added achievements display UI
 24. [Game] Bug fix - Counter background not resizing with counter text
-25. [Game] Enhancement - Added events for high and low building cases
