@@ -67,6 +67,10 @@ public class AssetTests extends AbstractHeadlessGdxTest {
                                 "The pause button asset exists");
                 assertTrue(Gdx.files.internal(Filepaths.PLAY_BUTTON_ASSET).exists(),
                                 "The play button asset exists");
+                assertTrue(Gdx.files.internal(Filepaths.SOUND_ON_BUTTON_ASSET).exists(),
+                                "The un-mute button asset exists");
+                assertTrue(Gdx.files.internal(Filepaths.SOUND_OFF_BUTTON_ASSET).exists(),
+                                "The mute button asset exists");
         }
 
         @Test

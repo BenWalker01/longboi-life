@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 
@@ -21,7 +20,7 @@ import java.util.Locale;
 public class UIMoneyPopUp extends UIElement {
     private Label label;
 
-    private long showTime = 5*60*1000;
+    private long showTime = 5 * 60 * 1000;
 
     /**
      * Initialise money menu elements.
@@ -59,7 +58,8 @@ public class UIMoneyPopUp extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(), uiViewport.getWorldHeight() - table.getHeight() - 100);
+        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),
+                uiViewport.getWorldHeight() - table.getHeight() - 100);
     }
 
     /**
