@@ -20,11 +20,11 @@ public enum RandomEvents {
                 gameState.money *= MathUtils.clamp((float) Math.random(), 0.7f, 0.9f);
                 return null;
             }),
-    CHARITY(BiasType.LOW_MONEY, "A billionaire donated to your university", (params) -> {
+    CHARITY(BiasType.LOW_MONEY, "A billionaire wants to donate to your university", null, new EventChoice("Accept", (params) -> {
         var gameState = GameState.getState();
         gameState.money *= 1.f + MathUtils.clamp((float) Math.random(), 0.1f, 0.4f);
         return null;
-    }),
+    }), new EventChoice("Decline", (params) -> {return null;})),
     MAINTENANCE(BiasType.HIGH_BUILDING_COUNT, "The accomodation is falling apart! Repairs need to be done", (params) -> {
         var gameState = GameState.getState();
         gameState.money *= MathUtils.clamp((float) Math.random(), 0.5f, 0.8f);
@@ -35,7 +35,7 @@ public enum RandomEvents {
         gameState.money *= 1.f + MathUtils.clamp((float) Math.random(), 0.2f, 0.5f);
         return null;
     }), 
-    OPEN_DAY(BiasType.NO_BIAS, 25, "Prospective students have come to see your university", (params) -> {return null;}),
+    OPEN_DAY(BiasType.NO_BIAS, 25, "Prospective students have come to see your university", (params) -> {return null;})
     ;
 
     private enum BiasType {
@@ -50,7 +50,6 @@ public enum RandomEvents {
     public String eventDescription;
     public Function<Object[], Object> event;
     public int bias = 10;
-    public RandomEvents currentEvent;
     public EventChoice[] choices;
 
     RandomEvents() {
@@ -147,7 +146,7 @@ public enum RandomEvents {
         for (int i = 0; i < cb.length; ++i) {
             if (randomVal < cb[i]) {
                 resetBiases();
-                
+
                 return RandomEvents.values()[i];
             }
         }

@@ -70,8 +70,8 @@ public class UIEventsMenu extends UIElement{
                 }); 
                 float buttonWidth = button.getWidth(); 
                 if (buttonWidth > maxButtonWidth) maxButtonWidth = buttonWidth;
-
-
+                maxButtonHeight = button.getHeight(); 
+                
                 choiceButtonsTable.add(button).expandX().padLeft(2);
             } 
         } else {  
