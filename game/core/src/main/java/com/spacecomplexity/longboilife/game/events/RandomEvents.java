@@ -144,7 +144,6 @@ public enum RandomEvents {
         for (int i = 0; i < cb.length; ++i) {
             if (randomVal < cb[i]) {
                 resetBiases();
-
                 return RandomEvents.values()[i];
             }
         }

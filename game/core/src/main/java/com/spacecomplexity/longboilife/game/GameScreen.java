@@ -314,7 +314,8 @@ public class GameScreen implements Screen {
 
         // Render the UI
         ui.render();
-        if (!gameState.paused && MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
+        if (!gameState.paused && (Constants.GAME_TIME - (1000f * 30f)) > MainTimer.getTimerManager().getTimer().getTimeLeft() && 
+            MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
           
             EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);
             
