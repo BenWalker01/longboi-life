@@ -161,7 +161,7 @@ public class GameState {
         cameraKeyZoomSpeed = 3;
         cameraScrollZoomSpeed = 32;
         // fullscreen = false;
-        money = 800000;
+        money = Constants.INITIAL_FUNDS;
         satisfactionScore = 0f;
         placingBuilding = null;
         selectedBuilding = null;

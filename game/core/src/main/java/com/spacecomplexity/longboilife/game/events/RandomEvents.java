@@ -3,6 +3,7 @@ package com.spacecomplexity.longboilife.game.events;
 import java.util.function.Function;
 import com.badlogic.gdx.math.MathUtils;
 import com.spacecomplexity.longboilife.game.building.BuildingType;
+import com.spacecomplexity.longboilife.game.globals.Constants;
 import com.spacecomplexity.longboilife.game.globals.GameState;
 
 
@@ -52,10 +53,6 @@ public enum RandomEvents {
     public int bias = 10;
     public EventChoice[] choices;
 
-    RandomEvents() {
-        this.bias = 20;
-        this.biasType = BiasType.NO_BIAS;
-    }
     RandomEvents(BiasType biasType, int initialBias, String eventDescription, Function<Object[], Object> event, EventChoice... choices) { 
         this(biasType, eventDescription, event, choices); 
         this.bias = initialBias;
@@ -71,8 +68,9 @@ public enum RandomEvents {
     private static void adjustBias() {
         for (var event : RandomEvents.values()) {
             switch (event.biasType) {
-                case LOW_MONEY: {
-                    float moneyThreshold = 800000f * 0.5f;
+                case LOW_MONEY: { 
+                    
+                    float moneyThreshold = Constants.INITIAL_FUNDS * 0.5f;
                     if (Float.compare(moneyThreshold, GameState.getState().money) > 0) {
                         event.bias += 10;
                     } else {
@@ -81,7 +79,7 @@ public enum RandomEvents {
                 }
                     break;
                 case HIGH_MONEY: {
-                    float moneyThreshold = 800000f * 1.4f;
+                    float moneyThreshold = Constants.INITIAL_FUNDS * 1.4f;
                     if (Float.compare(moneyThreshold, GameState.getState().money) > 0) {
                         event.bias += 10;
                     } else {
