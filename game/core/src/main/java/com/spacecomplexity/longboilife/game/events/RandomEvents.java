@@ -34,8 +34,9 @@ public enum RandomEvents {
         var gameState = GameState.getState();
         gameState.money *= 1.f + MathUtils.clamp((float) Math.random(), 0.2f, 0.5f);
         return null;
-    }),
-    NO_EVENT;
+    }), 
+    OPEN_DAY(BiasType.NO_BIAS, 25, "Prospective students have come to see your university", (params) -> {return null;}),
+    ;
 
     private enum BiasType {
         LOW_MONEY,
@@ -56,7 +57,10 @@ public enum RandomEvents {
         this.bias = 20;
         this.biasType = BiasType.NO_BIAS;
     }
-
+    RandomEvents(BiasType biasType, int initialBias, String eventDescription, Function<Object[], Object> event, EventChoice... choices) { 
+        this(biasType, eventDescription, event, choices); 
+        this.bias = initialBias;
+    }
     RandomEvents(BiasType biasType, String eventDescription, Function<Object[], Object> event, EventChoice... choices) {
         this.biasType = biasType;
         this.eventDescription = eventDescription;
@@ -70,7 +74,7 @@ public enum RandomEvents {
             switch (event.biasType) {
                 case LOW_MONEY: {
                     float moneyThreshold = 800000f * 0.5f;
-                    if (Float.compare(moneyThreshold, GameState.getState().money) < 0) {
+                    if (Float.compare(moneyThreshold, GameState.getState().money) > 0) {
                         event.bias += 10;
                     } else {
                         event.bias -= 5;
@@ -132,8 +136,7 @@ public enum RandomEvents {
 
     private static void resetBiases() {
         for (var event : RandomEvents.values()) {
-            if (event != NO_EVENT)
-                event.bias = 10;
+                if (event != OPEN_DAY) event.bias = 10;
         }
     }
 
@@ -144,7 +147,8 @@ public enum RandomEvents {
         for (int i = 0; i < cb.length; ++i) {
             if (randomVal < cb[i]) {
                 resetBiases();
-                return RandomEvents.values()[i] != RandomEvents.NO_EVENT ? RandomEvents.values()[i] : null;
+                
+                return RandomEvents.values()[i];
             }
         }
         return null;

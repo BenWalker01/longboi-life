@@ -129,12 +129,8 @@ public class UIManager {
          */
         EventHandler.getEventHandler().createEvent(EventHandler.Event.RANDOM_EVENT, (params) -> {
             var event = RandomEvents.getRandomEvent();
-         
-            if (event != null) { 
-                GameState.getState().paused = true;
-                uiElements.add(new UIEventsMenu(viewport, table, skin, event));
-            }
-
+            GameState.getState().paused = true;
+            uiElements.add(new UIEventsMenu(viewport, table, skin, event));
             return null;
         });
 
