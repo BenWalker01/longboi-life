@@ -23,15 +23,20 @@ import com.spacecomplexity.longboilife.game.utils.UIUtils;
 import com.spacecomplexity.longboilife.game.utils.SoundEffect;
 
 
-//NEW CLASS
+  /**
+ * Displays and runs random event actions
+ * 
+ *
+ * ASSESSMENT 2 - NEW
+ */
 public class UIEventsMenu extends UIElement{
 
-    public UIEventsMenu(Viewport uiViewport, Table parentTable, Skin skin) {
+    public UIEventsMenu(Viewport uiViewport, Table parentTable, Skin skin, RandomEvents event) {
         super(uiViewport, parentTable, skin);
 
     
-        var event = RandomEvents.getRandomEvent();
-
+        
+        
         Label label = new Label("Event!\n\n" + event.eventDescription, skin);
         label.setAlignment(Align.center);
         label.setFontScale(1.2f);
@@ -65,8 +70,8 @@ public class UIEventsMenu extends UIElement{
                 }); 
                 float buttonWidth = button.getWidth(); 
                 if (buttonWidth > maxButtonWidth) maxButtonWidth = buttonWidth;
-
-
+                maxButtonHeight = button.getHeight(); 
+                
                 choiceButtonsTable.add(button).expandX().padLeft(2);
             } 
         } else {  

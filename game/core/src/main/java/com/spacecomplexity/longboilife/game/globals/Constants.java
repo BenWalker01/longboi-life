@@ -98,7 +98,11 @@ public class Constants {
      * ASSESSMENT 2 - NEW
      */
     public static final Integer STUDENT_FEES = 1200;
-
+    /**
+     * The money the player starts with in the game.
+     * ASSESSMENT 2 - NEW
+     */
+    public static final float INITIAL_FUNDS = 800000f;
     /**
      * Keeps track of when the next student fees are due
      * ASSESSMENT 2 - NEW

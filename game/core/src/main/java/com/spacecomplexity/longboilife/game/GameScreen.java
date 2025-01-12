@@ -20,6 +20,7 @@ import com.spacecomplexity.longboilife.game.tile.InvalidSaveMapException;
 import com.spacecomplexity.longboilife.game.tile.Tile;
 import com.spacecomplexity.longboilife.game.ui.UIManager;
 import com.spacecomplexity.longboilife.game.utils.*;
+import com.spacecomplexity.longboilife.game.utils.EventHandler.Event;
 import com.spacecomplexity.longboilife.game.world.World;
 
 import java.io.FileNotFoundException;
@@ -313,11 +314,17 @@ public class GameScreen implements Screen {
 
         // Render the UI
         ui.render();
-
+        if (!gameState.paused && (Constants.GAME_TIME - (1000f * 30f)) > MainTimer.getTimerManager().getTimer().getTimeLeft() && 
+            MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
+          
+            EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);
+            
+        }
         if (MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
             Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;
             payPlayer();
-        }
+        } 
+        
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {
