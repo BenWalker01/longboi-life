@@ -12,7 +12,7 @@
 11. [Game] Enhancement - added neutral OPEN_DAY event
 12. [Game] Bug - Fix bug where game would crash on leaderboard due to duplicate commas in leaderboard preferences file
 13. [Game] Enhancement - changed charity event to use event choices
-
+14. [Game] Enhancement - added delay to events occuring
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release
