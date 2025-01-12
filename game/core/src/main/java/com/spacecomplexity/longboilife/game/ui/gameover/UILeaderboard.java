@@ -65,8 +65,8 @@ public class UILeaderboard extends UIElement {
         // Set new name and score if user not on leaderboard
         if (userCheck == false) {
             leaderboardHash.put(username, Float.valueOf(score));
-            LeaderboardPrefs.writeNames(names + "," + username);
-            LeaderboardPrefs.writeScores(scores + "," + score);
+            LeaderboardPrefs.writeNames(names + username + ",");
+            LeaderboardPrefs.writeScores(scores + score + ",");
         }
 
         // Sort leaderboard by scores

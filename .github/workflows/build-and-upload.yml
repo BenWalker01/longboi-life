@@ -55,4 +55,3 @@ jobs:
             name: build-artifact-${{ github.event.pull_request.head.sha }}
             path: game/lwjgl3/build/libs
     
-

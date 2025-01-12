@@ -29,6 +29,11 @@ public class UIBottomMenu extends UIElement {
     private final Texture playTexture;
     private final TextureRegionDrawable playDrawable;
 
+    private final Texture soundOnTexture;
+    private final TextureRegionDrawable soundOnDrawable;
+    private final Texture soundOffTexture;
+    private final TextureRegionDrawable soundOffDrawable;
+
     private UIBuildMenu buildMenu;
     private UIPauseScreen pauseScreen;
 
@@ -93,9 +98,43 @@ public class UIBottomMenu extends UIElement {
                 new SoundEffect(Filepaths.PAUSE_SOUND).play();
             }
         });
+
+        // Load sound on/off textures as drawables
+        soundOnTexture = new Texture(Gdx.files.internal(Filepaths.SOUND_ON_BUTTON_ASSET));
+        soundOnDrawable = new TextureRegionDrawable(soundOnTexture);
+        soundOnDrawable.setMinSize(textureSize * 2, textureSize * 2);
+        soundOffTexture = new Texture(Gdx.files.internal(Filepaths.SOUND_OFF_BUTTON_ASSET));
+        soundOffDrawable = new TextureRegionDrawable(soundOffTexture);
+        soundOffDrawable.setMinSize(textureSize * 2, textureSize * 2);
+
+        // Initialise sound button
+        ImageButton soundButton = new ImageButton(skin);
+        soundButton.setSize(textureSize, textureSize);
+        soundButton.setStyle(new ImageButton.ImageButtonStyle() {{
+            up = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
+            down = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
+        }});
+        // Mute/unmute the game when clicked
+        soundButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Toggle the sound state
+                GameState.getState().soundOn = !GameState.getState().soundOn;
+                Soundtrack.getSoundtrack().play();
+                // Change the sound button background based on the sound state
+                soundButton.setStyle(new ImageButton.ImageButtonStyle() {{
+                    up = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
+                    down = GameState.getState().soundOn ? soundOnDrawable : soundOffDrawable;
+                }});
+                // Play the click sound
+                new SoundEffect(Filepaths.CLICK_SOUND).play();
+            }
+        });
+
+        // Place sound button on the table
+        table.add(soundButton).right().padRight(10);
         // Place pause button on the table
         table.add(pauseButton).right().padRight(10);
-
         // Style and place the table
         table.setBackground(skin.getDrawable("panel1"));
         placeTable();

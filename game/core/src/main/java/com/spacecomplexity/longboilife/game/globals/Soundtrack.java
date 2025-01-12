@@ -25,11 +25,14 @@ public class Soundtrack {
     private final Music music = Gdx.audio.newMusic(Gdx.files.internal(Filepaths.SOUNDTRACK));
 
     /**
-     * Play the soundtrack.
+     * Play the soundtrack if game sound is on.
      */
     public void play() {
-        // TODO: change volume when preferences are implemented
-        music.setVolume(0.5f);
+        if (GameState.getState().soundOn) {
+            music.setVolume(0.5f);
+        } else {
+            music.setVolume(0);
+        }
         music.setLooping(true);
         music.play();
     }
