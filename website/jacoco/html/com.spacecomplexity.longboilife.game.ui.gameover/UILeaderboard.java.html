@@ -65,8 +65,8 @@ public class UILeaderboard extends UIElement {
         // Set new name and score if user not on leaderboard
 <span class="nc bnc" id="L66" title="All 2 branches missed.">        if (userCheck == false) {</span>
 <span class="nc" id="L67">            leaderboardHash.put(username, Float.valueOf(score));</span>
-<span class="nc" id="L68">            LeaderboardPrefs.writeNames(names + &quot;,&quot; + username);</span>
-<span class="nc" id="L69">            LeaderboardPrefs.writeScores(scores + &quot;,&quot; + score);</span>
+<span class="nc" id="L68">            LeaderboardPrefs.writeNames(names + username + &quot;,&quot;);</span>
+<span class="nc" id="L69">            LeaderboardPrefs.writeScores(scores + score + &quot;,&quot;);</span>
         }
 
         // Sort leaderboard by scores

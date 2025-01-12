@@ -10,6 +10,8 @@
 9. [Game] Enhancement - Integrate random events into game
 10. [Game] Enhancement - Added events for high and low building cases
 11. [Game] Enhancement - added neutral OPEN_DAY event
+12. [Game] Bug - Fix bug where game would crash on leaderboard due to duplicate commas in leaderboard preferences file
+
 
 # Changes from v1.2.0 to v1.2.1
 1. [Global] Bug - Remove reference to snapshot in stable release

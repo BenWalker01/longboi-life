@@ -15,8 +15,8 @@ public class LeaderboardPrefs {
   public static final String NAMES = "leaderboard.names";
   private static final String SCORES = "leaderboard.scores";
 
-  public static final String initialNames = "Longboi,Alice,Bob";
-  public static final String initialScores = "75.00,50.00,10.00";
+  public static final String initialNames = "Longboi,Alice,Bob,";
+  public static final String initialScores = "75.00,50.00,10.00,";
 
   public static String displayName = System.getProperty("user.name");
 
