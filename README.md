@@ -44,3 +44,9 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 `/_devUtils/` contains useful scripts (not necessarily in Java) for developing the project.
 
 ## Attributions
+- [libGDX](https://github.com/libgdx/libgdx) - [Apache Licence 2.0](LICENSE)
+- [Game Over](https://opengameart.org/content/game-over-effect-sound) sound effect by [EdenVe](https://opengameart.org/users/edenve) - [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- [Gradle](https://github.com/gradle/gradle) - [Apache Licence 2.0](LICENSE)
+- [jcbyte/longboi-life](https://github.com/jcbyte/longboi-life) - [MIT Licence](https://github.com/jcbyte/longboi-life/blob/main/LICENSE)
+- [Shade UI](https://github.com/Karthik-Nayak98/shade-ui) - [MIT Licence](https://github.com/Karthik-Nayak98/shade-ui/blob/development/LICENSE)
+- [Road Sprites](https://www.pngegg.com/en/png-btgbw)
