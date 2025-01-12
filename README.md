@@ -1,9 +1,11 @@
+[![Code Tests](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/build-and-upload.yml)
+[![Release](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml/badge.svg)](https://github.com/BenWalker01/longboi-life/actions/workflows/stable-release.yml)
+
 # longboi-life
 
 *University of York ENG1 Project.*
 
-Short single-player game that allows the player to build their own university
-campus trying to reach the highest student satisfaction possible.
+Short single-player game that allows the player to build their own university campus trying to reach the highest student satisfaction possible.
 
 A [libGDX](https://libgdx.com/) project.
 
@@ -11,6 +13,7 @@ A [libGDX](https://libgdx.com/) project.
 
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+- `headless`: Run without the full ui, for testing
 
 ## Gradle
 
@@ -38,4 +41,12 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 
 ## DevUtils
 
-`/DevUtils/` contains useful scripts (not necessarily in Java) for developing the project.
+`/_devUtils/` contains useful scripts (not necessarily in Java) for developing the project.
+
+## Attributions
+- [libGDX](https://github.com/libgdx/libgdx) - [Apache Licence 2.0](LICENSE)
+- [Game Over](https://opengameart.org/content/game-over-effect-sound) sound effect by [EdenVe](https://opengameart.org/users/edenve) - [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- [Gradle](https://github.com/gradle/gradle) - [Apache Licence 2.0](LICENSE)
+- [jcbyte/longboi-life](https://github.com/jcbyte/longboi-life) - [MIT Licence](https://github.com/jcbyte/longboi-life/blob/main/LICENSE)
+- [Shade UI](https://github.com/Karthik-Nayak98/shade-ui) - [MIT Licence](https://github.com/Karthik-Nayak98/shade-ui/blob/development/LICENSE)
+- [Road Sprites](https://www.pngegg.com/en/png-btgbw)
