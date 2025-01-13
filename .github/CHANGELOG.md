@@ -1,4 +1,6 @@
-# Changes from v1.2.1 to v
+# Changes from v2.0.0 to v
+
+# Changes from v1.2.1 to v2.0.0
 1. [Game] Test - Added tests to check MilestoneAchievement, SustainedAchievement, AchievementManager classes
 2. [Game] Enhancement - Added an income from students
 3. [Game] Enhancement - Added a UI pop up for income/expense
