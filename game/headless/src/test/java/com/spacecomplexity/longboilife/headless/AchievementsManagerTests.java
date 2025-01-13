@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.headless;
 
 import com.spacecomplexity.longboilife.game.achievements.AchievementsManager;
@@ -16,7 +18,7 @@ public class AchievementsManagerTests extends AbstractHeadlessGdxTest {
         IAchievement mockAchievement2 = mock(IAchievement.class);
         when(mockAchievement2.checkUnlocked()).thenReturn(false);
         AchievementsManager achievementsManager = new AchievementsManager(
-            new IAchievement[] {mockAchievement1, mockAchievement2});
+                new IAchievement[] { mockAchievement1, mockAchievement2 });
         achievementsManager.checkAchievements();
         assertTrue(achievementsManager.getUnlockedAchievements().size() == 1);
         assertTrue(achievementsManager.getUnlockedAchievements().contains(mockAchievement1));
@@ -39,7 +41,7 @@ public class AchievementsManagerTests extends AbstractHeadlessGdxTest {
         when(mockAchievement1.checkUnlocked()).thenReturn(true);
         when(mockAchievement2.checkUnlocked()).thenReturn(false);
         AchievementsManager achievementsManager = new AchievementsManager(
-            new IAchievement[] {mockAchievement1, mockAchievement2});
+                new IAchievement[] { mockAchievement1, mockAchievement2 });
         achievementsManager.checkAchievements();
         assertTrue(achievementsManager.getUnlockedAchievements().size() == 1);
         assertTrue(achievementsManager.getUnlockedAchievements().contains(mockAchievement1));

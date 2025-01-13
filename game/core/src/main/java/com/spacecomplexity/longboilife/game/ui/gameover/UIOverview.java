@@ -95,7 +95,8 @@ public class UIOverview extends UIElement {
     /**
      * Build a string of unlocked achievements using the achievement set from the
      * game state.
-     *
+     * NEW FOR PART 2
+     * 
      * @return the string of unlocked achievements.
      */
     protected String buildUnlockedAchievementsString() {

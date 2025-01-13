@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.headless;
 
 import com.badlogic.gdx.*;
@@ -22,6 +24,7 @@ public class CameraManagerTests extends AbstractHeadlessGdxTest {
             throw new IllegalArgumentException(e.toString());
         }
     }
+
     @Test
     public void testZoomAtIfChangingPosition() {
         CameraManager cameraManager = new CameraManager(world);

@@ -14,6 +14,7 @@ import java.util.Locale;
 
 /**
  * Class to represent the Money UI.
+ * NEW FOR PART 2
  */
 public class UIMoneyMenu extends UIElement {
     private Label label;
@@ -48,6 +49,7 @@ public class UIMoneyMenu extends UIElement {
 
     @Override
     protected void placeTable() {
-        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(), uiViewport.getWorldHeight() - table.getHeight() - 55);
+        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),
+                uiViewport.getWorldHeight() - table.getHeight() - 55);
     }
 }

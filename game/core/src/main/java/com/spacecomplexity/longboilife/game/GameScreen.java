@@ -314,17 +314,19 @@ public class GameScreen implements Screen {
 
         // Render the UI
         ui.render();
-        if (!gameState.paused && (Constants.GAME_TIME - (1000f * 30f)) > MainTimer.getTimerManager().getTimer().getTimeLeft() && 
-            MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
-          
-            EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);
-            
+        // New for part 2
+        if (!gameState.paused
+                && (Constants.GAME_TIME - (1000f * 30f)) > MainTimer.getTimerManager().getTimer().getTimeLeft() &&
+                MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
+            if (MainTimer.getTimerManager().getTimer().getTimeLeft() > 10 * 1000) {
+                EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);
+            }
         }
         if (MainTimer.getTimerManager().getTimer().getTimeLeft() < Constants.nextPayDay) {
             Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;
             payPlayer();
-        } 
-        
+        }
+
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
         if (!gameState.paused && !MainTimer.getTimerManager().getTimer().poll()) {

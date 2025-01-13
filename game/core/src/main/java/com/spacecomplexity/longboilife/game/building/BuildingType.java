@@ -16,8 +16,9 @@ public enum BuildingType {
     GYM("Gym", new Texture(Filepaths.GYM_ASSET), new Vector2Int(4, 3), BuildingCategory.RECREATIONAL, 80000),
     HALLS("Halls", new Texture(Filepaths.HALLS_ASSET), new Vector2Int(3, 3), BuildingCategory.ACCOMMODATION, 12000),
     ROAD("Road", new Texture(Filepaths.ROAD_STRAIGHT_ASSET), new Vector2Int(1, 1), BuildingCategory.PATHWAY, 100),
-    BASKETBALL("Basketball", new Texture(Filepaths.BASKETBALL_ASSET), new Vector2Int(1, 2), BuildingCategory.RECREATIONAL, 2000),
-    ;
+    BASKETBALL("Basketball", new Texture(Filepaths.BASKETBALL_ASSET), new Vector2Int(1, 2),
+            BuildingCategory.RECREATIONAL, 2000), // NEW FOR PART 2
+            ;
 
     private final String displayName;
     private final Texture texture;

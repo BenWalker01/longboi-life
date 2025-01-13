@@ -10,6 +10,7 @@ import com.spacecomplexity.longboilife.game.ui.UIElement;
 
 /**
  * Class to represent the Satisfaction Score UI.
+ * Updated for Assessment 2
  */
 public class UISatisfactionMenu extends UIElement {
     private Label scoreLabel;

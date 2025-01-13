@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.headless;
 
 import com.spacecomplexity.longboilife.game.achievements.SustainedAchievement;
@@ -14,7 +16,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testCheckUnlockedIfCriterionMetAndThresholdMet() {
         criterionMet = true;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
@@ -27,7 +30,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testCheckUnlockedIfCriterionNotMetAndThresholdMet() {
         criterionMet = false;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
@@ -40,7 +44,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testCheckUnlockedIfCriterionMetAndThresholdNotMet() {
         criterionMet = true;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(100);
@@ -53,7 +58,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testCheckUnlockedIfCriterionNotMetAndThresholdNotMet() {
         criterionMet = false;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(100);
@@ -66,7 +72,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testCheckUnlockedIfCriterionChangesAndThresholdMet() {
         criterionMet = true;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
@@ -80,7 +87,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testResetIfCriterionMet() {
         criterionMet = true;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
@@ -95,7 +103,8 @@ public class SustainedAchievementTests extends AbstractHeadlessGdxTest {
     @Test
     public void testResetIfCriterionNotMet() {
         criterionMet = false;
-        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1, (gs, memory) -> criterionMet);
+        SustainedAchievement achievement = new SustainedAchievement("name", "description", 1,
+                (gs, memory) -> criterionMet);
         assertFalse(achievement.checkUnlocked());
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
