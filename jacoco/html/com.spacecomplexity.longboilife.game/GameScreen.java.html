@@ -314,29 +314,31 @@ public class GameScreen implements Screen {
 
         // Render the UI
 <span class="nc" id="L316">        ui.render();</span>
-<span class="nc bnc" id="L317" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; (Constants.GAME_TIME - (1000f * 30f)) &gt; MainTimer.getTimerManager().getTimer().getTimeLeft() &amp;&amp; </span>
-<span class="nc bnc" id="L318" title="All 2 branches missed.">            MainTimer.getTimerManager().getTimer().getTimeLeft() &lt; Constants.nextPayDay) {</span>
-          
-<span class="nc" id="L320">            EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);</span>
-            
+        // New for part 2
+<span class="nc bnc" id="L318" title="All 2 branches missed.">        if (!gameState.paused</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">                &amp;&amp; (Constants.GAME_TIME - (1000f * 30f)) &gt; MainTimer.getTimerManager().getTimer().getTimeLeft() &amp;&amp;</span>
+<span class="nc bnc" id="L320" title="All 2 branches missed.">                MainTimer.getTimerManager().getTimer().getTimeLeft() &lt; Constants.nextPayDay) {</span>
+<span class="nc bnc" id="L321" title="All 2 branches missed.">            if (MainTimer.getTimerManager().getTimer().getTimeLeft() &gt; 10 * 1000) {</span>
+<span class="nc" id="L322">                EventHandler.getEventHandler().callEvent(Event.RANDOM_EVENT);</span>
+            }
         }
-<span class="nc bnc" id="L323" title="All 2 branches missed.">        if (MainTimer.getTimerManager().getTimer().getTimeLeft() &lt; Constants.nextPayDay) {</span>
-<span class="nc" id="L324">            Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;</span>
-<span class="nc" id="L325">            payPlayer();</span>
-        } 
-        
+<span class="nc bnc" id="L325" title="All 2 branches missed.">        if (MainTimer.getTimerManager().getTimer().getTimeLeft() &lt; Constants.nextPayDay) {</span>
+<span class="nc" id="L326">            Constants.nextPayDay -= (Constants.GAME_TIME / Constants.GAME_YEARS) / 3;</span>
+<span class="nc" id="L327">            payPlayer();</span>
+        }
+
         // Poll the timer to run the event if the timer has expired
         // Do not update satisfaction score if the game is paused or has ended
-<span class="nc bnc" id="L330" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
+<span class="nc bnc" id="L332" title="All 4 branches missed.">        if (!gameState.paused &amp;&amp; !MainTimer.getTimerManager().getTimer().poll()) {</span>
             // Update the satisfaction score
-<span class="nc" id="L332">            GameUtils.updateSatisfactionScore(world);</span>
+<span class="nc" id="L334">            GameUtils.updateSatisfactionScore(world);</span>
             // ASSESSMENT 2 - Check for achievements and display them
-<span class="nc" id="L334">            achievementsManager.checkAchievements();</span>
-<span class="nc" id="L335">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
+<span class="nc" id="L336">            achievementsManager.checkAchievements();</span>
+<span class="nc" id="L337">            ui.showAchievement(achievementsManager.getAchievementQueue());</span>
             // Update the unlocked achievements in the game state
-<span class="nc" id="L337">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
+<span class="nc" id="L339">            gameState.unlockedAchievements = achievementsManager.getUnlockedAchievements();</span>
         }
-<span class="nc" id="L339">    }</span>
+<span class="nc" id="L341">    }</span>
 
     /**
      * Adds an amount of money proportional to the number of students to the
@@ -345,11 +347,11 @@ public class GameScreen implements Screen {
      * ASSESSMENT 2 - NEW
      */
     private void payPlayer() {
-<span class="nc" id="L348">        gameState.money += Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
-<span class="nc" id="L349">                * gameState.getBuildingCount(BuildingType.HALLS);</span>
-<span class="nc" id="L350">        ui.showMoneyPopUp((int) (Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
-<span class="nc" id="L351">                * gameState.getBuildingCount(BuildingType.HALLS)));</span>
-<span class="nc" id="L352">    }</span>
+<span class="nc" id="L350">        gameState.money += Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
+<span class="nc" id="L351">                * gameState.getBuildingCount(BuildingType.HALLS);</span>
+<span class="nc" id="L352">        ui.showMoneyPopUp((int) (Constants.STUDENT_FEES * Constants.STUDENTS_PER_ACCOMMODATION</span>
+<span class="nc" id="L353">                * gameState.getBuildingCount(BuildingType.HALLS)));</span>
+<span class="nc" id="L354">    }</span>
 
     /**
      * Handles resizing events, to ensure the game can be scaled.
@@ -361,27 +363,27 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         // Updates viewport to match new window size
-<span class="nc" id="L364">        viewport.update(width, height, false);</span>
+<span class="nc" id="L366">        viewport.update(width, height, false);</span>
 
         // Recalculate scaling factors with new height
-<span class="nc" id="L367">        GameUtils.calculateScaling();</span>
+<span class="nc" id="L369">        GameUtils.calculateScaling();</span>
 
         // Rescale UI
-<span class="nc" id="L370">        ui.resize(width, height);</span>
-<span class="nc" id="L371">    }</span>
+<span class="nc" id="L372">        ui.resize(width, height);</span>
+<span class="nc" id="L373">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L375">    }</span>
+<span class="nc" id="L377">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L379">    }</span>
+<span class="nc" id="L381">    }</span>
 
     @Override
     public void hide() {
 
-<span class="nc" id="L384">    }</span>
+<span class="nc" id="L386">    }</span>
 
     /**
      * Release all resources held by the game.
@@ -389,9 +391,9 @@ public class GameScreen implements Screen {
      */
     @Override
     public void dispose() {
-<span class="nc" id="L392">        batch.dispose();</span>
-<span class="nc" id="L393">        shapeRenderer.dispose();</span>
-<span class="nc" id="L394">        ui.dispose();</span>
-<span class="nc" id="L395">    }</span>
+<span class="nc" id="L394">        batch.dispose();</span>
+<span class="nc" id="L395">        shapeRenderer.dispose();</span>
+<span class="nc" id="L396">        ui.dispose();</span>
+<span class="nc" id="L397">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

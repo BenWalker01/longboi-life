@@ -8,21 +8,21 @@ import com.spacecomplexity.longboilife.Main;
 /** Launches the headless application. Can be converted into a utilities project or a server application. */
 <span class="nc" id="L9">public class HeadlessLauncher {</span>
     public static void main(String[] args) {
-<span class="fc" id="L11">        createApplication();</span>
-<span class="fc" id="L12">    }</span>
+<span class="nc" id="L11">        createApplication();</span>
+<span class="nc" id="L12">    }</span>
 
     private static Application createApplication() {
         // Note: you can use a custom ApplicationListener implementation for the headless project instead of Main.
-<span class="fc" id="L16">        return new HeadlessApplication(new Main(), getDefaultConfiguration());</span>
+<span class="nc" id="L16">        return new HeadlessApplication(new Main(), getDefaultConfiguration());</span>
     }
 
     private static HeadlessApplicationConfiguration getDefaultConfiguration() {
-<span class="fc" id="L20">        HeadlessApplicationConfiguration configuration = new HeadlessApplicationConfiguration();</span>
-<span class="fc" id="L21">        configuration.updatesPerSecond = -1; // When this value is negative, Main#render() is never called.</span>
+<span class="nc" id="L20">        HeadlessApplicationConfiguration configuration = new HeadlessApplicationConfiguration();</span>
+<span class="nc" id="L21">        configuration.updatesPerSecond = -1; // When this value is negative, Main#render() is never called.</span>
         //// If the above line doesn't compile, it is probably because the project libGDX version is older.
         //// In that case, uncomment and use the below line.
         //configuration.renderInterval = -1f; // When this value is negative, Main#render() is never called.
-<span class="fc" id="L25">        return configuration;</span>
+<span class="nc" id="L25">        return configuration;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

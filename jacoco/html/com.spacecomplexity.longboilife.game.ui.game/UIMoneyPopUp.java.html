@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.spacecomplexity.longboilife.game.globals.GameState;
 import com.spacecomplexity.longboilife.game.globals.MainTimer;
 import com.spacecomplexity.longboilife.game.ui.UIElement;
 
@@ -21,7 +20,7 @@ import java.util.Locale;
 public class UIMoneyPopUp extends UIElement {
     private Label label;
 
-<span class="nc" id="L24">    private long showTime = 5*60*1000;</span>
+<span class="nc" id="L23">    private long showTime = 5 * 60 * 1000;</span>
 
     /**
      * Initialise money menu elements.
@@ -31,35 +30,36 @@ public class UIMoneyPopUp extends UIElement {
      * @param skin        the provided skin.
      */
     public UIMoneyPopUp(Viewport uiViewport, Table parentTable, Skin skin) {
-<span class="nc" id="L34">        super(uiViewport, parentTable, skin);</span>
+<span class="nc" id="L33">        super(uiViewport, parentTable, skin);</span>
 
         // Initialise money label
-<span class="nc" id="L37">        label = new Label(null, skin);</span>
-<span class="nc" id="L38">        label.setFontScale(1.2f);</span>
-<span class="nc" id="L39">        label.setColor(Color.WHITE);</span>
+<span class="nc" id="L36">        label = new Label(null, skin);</span>
+<span class="nc" id="L37">        label.setFontScale(1.2f);</span>
+<span class="nc" id="L38">        label.setColor(Color.WHITE);</span>
 
         // Place label onto table
-<span class="nc" id="L42">        table.add(label).align(Align.center);</span>
+<span class="nc" id="L41">        table.add(label).align(Align.center);</span>
 
         // Hide the table initially
-<span class="nc" id="L45">        table.setVisible(false);</span>
+<span class="nc" id="L44">        table.setVisible(false);</span>
 
         // Style and place the table
-<span class="nc" id="L48">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
-<span class="nc" id="L49">        table.setSize(120, 40);</span>
-<span class="nc" id="L50">        placeTable();</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L47">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L48">        table.setSize(120, 40);</span>
+<span class="nc" id="L49">        placeTable();</span>
+<span class="nc" id="L50">    }</span>
 
     public void render() {
-<span class="nc" id="L54">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (showTime - currentTime &gt; 5000) {</span>
-<span class="nc" id="L56">            hide();</span>
+<span class="nc" id="L53">        long currentTime = MainTimer.getTimerManager().getTimer().getTimeLeft();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (showTime - currentTime &gt; 5000) {</span>
+<span class="nc" id="L55">            hide();</span>
         }
-<span class="nc" id="L58">    }</span>
+<span class="nc" id="L57">    }</span>
 
     @Override
     protected void placeTable() {
-<span class="nc" id="L62">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(), uiViewport.getWorldHeight() - table.getHeight() - 100);</span>
+<span class="nc" id="L61">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),</span>
+<span class="nc" id="L62">                uiViewport.getWorldHeight() - table.getHeight() - 100);</span>
 <span class="nc" id="L63">    }</span>
 
     /**

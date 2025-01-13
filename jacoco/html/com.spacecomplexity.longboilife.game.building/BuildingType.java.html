@@ -16,8 +16,9 @@ import java.util.stream.Stream;
 <span class="fc" id="L16">    GYM(&quot;Gym&quot;, new Texture(Filepaths.GYM_ASSET), new Vector2Int(4, 3), BuildingCategory.RECREATIONAL, 80000),</span>
 <span class="fc" id="L17">    HALLS(&quot;Halls&quot;, new Texture(Filepaths.HALLS_ASSET), new Vector2Int(3, 3), BuildingCategory.ACCOMMODATION, 12000),</span>
 <span class="fc" id="L18">    ROAD(&quot;Road&quot;, new Texture(Filepaths.ROAD_STRAIGHT_ASSET), new Vector2Int(1, 1), BuildingCategory.PATHWAY, 100),</span>
-<span class="fc" id="L19">    BASKETBALL(&quot;Basketball&quot;, new Texture(Filepaths.BASKETBALL_ASSET), new Vector2Int(1, 2), BuildingCategory.RECREATIONAL, 2000),</span>
-    ;
+<span class="fc" id="L19">    BASKETBALL(&quot;Basketball&quot;, new Texture(Filepaths.BASKETBALL_ASSET), new Vector2Int(1, 2),</span>
+            BuildingCategory.RECREATIONAL, 2000), // NEW FOR PART 2
+            ;
 
     private final String displayName;
     private final Texture texture;
@@ -34,38 +35,38 @@ import java.util.stream.Stream;
      * @param category    the category of the building.
      * @param cost        the cost to place the building.
      */
-<span class="fc" id="L37">    BuildingType(String displayName, Texture texture, Vector2Int size, BuildingCategory category, float cost) {</span>
-<span class="fc" id="L38">        this.displayName = displayName;</span>
-<span class="fc" id="L39">        this.texture = texture;</span>
-<span class="fc" id="L40">        this.size = size;</span>
-<span class="fc" id="L41">        this.category = category;</span>
-<span class="fc" id="L42">        this.cost = cost;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L38">    BuildingType(String displayName, Texture texture, Vector2Int size, BuildingCategory category, float cost) {</span>
+<span class="fc" id="L39">        this.displayName = displayName;</span>
+<span class="fc" id="L40">        this.texture = texture;</span>
+<span class="fc" id="L41">        this.size = size;</span>
+<span class="fc" id="L42">        this.category = category;</span>
+<span class="fc" id="L43">        this.cost = cost;</span>
+<span class="fc" id="L44">    }</span>
 
     public Texture getTexture() {
-<span class="nc" id="L46">        return texture;</span>
+<span class="nc" id="L47">        return texture;</span>
     }
 
     public String getDisplayName() {
-<span class="nc" id="L50">        return displayName;</span>
+<span class="nc" id="L51">        return displayName;</span>
     }
 
     public Vector2Int getSize() {
-<span class="fc" id="L54">        return size;</span>
+<span class="fc" id="L55">        return size;</span>
     }
 
     public BuildingCategory getCategory() {
-<span class="fc" id="L58">        return category;</span>
+<span class="fc" id="L59">        return category;</span>
     }
 
     public float getCost() {
-<span class="nc" id="L62">        return cost;</span>
+<span class="nc" id="L63">        return cost;</span>
     }
 
     public static BuildingType[] getBuildingsOfType(BuildingCategory category) {
-<span class="nc" id="L66">        return Stream.of(BuildingType.values())</span>
-<span class="nc" id="L67">                .filter(buildingType -&gt; buildingType.getCategory().equals(category))</span>
-<span class="nc" id="L68">                .toArray(BuildingType[]::new);</span>
+<span class="nc" id="L67">        return Stream.of(BuildingType.values())</span>
+<span class="nc" id="L68">                .filter(buildingType -&gt; buildingType.getCategory().equals(category))</span>
+<span class="nc" id="L69">                .toArray(BuildingType[]::new);</span>
 
     }
 
@@ -76,7 +77,7 @@ import java.util.stream.Stream;
      * reloaded, which could lead to undefined behaviour.
      */
     public void dispose() {
-<span class="nc" id="L79">        texture.dispose();</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L80">        texture.dispose();</span>
+<span class="nc" id="L81">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

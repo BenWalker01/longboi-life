@@ -14,6 +14,7 @@ import java.util.Locale;
 
 /**
  * Class to represent the Money UI.
+ * NEW FOR PART 2
  */
 public class UIMoneyMenu extends UIElement {
     private Label label;
@@ -26,29 +27,30 @@ public class UIMoneyMenu extends UIElement {
      * @param skin        the provided skin.
      */
     public UIMoneyMenu(Viewport uiViewport, Table parentTable, Skin skin) {
-<span class="nc" id="L29">        super(uiViewport, parentTable, skin);</span>
+<span class="nc" id="L30">        super(uiViewport, parentTable, skin);</span>
 
         // Initialise money label
-<span class="nc" id="L32">        label = new Label(null, skin);</span>
-<span class="nc" id="L33">        label.setFontScale(1.2f);</span>
-<span class="nc" id="L34">        label.setColor(Color.WHITE);</span>
+<span class="nc" id="L33">        label = new Label(null, skin);</span>
+<span class="nc" id="L34">        label.setFontScale(1.2f);</span>
+<span class="nc" id="L35">        label.setColor(Color.WHITE);</span>
 
         // Place label onto table
-<span class="nc" id="L37">        table.add(label).align(Align.center);</span>
+<span class="nc" id="L38">        table.add(label).align(Align.center);</span>
 
         // Style and place the table
-<span class="nc" id="L40">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
-<span class="nc" id="L41">        table.setSize(120, 40);</span>
-<span class="nc" id="L42">        placeTable();</span>
-<span class="nc" id="L43">    }</span>
+<span class="nc" id="L41">        table.setBackground(skin.getDrawable(&quot;panel1&quot;));</span>
+<span class="nc" id="L42">        table.setSize(120, 40);</span>
+<span class="nc" id="L43">        placeTable();</span>
+<span class="nc" id="L44">    }</span>
 
     public void render() {
-<span class="nc" id="L46">        label.setText(NumberFormat.getCurrencyInstance(Locale.UK).format(GameState.getState().money));</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L47">        label.setText(NumberFormat.getCurrencyInstance(Locale.UK).format(GameState.getState().money));</span>
+<span class="nc" id="L48">    }</span>
 
     @Override
     protected void placeTable() {
-<span class="nc" id="L51">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(), uiViewport.getWorldHeight() - table.getHeight() - 55);</span>
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L52">        table.setPosition(uiViewport.getWorldWidth() - table.getWidth(),</span>
+<span class="nc" id="L53">                uiViewport.getWorldHeight() - table.getHeight() - 55);</span>
+<span class="nc" id="L54">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
