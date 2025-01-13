@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.headless;
 
 import com.badlogic.gdx.Gdx;
@@ -8,7 +10,6 @@ import com.spacecomplexity.longboilife.MainInputManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,7 +22,7 @@ class MainInputManagerTests extends AbstractHeadlessGdxTest {
     public void setup() {
         Gdx.graphics = mock(Graphics.class);
         MainInputManager = new MainInputManager();
-        Main.fullscreen = false; 
+        Main.fullscreen = false;
     }
 
     @Test
@@ -32,12 +33,11 @@ class MainInputManagerTests extends AbstractHeadlessGdxTest {
         boolean result = MainInputManager.keyDown(Keybindings.FULLSCREEN.getKey());
         verify(Gdx.graphics).setFullscreenMode(Gdx.graphics.getDisplayMode());
 
-        assertAll( 
-            () -> assertTrue(Main.fullscreen, "Fullscreen should be enabled"),
-            () -> assertEquals(800, Main.prevAppWidth, "Previous width should be recorded"),
-            () -> assertEquals(600, Main.prevAppHeight, "Previous height should be recorded"),
-            () -> assertTrue(result, "The event should always be handled")
-        );
+        assertAll(
+                () -> assertTrue(Main.fullscreen, "Fullscreen should be enabled"),
+                () -> assertEquals(800, Main.prevAppWidth, "Previous width should be recorded"),
+                () -> assertEquals(600, Main.prevAppHeight, "Previous height should be recorded"),
+                () -> assertTrue(result, "The event should always be handled"));
     }
 
     @Test
@@ -48,9 +48,8 @@ class MainInputManagerTests extends AbstractHeadlessGdxTest {
         boolean result = MainInputManager.keyDown(Keybindings.FULLSCREEN.getKey());
         verify(Gdx.graphics).setWindowedMode(800, 600);
         assertAll(
-            () -> assertFalse(Main.fullscreen, "Fullscreen should be disabled"),
-            () -> assertTrue(result, "The event should be handled") 
-        );
+                () -> assertFalse(Main.fullscreen, "Fullscreen should be disabled"),
+                () -> assertTrue(result, "The event should be handled"));
     }
 
     @Test
@@ -58,13 +57,12 @@ class MainInputManagerTests extends AbstractHeadlessGdxTest {
         boolean result = MainInputManager.keyDown(Integer.MIN_VALUE);
         verifyNoInteractions(Gdx.graphics);
         assertAll(
-            () -> assertFalse(Main.fullscreen, "Fullscreen state should not change"),
-            () -> assertFalse(result, "The event should never be handled") 
-        );
-    } 
-    @AfterEach 
-    public void destroy() { 
+                () -> assertFalse(Main.fullscreen, "Fullscreen state should not change"),
+                () -> assertFalse(result, "The event should never be handled"));
+    }
+
+    @AfterEach
+    public void destroy() {
         Gdx.graphics = null;
     }
 }
-

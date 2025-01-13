@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.game.ui.gameover;
 
 import com.badlogic.gdx.graphics.Color;
@@ -15,6 +17,7 @@ import com.spacecomplexity.longboilife.game.globals.LeaderboardPrefs;
 
 /**
  * Class to represent the Overview UI after the game is completed.
+ * NEW FOR PART 2
  */
 public class UILeaderboard extends UIElement {
     /**

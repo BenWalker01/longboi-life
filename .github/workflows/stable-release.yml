@@ -3,6 +3,7 @@
 # Triggered by:
 # Push to stable with tags
 #
+# NEW FOR PART 2
 
 name: Create Stable Release
 

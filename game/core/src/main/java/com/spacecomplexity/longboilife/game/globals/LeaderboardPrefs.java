@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.game.globals;
 
 import com.badlogic.gdx.Preferences;

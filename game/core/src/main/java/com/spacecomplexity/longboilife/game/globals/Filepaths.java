@@ -1,3 +1,5 @@
+// NEW FOR PART 2
+
 package com.spacecomplexity.longboilife.game.globals;
 
 /** Holds filepaths of assets for the game. */

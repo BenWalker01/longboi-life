@@ -3,6 +3,8 @@
 # Triggered by:
 # Push to main
 # Manual trigger
+#
+# NEW FOR PART 2
 
 name: Upload Test Coverage
 

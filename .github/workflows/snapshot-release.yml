@@ -4,6 +4,7 @@
 # Push new game code (stored in game/core)
 # Manual Trigger
 #
+# NEW FOR PART 2
 
 name: Generate snapshot release
 
