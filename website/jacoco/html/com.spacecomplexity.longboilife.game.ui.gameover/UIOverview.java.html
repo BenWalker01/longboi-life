@@ -95,16 +95,17 @@ public class UIOverview extends UIElement {
     /**
      * Build a string of unlocked achievements using the achievement set from the
      * game state.
-     *
+     * NEW FOR PART 2
+     * 
      * @return the string of unlocked achievements.
      */
     protected String buildUnlockedAchievementsString() {
-<span class="nc" id="L102">        StringBuilder achievements = new StringBuilder();</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (IAchievement achievement : GameState.getState().unlockedAchievements) {</span>
-<span class="nc" id="L104">            achievements.append(achievement.getName()).append(&quot; - &quot;).append(achievement.getDescription())</span>
-<span class="nc" id="L105">                    .append(&quot;\r\n&quot;);</span>
-<span class="nc" id="L106">        }</span>
-<span class="nc" id="L107">        return achievements.toString();</span>
+<span class="nc" id="L103">        StringBuilder achievements = new StringBuilder();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        for (IAchievement achievement : GameState.getState().unlockedAchievements) {</span>
+<span class="nc" id="L105">            achievements.append(achievement.getName()).append(&quot; - &quot;).append(achievement.getDescription())</span>
+<span class="nc" id="L106">                    .append(&quot;\r\n&quot;);</span>
+<span class="nc" id="L107">        }</span>
+<span class="nc" id="L108">        return achievements.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
