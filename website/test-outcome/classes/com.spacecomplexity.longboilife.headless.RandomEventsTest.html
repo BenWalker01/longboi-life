@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - WorldTests</title>
+<title>Test results - RandomEventsTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>WorldTests</h1>
+<h1>RandomEventsTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/com.spacecomplexity.longboilife.headless.html">com.spacecomplexity.longboilife.headless</a> &gt; WorldTests</div>
+<a href="../packages/com.spacecomplexity.longboilife.headless.html">com.spacecomplexity.longboilife.headless</a> &gt; RandomEventsTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.037s</div>
+<div class="counter">0.027s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,38 +81,38 @@
 </tr>
 </thead>
 <tr>
-<td class="success">testBuildingMethods()</td>
-<td class="success">0.010s</td>
+<td class="success">testBiasInitialization()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testCanBuildMethod()</td>
-<td class="success">0.005s</td>
+<td class="success">testEventChoiceExecution()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testDemolishMethod()</td>
+<td class="success">testEventChoiceExecution2()</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testEventExecution()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGetRandomEvent()</td>
 <td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testGetPathDistanceMethod()</td>
-<td class="success">0.006s</td>
+<td class="success">testOpenDayHasNoChoices()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testGetPathwayPosition()</td>
-<td class="success">0.005s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testGetTile()</td>
-<td class="success">0.005s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testInWorldMethod()</td>
-<td class="success">0.003s</td>
+<td class="success">testResetBiases()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -120,13 +120,15 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>null
-null
-null
-null
-null
-null
-null
+<pre>3.2879968700807254
+10.301189889177362
+1.4357246643591166
+28.00994802837814
+59.045862762146
+2.4772285465146204
+48.125849638258686
+52.388124742651556
+15.21466101229774
 </pre>
 </span>
 </div>
@@ -139,7 +141,8 @@ null
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -151,14 +154,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -170,14 +174,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -189,14 +194,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -208,14 +214,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -227,14 +234,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -246,14 +254,15 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 Exception in thread &quot;HeadlessApplication&quot; java.lang.RuntimeException: Failed to create screen: MENU
 	at com.spacecomplexity.longboilife.Main.switchScreen(Main.java:67)
 	at com.spacecomplexity.longboilife.Main.create(Main.java:52)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:108)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
 Caused by: java.lang.reflect.InvocationTargetException
-	at jdk.internal.reflect.GeneratedConstructorAccessor12.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
@@ -265,7 +274,7 @@ Caused by: java.lang.IllegalArgumentException: Error compiling shader:
 	at com.badlogic.gdx.graphics.g2d.SpriteBatch.&lt;init&gt;(SpriteBatch.java:81)
 	at com.badlogic.gdx.scenes.scene2d.Stage.&lt;init&gt;(Stage.java:100)
 	at com.spacecomplexity.longboilife.menu.MenuScreen.&lt;init&gt;(MenuScreen.java:48)
-	... 8 more
+	... 9 more
 </pre>
 </span>
 </div>
